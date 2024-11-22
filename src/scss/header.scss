@@ -1,0 +1,243 @@
+.header {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: toRem(1) solid rgba(0,0,0,0.2);
+  background-color: #fff;
+  // .header__container
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: toRem(10);
+    padding-bottom: toRem(10);
+    @include adaptiveValue("min-height",150,88,0,1512.98,480.98);
+  }
+  // .header__logo
+  &__logo {
+    position: relative;
+    z-index: 5;
+    @include adaptiveValue("max-width", 313, 190,0,1512.98,480.98);
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  // .header__menu
+  &__menu {
+  }
+}
+
+
+.menu {
+  // .menu__body
+  &__body {
+			position: fixed;
+      z-index: 2;
+			width: 100%;
+			height: 100%;
+			right: 0%;
+			top: 0;
+			overflow: auto;
+      background-color: #fff;
+      display: flex;
+      justify-content: flex-end;
+
+
+      opacity: 0;
+      pointer-events: none;
+			transition: opacity .3s ease;
+      @include adaptiveValue("padding-top",150,88,0,1512.98,480.98);
+      &:before,
+      &:after {
+        content: "";
+        position: fixed;
+        width: 100%;
+      }
+			&::before {
+        height: toRem(70);
+				top: 0;
+        right: 0%;
+				z-index: 3;
+        background-color: #fff;
+        border-bottom: toRem(1) solid rgba(0,0,0,0.2);
+        @include adaptiveValue("min-height",150,88,0,1512.98,480.98);
+			}
+      &::after {
+        z-index: 0;
+        height: 100%;
+        right: -50%;
+        background-color: $acc;
+        transition: right 0.1s cubic-bezier(.4,.64,.5,.99) .3s;
+      }
+			.menu-open & {
+        pointer-events: all;
+				// right: 0;
+        opacity: 1;
+				&::after {
+					right: 0;
+          transition: right 0.8s cubic-bezier(.4,.64,.5,.99) .1s;
+				}
+			}
+  }
+  // .menu__list
+  &__list {
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    @media (min-width:toEm(700.98)){
+      width: 50%;
+    }
+    @media (max-width: toEm(700.98)){
+      width: 70%;
+    }
+  }
+  // .menu__item
+  &__item {
+    flex: 1;
+    display: flex;
+    position: relative;
+    right: -100%;
+    transform: scale(0.6);
+    transition-delay: .3s;
+    .menu-open & {
+      right: 0;
+      transform: scale(1);
+      transition: right 0.65s cubic-bezier(.4,.64,.5,.99), transform .45s cubic-bezier(.4,.64,.5,.99);
+      // Начальная задержка
+       $initial-delay: 0.2s;
+       // Шаг задержки
+       $delay-step: 0.05s;
+       // Цикл для применения delay
+       @for $i from 1 through 10 {
+         &:nth-child(#{$i}) {
+           transition-delay: #{$initial-delay + ($i - 1) * $delay-step};
+         }
+       }
+    }
+  }
+  // .menu__link
+  &__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 100%;
+    background-color: #fff;
+
+    font-weight: 700;
+    padding-left: toRem(40);
+    padding-top: toRem(20);
+    padding-bottom: toRem(20);
+    border-bottom: toRem(1) solid rgba(0,0,0,0.2);
+    transition: color .3s ease;
+    @include adaptiveValue("font-size", 40, 30,0,1512.98,480.98);
+    span {
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+    &:before {
+      content:"";
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: #000;
+      transition: height .3s ease;
+    }
+    @media (any-hover: hover){
+      &:hover{
+        color: #fff;
+        &::before {
+          top: 0;
+          height: 100%;
+        }
+      }
+    }
+  }
+  // .menu__icon
+  &__icon {
+  }
+}
+
+.icon-menu {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  @include adaptiveValue("width", 90, 56,0,1512.98,480.98);
+  // .icon-menu__ic
+  &__ic {
+    display: block;
+    position: relative;
+    width: 100%;
+    @include adaptiveValue("height", 35, 22,0,1512.98,480.98);
+    span,
+    &::before,
+    &::after {
+      content: "";
+      transition: all 0.3s ease 0s;
+      right: 0;
+      position: absolute;
+      width: 100%;
+      background-color: $mainColor;
+      @media (min-width:$mobile){
+        height: toRem(3);
+      }
+      @media (max-width:$mobile){
+        height: toRem(2);
+      }
+    }
+    &::before {
+      top: 0;
+    }
+    &::after {
+      bottom: 0;
+    }
+    span {
+      @media (min-width:$mobile){
+        top: calc(50% - toRem(1.5));
+      }
+      @media (max-width:$mobile){
+        top: calc(50% - toRem(1)); 
+      }
+    }
+    .menu-open & {
+      span {
+        width: 0;
+      }
+      &::before,
+      &::after {
+      }
+      &::before {
+        transform: rotate(-45deg);
+        @media (min-width:$mobile){
+          top: calc(50% - toRem(1.5));
+        }
+        @media (max-width:$mobile){
+          top: calc(50% - toRem(1));
+        }
+      }
+      &::after {
+        transform: rotate(45deg);
+        @media (min-width:$mobile){
+          bottom: calc(50% - toRem(1.5));
+        }
+        @media (max-width:$mobile){
+          bottom: calc(50% - toRem(1));
+        }
+      }
+    }
+  }
+}
