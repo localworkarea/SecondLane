@@ -1,4 +1,11 @@
 @font-face {
+  font-family: "Neue Haas Grotesk Display Pro";
+  font-display: swap;
+  src: url(../fonts/NeueHaasGroteskDisplayPro_65_Medium.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal
+}
+@font-face {
   font-family: stfschriftedsans;
   font-display: swap;
   src: url(../fonts/stfschriftedsans-bold.woff2) format("woff2");
@@ -8,15 +15,15 @@
 @font-face {
   font-family: stfschriftedsans;
   font-display: swap;
-  src: url(../fonts/stfschriftedsans-demibold.woff2) format("woff2");
-  font-weight: 600;
+  src: url(../fonts/stfschriftedsans-medium.woff2) format("woff2");
+  font-weight: 500;
   font-style: normal
 }
 @font-face {
   font-family: stfschriftedsans;
   font-display: swap;
-  src: url(../fonts/stfschriftedsans-medium.woff2) format("woff2");
-  font-weight: 500;
+  src: url(../fonts/stfschriftedsans-demibold.woff2) format("woff2");
+  font-weight: 600;
   font-style: normal
 }
 * {
@@ -40,7 +47,8 @@ html {
 }
 body {
   color: #171717;
-  line-height: 1;
+  line-height: 1.15;
+  letter-spacing: -.02em;
   font-family: stfschriftedsans,sans-serif;
   font-size: 1rem;
   -ms-text-size-adjust: 100%;
@@ -128,7 +136,7 @@ body {
 [class*="--gc"] {
   display: grid;
   min-width: 0;
-  grid-template-columns: .9375rem 1fr minmax(auto,73.125rem) 1fr .9375rem
+  grid-template-columns: .9375rem 1fr minmax(auto,0) 1fr .9375rem
 }
 [class*="--gc"]>* {
   min-width: 0;
@@ -170,6 +178,11 @@ body {
   background-color: #171717;
   border-radius: 3px
 }
+[class*=__container] {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto
+}
 html.lenis,
 html.lenis body {
   height: auto
@@ -209,14 +222,110 @@ html.lenis body {
   transform: translateY(0);
   transition-delay: calc(var(--index)*.03s)
 }
-[class*=__container] {
+p {
+  letter-spacing: -.01em;
+  line-height: 1.5;
+  color: #262626
+}
+.btn {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: "Neue Haas Grotesk Display Pro",sans-serif;
   width: 100%;
-  max-width: 100%;
-  margin-inline: auto
+  min-width: 13.1875rem;
+  padding-left: 1.9375rem;
+  padding-right: 1.9375rem;
+  border: .0625rem solid transparent;
+  transition: color .3s ease,background-color .3s ease,border-color .3s ease
+}
+.btn span {
+  position: relative;
+  z-index: 1;
+  display: inline-block
+}
+.btn.btn-dark {
+  background-color: #000;
+  color: #fff
+}
+.title-main {
+  font-weight: 700
+}
+.ticker-wrap {
+  overflow: hidden;
+  width: -webkit-max-content;
+  width: max-content;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3
+}
+.ticker-wrap .ticker {
+  display: flex;
+  flex-wrap: nowrap
+}
+.ticker-wrap .ticker span {
+  display: inline-block;
+  position: relative
+}
+.ticker-wrap .ticker .ticker-item {
+  background-color: #fff;
+  border-top: .0625rem solid rgba(23,23,23,.2);
+  border-bottom: .0625rem solid rgba(23,23,23,.2)
+}
+.ticker-wrap .ticker .ticker-item:not(:last-child) {
+  border-left: .0625rem solid rgba(23,23,23,.2)
+}
+.ticker-wrap .ticker .ticker-item .txt {
+  font-weight: 600;
+  letter-spacing: 0
+}
+.ticker-wrap .ticker .ticker-item .index {
+  padding-left: 18px
+}
+.ticker-wrap .ticker .ticker-item .index::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translate(0,-60%);
+  transform: translate(0,-60%);
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: .6875rem;
+  aspect-ratio: 11/6
+}
+.ticker-wrap .ticker .ticker-item .index.index-green {
+  color: #17c700
+}
+.ticker-wrap .ticker .ticker-item .index.index-green::before {
+  background-image: url(../img/icon/index-green.svg)
+}
+.ticker-wrap .ticker .ticker-item .index.index-red {
+  color: #b6271c
+}
+.ticker-wrap .ticker .ticker-item .index.index-red::before {
+  background-image: url(../img/icon/index-red.svg)
+}
+@-webkit-keyframes scroll {
+  to {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%)
+  }
+}
+@keyframes scroll {
+  to {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%)
+  }
 }
 .header {
-  position: fixed;
-  z-index: 20;
+  position: absolute;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
@@ -246,7 +355,6 @@ html.lenis body {
   right: 0;
   top: 0;
   overflow: auto;
-  background-color: #fff;
   display: flex;
   justify-content: flex-end;
   opacity: 0;
@@ -267,20 +375,9 @@ html.lenis body {
   background-color: #fff;
   border-bottom: .0625rem solid rgba(0,0,0,.2)
 }
-.menu__body::after {
-  z-index: 0;
-  height: 100%;
-  right: -50%;
-  background-color: #56584f;
-  transition: right .1s cubic-bezier(.4,.64,.5,.99) .3s
-}
 .menu-open .menu__body {
   pointer-events: all;
   opacity: 1
-}
-.menu-open .menu__body::after {
-  right: 0;
-  transition: right .8s cubic-bezier(.4,.64,.5,.99) .1s
 }
 .menu__list {
   position: relative;
@@ -302,10 +399,7 @@ html.lenis body {
 .menu-open .menu__item {
   right: 0;
   -webkit-transform: scale(1);
-  transform: scale(1);
-  transition: right .65s cubic-bezier(.4,.64,.5,.99),-webkit-transform .45s cubic-bezier(.4,.64,.5,.99);
-  transition: right .65s cubic-bezier(.4,.64,.5,.99),transform .45s cubic-bezier(.4,.64,.5,.99);
-  transition: right .65s cubic-bezier(.4,.64,.5,.99),transform .45s cubic-bezier(.4,.64,.5,.99),-webkit-transform .45s cubic-bezier(.4,.64,.5,.99)
+  transform: scale(1)
 }
 .menu-open .menu__item:nth-child(1) {
   transition-delay: .2s
@@ -400,6 +494,11 @@ html.lenis body {
 .menu-open .icon-menu__ic span {
   width: 0
 }
+.menu-open .icon-menu__ic span,
+.menu-open .icon-menu__ic::after,
+.menu-open .icon-menu__ic::before {
+  background-color: #56584f
+}
 .menu-open .icon-menu__ic::before {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg)
@@ -408,14 +507,60 @@ html.lenis body {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg)
 }
-.font-700 {
-  font-weight: 700
+section {
+  min-height: 100svh
 }
-.font-600 {
-  font-weight: 600
+.hero {
+  display: flex;
+  flex-direction: column
 }
-.font-500 {
-  font-weight: 500
+.hero__wrapper {
+  flex: 1;
+  display: grid
+}
+.hero__block {
+  padding-top: 1.875rem;
+  padding-bottom: 2.5rem
+}
+.hero__blocks {
+  display: grid;
+  grid-template-rows: 65% 35%
+}
+.hero__blocks .blocks-one {
+  background-color: #56584f
+}
+.hero__blocks .blocks-two {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #e3fd5a
+}
+.hero__blocks .blocks-two__arr {
+  width: auto;
+  height: 100%;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-filter: invert(0) sepia(10%) saturate(5625%) hue-rotate(337deg) brightness(97%) contrast(82%);
+  filter: invert(0) sepia(10%) saturate(5625%) hue-rotate(337deg) brightness(97%) contrast(82%)
+}
+@media (min-width:30.06125em) {
+  .btn {
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-top: .375rem;
+    padding-bottom: .375rem
+  }
+  .ticker-wrap .ticker .ticker-item .txt:not(:last-child) {
+    margin-right: .5rem
+  }
+  .hero__title {
+    max-width: 16ch
+  }
+  .hero__link {
+    padding-inline: 5%
+  }
 }
 @media (min-width:43.81125em) {
   .menu__list {
@@ -438,6 +583,56 @@ html.lenis body {
     bottom: calc(50% - .09375rem)
   }
 }
+@media (min-width:51.31125em) {
+  .menu__body {
+    background-color: #fff
+  }
+  .menu__body::after {
+    z-index: 0;
+    height: 100%;
+    right: -50%;
+    background-color: #56584f;
+    transition: right .1s cubic-bezier(.4,.64,.5,.99) .3s
+  }
+  .menu-open .menu__body::after {
+    right: 0;
+    transition: right .8s cubic-bezier(.4,.64,.5,.99) .1s
+  }
+  .menu-open .menu__item {
+    transition: right .65s cubic-bezier(.4,.64,.5,.99),-webkit-transform .45s cubic-bezier(.4,.64,.5,.99);
+    transition: right .65s cubic-bezier(.4,.64,.5,.99),transform .45s cubic-bezier(.4,.64,.5,.99);
+    transition: right .65s cubic-bezier(.4,.64,.5,.99),transform .45s cubic-bezier(.4,.64,.5,.99),-webkit-transform .45s cubic-bezier(.4,.64,.5,.99)
+  }
+  .hero__wrapper {
+    grid-template-columns: repeat(2,1fr)
+  }
+  .hero__main {
+    order: 1;
+    display: flex;
+    align-items: center;
+    padding-right: 1.875rem
+  }
+  .hero__title {
+    margin-bottom: 4%
+  }
+  .hero__subtitle {
+    margin-bottom: 4%;
+    max-width: 76%
+  }
+  .hero__blocks {
+    order: 2
+  }
+  .hero__blocks .blocks-two {
+    position: relative;
+    width: 108%;
+    left: -8%
+  }
+}
+@media (min-width:51.31125em)and (orientation:portrait) {
+  section {
+    min-height: 50svh
+  }
+}
 @media (min-width:85.43625em) {
   [class*=__container] {
     padding-left: 1.875rem
@@ -445,9 +640,22 @@ html.lenis body {
   [class*=__container] {
     padding-right: 1.875rem
   }
+  .hero__main {
+    padding-left: 1.875rem
+  }
 }
 @media (min-width:94.56125em) {
-  .header__container {
+  .ticker-wrap .ticker .ticker-item {
+    padding-left: 1.0625rem
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-right: 1.0625rem
+  }
+  .ticker-wrap .ticker .ticker-item .txt {
+    font-size: 1.125rem
+  }
+  .header__container,
+  .menu__body::before {
     min-height: 9.375rem
   }
   .header__logo {
@@ -456,17 +664,61 @@ html.lenis body {
   .menu__body {
     padding-top: 9.375rem
   }
-  .menu__body::before {
-    min-height: 9.375rem
-  }
-  .menu__link {
-    font-size: 2.5rem
-  }
   .icon-menu {
     width: 5.625rem
   }
   .icon-menu__ic {
     height: 2.1875rem
+  }
+  .hero {
+    padding-top: 9.375rem
+  }
+  .hero__blocks .blocks-two {
+    padding: 1.875rem
+  }
+}
+@media (min-width:240em) {
+  p {
+    font-size: 2rem
+  }
+  .btn {
+    font-size: 2.5rem
+  }
+  .btn {
+    min-height: 10rem
+  }
+  .title-main {
+    font-size: 8.75rem
+  }
+  .menu__link {
+    font-size: 5rem
+  }
+}
+@media (max-width:94.56125em) {
+  p {
+    font-size: 1rem
+  }
+}
+@media (max-width:51.31125em) {
+  .menu__body {
+    background-color: #56584f
+  }
+  .menu-open .menu__item {
+    transition: right .45s cubic-bezier(.4,.64,.5,.99),-webkit-transform .3s cubic-bezier(.4,.64,.5,.99);
+    transition: right .45s cubic-bezier(.4,.64,.5,.99),transform .3s cubic-bezier(.4,.64,.5,.99);
+    transition: right .45s cubic-bezier(.4,.64,.5,.99),transform .3s cubic-bezier(.4,.64,.5,.99),-webkit-transform .3s cubic-bezier(.4,.64,.5,.99)
+  }
+  .hero__main {
+    padding-right: 1.25rem
+  }
+  .hero__title {
+    margin-bottom: 1.25rem
+  }
+  .hero__subtitle {
+    margin-bottom: 1.875rem
+  }
+  .hero__blocks {
+    grid-template-rows: 75% 25%
   }
 }
 @media (max-width:48.06125em) {
@@ -497,7 +749,33 @@ html.lenis body {
   [class*=__container] {
     padding-right: 1.25rem
   }
-  .header__container {
+  .hero__main {
+    padding-left: 1.25rem
+  }
+  .btn {
+    font-size: 1.25rem
+  }
+  .btn {
+    min-height: 4.375rem
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-left: .75rem
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-right: .75rem
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem
+  }
+  .ticker-wrap .ticker .ticker-item .txt {
+    font-size: .8125rem
+  }
+  .ticker-wrap .ticker .ticker-item .txt:not(:last-child) {
+    margin-right: .375rem
+  }
+  .header__container,
+  .menu__body::before {
     min-height: 5.5rem
   }
   .header__logo {
@@ -505,9 +783,6 @@ html.lenis body {
   }
   .menu__body {
     padding-top: 5.5rem
-  }
-  .menu__body::before {
-    min-height: 5.5rem
   }
   .menu__link {
     font-size: 1.875rem
@@ -518,6 +793,17 @@ html.lenis body {
   .icon-menu__ic {
     height: 1.375rem
   }
+  .hero {
+    padding-top: 5.5rem
+  }
+  .hero__blocks .blocks-two {
+    padding: .625rem
+  }
+}
+@media (max-width:24.43625em) {
+  .title-main {
+    font-size: 2.375rem
+  }
 }
 @media (min-width:30.06125em)and (max-width:85.43625em) {
   [class*=__container] {
@@ -526,9 +812,45 @@ html.lenis body {
   [class*=__container] {
     padding-right: clamp(1.25rem ,.9107082393rem + 1.1286681716vw ,1.875rem)
   }
+  .hero__main {
+    padding-left: clamp(1.25rem ,.9107082393rem + 1.1286681716vw ,1.875rem)
+  }
+}
+@media (min-width:94.56125em)and (max-width:240em) {
+  p {
+    font-size: clamp(1rem ,.3498208009rem + .6875746663vw ,2rem)
+  }
+  .btn {
+    font-size: clamp(1.375rem ,.643548401rem + .7735214996vw ,2.5rem)
+  }
+  .btn {
+    min-height: clamp(5rem ,1.7491040043rem + 3.4378733316vw ,10rem)
+  }
+  .title-main {
+    font-size: clamp(4.375rem ,1.5304660037rem + 3.0081391651vw ,8.75rem)
+  }
+  .menu__link {
+    font-size: clamp(2.5rem ,.8745520021rem + 1.7189366658vw ,5rem)
+  }
 }
 @media (min-width:30.06125em)and (max-width:94.56125em) {
-  .header__container {
+  .btn {
+    font-size: clamp(1.25rem ,1.1917417636rem + .1937984496vw ,1.375rem)
+  }
+  .btn {
+    min-height: clamp(4.375rem ,4.0837088178rem + .9689922481vw ,5rem)
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-left: clamp(.75rem ,.6043544089rem + .484496124vw ,1.0625rem)
+  }
+  .ticker-wrap .ticker .ticker-item {
+    padding-right: clamp(.75rem ,.6043544089rem + .484496124vw ,1.0625rem)
+  }
+  .ticker-wrap .ticker .ticker-item .txt {
+    font-size: clamp(.8125rem ,.6668544089rem + .484496124vw ,1.125rem)
+  }
+  .header__container,
+  .menu__body::before {
     min-height: clamp(5.5rem ,3.6939946705rem + 6.007751938vw ,9.375rem)
   }
   .header__logo {
@@ -536,9 +858,6 @@ html.lenis body {
   }
   .menu__body {
     padding-top: clamp(5.5rem ,3.6939946705rem + 6.007751938vw ,9.375rem)
-  }
-  .menu__body::before {
-    min-height: clamp(5.5rem ,3.6939946705rem + 6.007751938vw ,9.375rem)
   }
   .menu__link {
     font-size: clamp(1.875rem ,1.5837088178rem + .9689922481vw ,2.5rem)
@@ -549,13 +868,34 @@ html.lenis body {
   .icon-menu__ic {
     height: clamp(1.375rem ,.9963214632rem + 1.2596899225vw ,2.1875rem)
   }
+  .hero {
+    padding-top: clamp(5.5rem ,3.6939946705rem + 6.007751938vw ,9.375rem)
+  }
+  .hero__blocks .blocks-two {
+    padding: clamp(.625rem ,.0424176357rem + 1.9379844961vw ,1.875rem)
+  }
+}
+@media (min-width:24.43625em)and (max-width:94.56125em) {
+  .title-main {
+    font-size: clamp(2.375rem ,1.6780659537rem + 2.8520499109vw ,4.375rem)
+  }
 }
 @media (any-hover:hover) {
+  .btn.btn-dark:hover {
+    border-color: #000;
+    color: #171717;
+    background-color: #fff
+  }
   .menu__link:hover {
     color: #fff
   }
   .menu__link:hover::before {
     top: 0;
     height: 100%
+  }
+  .icon-menu__ic:hover span,
+  .icon-menu__ic:hover::after,
+  .icon-menu__ic:hover::before {
+    background-color: #56584f
   }
 }

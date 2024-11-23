@@ -1,6 +1,10 @@
+%headerMinHght {
+  @include adaptiveValue("min-height",150,88,0,1512.98,480.98);
+}
+
 .header {
-  position: fixed;
-  z-index: 20;
+  position: absolute;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
@@ -13,7 +17,7 @@
     justify-content: space-between;
     padding-top: toRem(10);
     padding-bottom: toRem(10);
-    @include adaptiveValue("min-height",150,88,0,1512.98,480.98);
+    @extend %headerMinHght;
   }
   // .header__logo
   &__logo {
@@ -41,15 +45,20 @@
 			right: 0%;
 			top: 0;
 			overflow: auto;
-      background-color: #fff;
       display: flex;
       justify-content: flex-end;
-
-
+      
+      
       opacity: 0;
       pointer-events: none;
 			transition: opacity .3s ease;
       @include adaptiveValue("padding-top",150,88,0,1512.98,480.98);
+      @media (min-width:toEm(820.98)){
+        background-color: #fff;
+      }
+      @media (max-width: toEm(820.98)){
+        background-color: $acc;          
+      }
       &:before,
       &:after {
         content: "";
@@ -63,22 +72,26 @@
 				z-index: 3;
         background-color: #fff;
         border-bottom: toRem(1) solid rgba(0,0,0,0.2);
-        @include adaptiveValue("min-height",150,88,0,1512.98,480.98);
+        @extend %headerMinHght;
+        
 			}
       &::after {
-        z-index: 0;
-        height: 100%;
-        right: -50%;
-        background-color: $acc;
-        transition: right 0.1s cubic-bezier(.4,.64,.5,.99) .3s;
+        @media (min-width:toEm(820.98)){
+          z-index: 0;
+          height: 100%;
+          right: -50%;
+          background-color: $acc;
+          transition: right 0.1s cubic-bezier(.4,.64,.5,.99) .3s;
+        }
       }
 			.menu-open & {
         pointer-events: all;
-				// right: 0;
         opacity: 1;
 				&::after {
-					right: 0;
-          transition: right 0.8s cubic-bezier(.4,.64,.5,.99) .1s;
+          @media (min-width: toEm(820.98)){
+            right: 0;
+            transition: right 0.8s cubic-bezier(.4,.64,.5,.99) .1s;
+          }
 				}
 			}
   }
@@ -108,16 +121,19 @@
     .menu-open & {
       right: 0;
       transform: scale(1);
-      transition: right 0.65s cubic-bezier(.4,.64,.5,.99), transform .45s cubic-bezier(.4,.64,.5,.99);
-      // Начальная задержка
-       $initial-delay: 0.2s;
-       // Шаг задержки
-       $delay-step: 0.05s;
-       // Цикл для применения delay
-       @for $i from 1 through 10 {
-         &:nth-child(#{$i}) {
-           transition-delay: #{$initial-delay + ($i - 1) * $delay-step};
-         }
+      
+      $initial-delay: 0.2s; // Начальная задержка
+      $delay-step: 0.05s; // Шаг задержки
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          transition-delay: #{$initial-delay + ($i - 1) * $delay-step};
+        }
+      }
+      @media (min-width:toEm(820.98)){
+         transition: right 0.65s cubic-bezier(.4,.64,.5,.99), transform .45s cubic-bezier(.4,.64,.5,.99);
+       }
+       @media (max-width: toEm(820.98)){
+        transition: right 0.45s cubic-bezier(.4,.64,.5,.99), transform .3s cubic-bezier(.4,.64,.5,.99);
        }
     }
   }
@@ -137,7 +153,8 @@
     padding-bottom: toRem(20);
     border-bottom: toRem(1) solid rgba(0,0,0,0.2);
     transition: color .3s ease;
-    @include adaptiveValue("font-size", 40, 30,0,1512.98,480.98);
+    @include adaptiveValue("font-size", 80, 40,2,3840,1512.98);
+    @include adaptiveValue("font-size", 40, 30,3,1512.98,480.98);
     span {
       display: inline-block;
       position: relative;
@@ -213,12 +230,23 @@
         top: calc(50% - toRem(1)); 
       }
     }
+    @media (any-hover: hover){
+      &:hover{
+        span,
+        &::before,
+        &::after {
+          background-color: $acc;
+        }
+      }
+    }
     .menu-open & {
       span {
         width: 0;
       }
       &::before,
-      &::after {
+      &::after,
+      span {
+        background-color: $acc;
       }
       &::before {
         transform: rotate(-45deg);

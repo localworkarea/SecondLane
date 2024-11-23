@@ -1,21 +1,28 @@
 @font-face {
-	font-family: "stfschriftedsans";
+	font-family: "Neue Haas Grotesk Display Pro";
+	font-display: swap;
+	src: url("../fonts/NeueHaasGroteskDisplayPro_65_Medium.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: stfschriftedsans;
 	font-display: swap;
 	src: url("../fonts/stfschriftedsans-bold.woff2") format("woff2");
 	font-weight: 700;
 	font-style: normal;
 }
 @font-face {
-	font-family: "stfschriftedsans";
-	font-display: swap;
-	src: url("../fonts/stfschriftedsans-demibold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-}
-@font-face {
-	font-family: "stfschriftedsans";
+	font-family: stfschriftedsans;
 	font-display: swap;
 	src: url("../fonts/stfschriftedsans-medium.woff2") format("woff2");
 	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: stfschriftedsans;
+	font-display: swap;
+	src: url("../fonts/stfschriftedsans-demibold.woff2") format("woff2");
+	font-weight: 600;
 	font-style: normal;
 }

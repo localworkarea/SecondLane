@@ -25,7 +25,10 @@ $mainColor: #171717;
 $black: #262626;
 $gray66: #EBEBEB;
 $acc: #56584F;
-$green: #E3FD5A;
+
+$lemon: #E3FD5A;
+$red: #B6271C;
+$green: #17C700;
 
 
 // Палітра кольорів
@@ -38,7 +41,7 @@ $minWidth: 320;
 // Ширина полотна (макету)
 $maxWidth: 1512;
 // Ширина обмежуючого контейнера (0 = немає обмеження)
-$maxWidthContainer: 1170;
+$maxWidthContainer: 0;
 // Загальний відступ у контейнера
 // (30 = по 15px ліворуч і праворуч, 0 = немає відступу)
 $containerPadding: 30;

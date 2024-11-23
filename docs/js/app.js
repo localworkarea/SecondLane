@@ -1325,7 +1325,7 @@
     const lenis = new Lenis({
         smooth: true,
         smoothTouch: true,
-        lerp: .05,
+        lerp: .1,
         mouseMultiplier: 3
     });
     lenis.on("scroll", ScrollTrigger.update);
@@ -1335,6 +1335,17 @@
     gsap.ticker.lagSmoothing(0);
     window.addEventListener("DOMContentLoaded", (() => {
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    }));
+    const tikers = document.querySelectorAll(".ticker-wrap");
+    tikers.forEach((tiker => {
+        const originalLine = tiker.querySelector(".ticker");
+        if (originalLine) {
+            const speed = originalLine.dataset.tickerSpeed || 50;
+            originalLine.style.animation = `scroll ${speed}s linear infinite`;
+            const clonedLine = originalLine.cloneNode(true);
+            clonedLine.classList.add("clone-line");
+            tiker.appendChild(clonedLine);
+        }
     }));
     window["FLS"] = false;
     addLoadedClass();

@@ -1,3 +1,12 @@
+// == FILTERS ===========================
+// #171717
+// filter: invert(0%) sepia(10%) saturate(5625%) hue-rotate(337deg) brightness(97%) contrast(82%);
+
+// #E3FD5A
+// filter: invert(87%) sepia(38%) saturate(657%) hue-rotate(17deg) brightness(107%) contrast(98%);
+
+
+
 * {
   &::-webkit-scrollbar {
     width: 5px;
@@ -9,6 +18,14 @@
     background-color:$mainColor;
     border-radius: 3px;
   }
+}
+
+[class*="__container"]  {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
+  @include adaptiveValue("padding-right", 30, 20,0,1366.98,480.98);
 }
 
 
@@ -57,10 +74,154 @@ html.lenis, html.lenis body {
   }
 }
 
-[class*="__container"]  {
-   width: 100%;
-   max-width: 100%;
-   margin-inline: auto;
-   @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
-   @include adaptiveValue("padding-right", 30, 20,0,1366.98,480.98);
+%containerPadLft {
+  @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
+}
+%containerPadRgt {
+  @include adaptiveValue("padding-right", 30, 20,0,1366.98,480.98);
+}
+
+p {
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  color: $black;
+  @include adaptiveValue("font-size", 32,16,0,3840,1512.98);
+}
+
+.btn {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  width: 100%;
+  min-width: toRem(211);
+  padding-left: toRem(31);
+  padding-right: toRem(31);
+  border: toRem(1) solid transparent;
+  transition: color .3s ease, background-color .3s ease, border-color .3s ease;
+  @include adaptiveValue("font-size", 40,22,2,3840,1512.98);
+  @include adaptiveValue("font-size", 22,20,3,1512.98,480.98);
+  @include adaptiveValue("min-height", 160,80,2,3840,1512.98);
+  @include adaptiveValue("min-height", 80,70,3,1512.98,480.98);
+  @media (min-width:$mobileSmall){
+    max-width: fit-content;
+  }
+  span {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+  }
+
+  &.btn-dark {
+    background-color: #000;
+    color: #fff;
+    @media (any-hover: hover){
+      &:hover{
+        border-color: #000;
+        color: $mainColor;
+        background-color: #fff;
+      }
+    }
+  }
+  &.btn-light {
+  }
+}
+
+
+.title-main {
+  font-weight: 700;
+  @include adaptiveValue("font-size", 140,70,2,3840,1512.98);
+  @include adaptiveValue("font-size", 70,38,3,1512.98,390.98);
+  // @media (max-width: toEm()){
+      
+  // }
+}
+
+
+.ticker-wrap {
+  overflow: hidden;
+  width: max-content;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  .ticker {
+    display: flex;
+    flex-wrap: nowrap;
+    span {
+      display: inline-block;
+      position: relative;
+    }
+    .ticker-item {
+      background-color: #fff;
+      border-top: toRem(1) solid rgba(23, 23, 23, 0.2);
+      border-bottom: toRem(1) solid rgba(23, 23, 23, 0.2);
+      &:not(:last-child) {
+        border-left: toRem(1) solid rgba(23, 23, 23, 0.2);
+      }
+      @include adaptiveValue("padding-left", 17, 12,0,1512.98,480.98);
+      @include adaptiveValue("padding-right", 17, 12,0,1512.98,480.98);
+      @media (min-width:$mobileSmall){
+        padding-top: toRem(6);
+        padding-bottom: toRem(6);
+      }
+      @media (max-width:$mobileSmall){
+        padding-top: toRem(5);
+        padding-bottom: toRem(5);
+      }
+      .txt {
+        font-weight: 600;
+        letter-spacing: 0;
+        @include adaptiveValue("font-size", 18, 13,0,1512.98,480.98);
+        &:not(:last-child) {
+          @media (min-width:$mobileSmall){
+            margin-right: toRem(8);
+          }
+          @media (max-width:$mobileSmall){
+            margin-right: toRem(6);
+          }
+        }
+      }
+      .price {
+      }
+      .index {
+        padding-left: 18px;
+        &::before {
+          content:'';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translate(0,-60%);
+          transform-origin: center;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: toRem(11);
+          aspect-ratio: 11/6;
+        }
+        &.index-green {
+          color: $green;
+          &::before {
+            background-image: url("../img//icon/index-green.svg");
+          }
+        }
+        &.index-red {
+          color: $red;
+          &::before {
+            background-image: url("../img//icon/index-red.svg");
+          }
+        }
+      }
+      .index-green {
+      }
+      .index-red {
+      }
+    }
+  }
+}
+@keyframes scroll {
+  to {
+    transform: translateX(-100%) ;
+  }
 }

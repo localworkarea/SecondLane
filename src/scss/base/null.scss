@@ -27,7 +27,8 @@ body {
 }
 body {
 	color: $mainColor;
-	line-height: 1;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
 	font-family: $fontFamily;
 	font-size: $fontSize;
 	//text-rendering: optimizeLegibility;

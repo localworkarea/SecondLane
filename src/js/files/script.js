@@ -106,7 +106,7 @@ import SplitType from 'split-type'
 const lenis = new Lenis({
   smooth: true,          // Включает плавный скролл
   smoothTouch: true,     // Включает плавный скролл на мобильных устройствах
-  lerp: 0.05,             // Определяет инерцию (чем ближе к 1, тем медленнее скролл)
+  lerp: 0.1,             // Определяет инерцию (чем ближе к 1, тем медленнее скролл)
   // direction: 'vertical', // Задаёт направление скролла: 'vertical' или 'horizontal'
   mouseMultiplier: 3,    // Чувствительность прокрутки мыши (увеличивайте, чтобы сделать скролл быстрее)
 })
@@ -124,3 +124,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 });
+
+
+
+
+
+
+  // CLONE TIKERS ==============================================================
+  const tikers = document.querySelectorAll(".ticker-wrap");
+
+  tikers.forEach((tiker) => {
+    const originalLine = tiker.querySelector(".ticker");
+  
+    if (originalLine) {
+      // скорость по умолчанию
+      const speed = originalLine.dataset.tickerSpeed || 50; 
+      
+      originalLine.style.animation = `scroll ${speed}s linear infinite`;
+  
+      const clonedLine = originalLine.cloneNode(true);
+      clonedLine.classList.add("clone-line");
+  
+      tiker.appendChild(clonedLine);
+    }
+  });
+  
