@@ -8,7 +8,7 @@
 // При необхідності підключаємо додаткові модулі слайдера, вказуючи їх у {} через кому
 // Приклад: { Navigation, Autoplay }
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 /*
 Основні модулі слайдера:
 Navigation, Pagination, Autoplay, 
@@ -26,26 +26,41 @@ import "../../scss/base/swiper.scss";
 
 // Ініціалізація слайдерів
 function initSliders() {
-	// Список слайдерів
-	// Перевіряємо, чи є слайдер на сторінці
-	if (document.querySelector('.swiper')) { // Вказуємо склас потрібного слайдера
-		// Створюємо слайдер
-		new Swiper('.swiper', { // Вказуємо склас потрібного слайдера
-			// Підключаємо модулі слайдера
-			// для конкретного випадку
-			modules: [Navigation],
+	if (document.querySelector('.clients__slider')) { 
+		new Swiper('.clients__slider', {
+			modules: [Autoplay],
 			observer: true,
 			observeParents: true,
 			slidesPerView: 1,
-			spaceBetween: 0,
-			//autoHeight: true,
-			speed: 800,
+			speed: 1000,
+			// centeredSlides: false,
+			// longSwipes: true,/a
+			// simulateTouch: true,
+			// grabCursor: true,
 
 			//touchRatio: 0,
 			//simulateTouch: false,
-			//loop: true,
+			loop: true,
+			// loopAddBlankSlides: true,
+			// loopAddBlankSlides: true,
+			// loopAdditionalSlides: 5,
 			//preloadImages: false,
 			//lazy: true,
+
+			autoplay: {
+				delay: 2000,
+				// disableOnInteraction: false,
+				// pauseOnMouseEnter: true,
+				// waitForTransition: false,
+			},
+
+			// freeMode: {
+			// 	enabled: true,
+			// 	// momentum: false,
+			// 	momentumBounce: false,
+			// 	minimumVelocity: 0.05,
+			// },
+			// nested: true,
 
 			/*
 			// Ефекти
@@ -73,10 +88,10 @@ function initSliders() {
 			*/
 
 			// Кнопки "вліво/вправо"
-			navigation: {
-				prevEl: '.swiper-button-prev',
-				nextEl: '.swiper-button-next',
-			},
+			// navigation: {
+			// 	prevEl: '.swiper-button-prev',
+			// 	nextEl: '.swiper-button-next',
+			// },
 			/*
 			// Брейкпоінти
 			breakpoints: {

@@ -123,6 +123,113 @@ window.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 
+  const liquidityDetails = document.querySelector('.liquidity__details');
+  const liquidityList = document.querySelector('.liquidity__list');
+  const liquidityItems = document.querySelectorAll('.liquidity__item');
+  const liquidityTxts = document.querySelectorAll('.liquidity__txt');
+  const liquidityTxtWrps = document.querySelectorAll('.liquidity__txt-wr');
+
+
+// if (liquidityDetails) {
+//   const txtHeights = Array.from(liquidityTxtWrps).map(wr => wr.offsetHeight);
+//   console.log(txtHeights)
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: liquidityList,
+//       start: "bottom bottom",
+//       end: `+=${txtHeights.reduce((acc, height) => acc + height, 0) + 100}`,
+//       scrub: 1,
+//       pin: true, 
+//       markers: true,
+//     },
+//   });
+
+//   // Анимация поочередного раскрытия высоты
+//   liquidityTxts.forEach((txt, index) => {
+//     const targetHeight = txtHeights[index]; // Высота для текущего элемента
+//     tl.to(
+//       txt,
+//       {
+//         height: targetHeight,
+//         // duration: 1,
+//         //  ease: "power2.out"
+//       },
+//       '+=0.5' 
+//     );
+//   });
+// }
+
+
+// const accessItems = document.querySelectorAll('.list-access__item');
+
+// // Функция для установки высоты элемента
+// const setBodyHeight = (item, expand = false) => {
+//   const body = item.querySelector('.list-access__body');
+//   const wrapper = item.querySelector('.list-access__wrapper');
+//   const wrapperHeight = wrapper.scrollHeight;
+//   body.style.height = expand ? `${wrapperHeight}px` : '0';
+// };
+
+// if (isMobile.any()) {
+//   // Если устройство мобильное, устанавливаем высоту для всех элементов
+//   accessItems.forEach(item => setBodyHeight(item, true));
+// } else {
+//   // Для десктопов активируем hover-логику
+//   accessItems.forEach(item => {
+//     item.addEventListener('mouseenter', () => setBodyHeight(item, true));
+//     item.addEventListener('mouseleave', () => setBodyHeight(item, false));
+//   });
+// }
+
+
+const mediaQuery = window.matchMedia("(min-width: 51.311em)");
+
+const handleMediaQueryChange = () => {
+  const accessItems = document.querySelectorAll('.list-access__item');
+
+  const setBodyHeight = (item, expand = false) => {
+    const body = item.querySelector('.list-access__body');
+    const wrapper = item.querySelector('.list-access__wrapper');
+    const wrapperHeight = wrapper.scrollHeight;
+    body.style.height = expand ? `${wrapperHeight}px` : '0';
+  };
+
+  if (mediaQuery.matches) {
+    // Убираем высоту для всех элементов перед активацией логики
+    accessItems.forEach(item => {
+      const body = item.querySelector('.list-access__body');
+      body.style.height = '0';
+    });
+
+    if (isMobile.any()) {
+      // Для мобильных устройств
+      accessItems.forEach(item => setBodyHeight(item, true));
+    } else {
+      // Для десктопов активируем hover-логику
+      accessItems.forEach(item => {
+        item.addEventListener('mouseenter', () => setBodyHeight(item, true));
+        item.addEventListener('mouseleave', () => setBodyHeight(item, false));
+      });
+    }
+  } else {
+    // Если ширина меньше 51.311em, сбрасываем высоту и отключаем события
+    accessItems.forEach(item => {
+      const body = item.querySelector('.list-access__body');
+      body.style.height = '';
+
+      // Удаляем слушатели событий
+      const newItem = item.cloneNode(true);
+      item.parentNode.replaceChild(newItem, item);
+    });
+  }
+};
+
+// Изначально выполняем проверку
+handleMediaQueryChange();
+
+// Слушаем изменения размеров экрана
+mediaQuery.addEventListener('change', handleMediaQueryChange);
+
 });
 
 
@@ -139,7 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (originalLine) {
       // скорость по умолчанию
       const speed = originalLine.dataset.tickerSpeed || 50; 
-      
+
       originalLine.style.animation = `scroll ${speed}s linear infinite`;
   
       const clonedLine = originalLine.cloneNode(true);
