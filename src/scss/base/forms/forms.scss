@@ -8,6 +8,7 @@ textarea {
 	-moz-appearance: none;
 	appearance: none;
 }
+
 .input {
 	border-radius: 0 !important;
 	width: 100%;
@@ -15,6 +16,7 @@ textarea {
 	font-weight: 500;
 	caret-color: inherit;
 	border-top: toRem(1) solid rgba(0, 0, 0, 0.2);
+	outline: none;
 	@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
 	@include adaptiveValue("font-size", 68,34,2,3840,1512.98);
 	@include adaptiveValue("font-size", 34,22,3,1512.98,1100.98);
@@ -22,12 +24,16 @@ textarea {
 	&._form-focus {
 	}
 	&._form-error {
+		border-top-color: #FF0000;
 	}
 }
 .input[placeholder]:not([data-placeholder-nohiden]) {
 	&::placeholder {
 		color: rgba(23, 23, 23, 0.3);
 		transition: opacity 0.3s;
+		._form-error & {
+			color: rgba(255, 0, 0, 0.3);
+		}
 	}
 	&:focus::placeholder {
 		opacity: 0;
@@ -86,6 +92,45 @@ textarea {
 		}
   }
 }
+
+
+.form-dialog {
+	position: fixed;
+	z-index: 50;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: toRem(20);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .3s ease;
+	&._form-sent {
+		opacity: 1;
+		pointer-events: all;
+	}
+	// .form-dialog__body
+	&__body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-height: 100%;
+		flex: 1 1 auto;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	// .form-dialog__wrapper
+	&__wrapper {
+		max-width: 57%;
+		background-color: #fff;
+		text-align: center;
+		@include adaptiveValue("padding", 100, 30,0,1512.98,480.98);
+		p {
+			line-height: 1;
+		}
+	}
+}
+
 
 // <BUTTONS>
 // Сніппет (HTML): btn

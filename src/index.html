@@ -1119,16 +1119,16 @@
 							</div>
 							<form data-dev class="sign-up__form form" action="#" method="POST">
 								<div class="form__item">
-									<input type="text" name="name" placeholder="Name" class="input" required>
+									<input type="text" name="name" placeholder="Name" class="input" data-required>
 								</div>
 								<div class="form__item">
-									<input type="text" name="lastName" placeholder="Last Name" class="input" required>
+									<input type="text" name="lastName" placeholder="Last Name" class="input" data-required>
 								</div>
 								<div class="form__item">
-									<input type="email" name="email" placeholder="Email" class="input" required>
+									<input type="email" name="email" placeholder="Email" class="input" data-required>
 								</div>
 								<div class="form__item">
-									<input type="text" name="companyName" placeholder="Company Name" class="input" required>
+									<input type="text" name="companyName" placeholder="Company Name" class="input" data-required>
 								</div>
 								<button type="submit" class="form__button" aria-label="submit form button">
 									<span>Sign up</span>
@@ -1139,6 +1139,15 @@
 				</section>
 			</main>
 			@@include('html/_footer.htm',{})
+		</div>
+		<div aria-hidden="true" class="form-dialog">
+			<div class="form-dialog__body">
+				<div class="form-dialog__wrapper">
+					<p class="title-c">
+						Message<br> successfully sent!
+					</p>
+				</div>
+			</div>
 		</div>
 		@@include('html/_js.htm',{})
 	</body>

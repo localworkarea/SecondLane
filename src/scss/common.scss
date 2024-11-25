@@ -9,6 +9,41 @@
 ///  filter: invert(100%) sepia(1%) saturate(5502%) hue-rotate(202deg) brightness(120%) contrast(100%);
 
 
+%titleMob {
+  font-weight: 700;
+  @media (max-width: toEm(380.98)){
+   font-size: toRem(34) !important;   
+  }
+}
+.title-main {
+  @include adaptiveValue("font-size", 140,70,2,3840,1512.98);
+  @include adaptiveValue("font-size", 70,37,3,1512.98,390.98);
+  @extend %titleMob;
+}
+
+.title-a {
+  @include adaptiveValue("font-size", 120,60,2,3840,1512.98);
+  @include adaptiveValue("font-size", 60,37,3,1512.98,390.98);
+  @extend %titleMob;
+}
+
+.title-b {
+  font-weight: 500;
+  @include adaptiveValue("font-size", 80,40,2,3840,1512.98);
+  @include adaptiveValue("font-size", 40,28,3,1512.98,390.98);
+}
+
+.title-c {
+  @include adaptiveValue("font-size", 176,88,2,3840,1512.98);
+  @include adaptiveValue("font-size", 88,37,3,1512.98,390.98);
+  @extend %titleMob;
+}
+.title-d {
+  @include adaptiveValue("font-size", 136,68,2,3840,1512.98);
+  @include adaptiveValue("font-size", 68,37,3,1512.98,390.98);
+  @extend %titleMob;
+}
+
 
 * {
   &::-webkit-scrollbar {
@@ -107,6 +142,11 @@ html.lenis, html.lenis body {
   @include adaptiveValue("margin-bottom", 60, 40,0,1512.98,480.98);
 }
 
+%fonSize18-16 {
+  @include adaptiveValue("font-size", 36,18,2,3840,1512.98);
+  @include adaptiveValue("font-size", 18,16,3,1512.98,320.98);
+}
+
 p {
   letter-spacing: -0.01em;
   line-height: 1.5;
@@ -164,40 +204,6 @@ p {
   }
 }
 
-%titleMob {
-  font-weight: 700;
-  @media (max-width: toEm(380.98)){
-   font-size: toRem(34) !important;   
-  }
-}
-.title-main {
-  @include adaptiveValue("font-size", 140,70,2,3840,1512.98);
-  @include adaptiveValue("font-size", 70,37,3,1512.98,390.98);
-  @extend %titleMob;
-}
-
-.title-a {
-  @include adaptiveValue("font-size", 120,60,2,3840,1512.98);
-  @include adaptiveValue("font-size", 60,37,3,1512.98,390.98);
-  @extend %titleMob;
-}
-
-.title-b {
-  font-weight: 500;
-  @include adaptiveValue("font-size", 80,40,2,3840,1512.98);
-  @include adaptiveValue("font-size", 40,28,3,1512.98,390.98);
-}
-
-.title-c {
-  @include adaptiveValue("font-size", 176,88,2,3840,1512.98);
-  @include adaptiveValue("font-size", 88,37,3,1512.98,390.98);
-  @extend %titleMob;
-}
-.title-d {
-  @include adaptiveValue("font-size", 136,68,2,3840,1512.98);
-  @include adaptiveValue("font-size", 68,37,3,1512.98,390.98);
-  @extend %titleMob;
-}
 
 
 .ticker-wrap {

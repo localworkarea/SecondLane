@@ -1,3 +1,295 @@
-//====================================================================================================
+.footer {
+  @extend %paddingTop180-80;
+  // .footer__container
+  &__container {
+  }
+  // .footer__map
+  &__map {
+    @extend %marginBtm60-40;
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-inline: auto;
+      @media (min-width:toEm(700.98)){
+        max-width: 73%;
+      }
+    }
+  }
+  // .footer__contacts
+  &__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    @extend %footerContcsClmGap;
+    @extend %paddingBtm120-60;
+    @media (min-width:$mobileSmall){
+      justify-content: center;
+        
+    }
+  }
+  // .footer__mails
+  &__mails {
+  }
+  // .footer__social
+  &__social {
+  }
+  // .footer__logo
+  &__logo {
+  }
+  // .footer__navigation
+  &__navigation {
+    @extend %paddingTop100-40;
+  }
+  // .footer__spollers
+  &__spollers {
+    display: grid;
+    gap: toRem(20);
+    @extend %marginBtm60-40;
+    @media (min-width:$tablet){
+      grid-template-columns: 47% auto auto auto;
+    }
+    @media (max-width:$tablet) and (min-width: toEm(600.98)) {
+      grid-template-columns: repeat(4,auto);  
+    }
+  }
+  // .footer__bottom
+  &__bottom {
+    display: flex;
+    gap: toRem(20);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-top: toRem(1) solid rgba(0,0,0, 0.2);
+    @include adaptiveValue("padding-top",30,20,0,1512.98,480.98);
+    @include adaptiveValue("padding-bottom",30,20,0,1512.98,480.98);
+    a {
+      transition: color .3s ease;
+      @media (any-hover: hover){
+        &:hover{
+          color: rgba(23, 23, 23, 1);
+        }
+      }
+    }
+  }
+  // .footer__btm-t-w
+  &__btm-t-w {
+    display: flex;
+    gap: toRem(30);
+  }
+  // .footer__btm-t
+  &__btm-t {
+    color: rgba(23, 23, 23, 0.5);
+    @extend %fonSize18-16;
+  }
+}
+%footerContcsClmGap {
+  row-gap: toRem(40);
+  @include adaptiveValue("column-gap", 100,40,0,1512.98,1100.98);
+}
+%footerContcsTitle {
+  display: block;
+  font-weight: 600;
+  margin-bottom: toRem(20);
+  @include adaptiveValue("font-size", 22,18,0,1512.98,480.98);
+}
 
-//====================================================================================================
+.mails-footer {
+  display: flex;
+  flex-wrap: wrap;
+  @extend %footerContcsClmGap;
+  @media (min-width:toEm(700.98)){
+    order: 2;
+  }
+  @media (min-width:$mobileSmall){
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+	// .mails-footer__item
+	&__item {
+    display: flex;
+    flex-direction: column;
+    // row-gap: toRem(20);
+  }
+  // .mails-footer__title
+  &__title {
+    @extend %footerContcsTitle;
+  }
+  // .mails-footer__link
+  &__link {
+    font-weight: 700;
+    transition: color .3s ease;
+    @include adaptiveValue("font-size", 44,32,0,1512.98,1100.98); 
+    @media (any-hover: hover){
+      &:hover{
+        color: $acc;
+      }
+    }
+    @media (max-width: toEm(360.98)){
+        font-size: toRem(28) !important;
+    }
+  }
+}
+
+.social-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (min-width:toEm(700.98)){
+    order: 1;
+  }
+  // .social-footer__title
+  &__title {
+    @extend %footerContcsTitle;
+    @media (min-width:$mobileSmall){
+      text-align: center;
+    }
+  }
+  // .social-footer__list
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+  }
+  // .social-footer__item
+  &__item {
+  }
+  // .social-footer__link
+  &__link {
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    background-color: $gray66;
+    transition: background-color .3s ease;
+    @media (min-width:$mobileSmall){
+      width: toRem(40);
+      padding: toRem(10);
+    }
+    @media (max-width:$mobileSmall){
+      width: toRem(50);
+      padding: toRem(12);
+    }
+    svg {
+      width: 100%;
+      height: auto;
+      // path {
+      //   transition: fill .3s ease;
+      // }
+    }
+    @media (any-hover: hover){
+      &:hover{
+        background-color: $lemon;
+        // svg {
+        //   path {
+        //     fill: #fff;
+        //   }
+        //   .path-gray {
+        //     fill: $mainColor;
+        //   }
+        //   .path-black {
+        //     fill: $lemon;
+        //   }
+        // }
+      }
+    }
+  }
+}
+
+.logo-footer {
+  // .logo-footer__img
+  &__img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+
+.spollers-footer {
+  // .spollers-footer__item
+  &__item {
+  }
+  // .spollers-footer__title
+  &__title {
+    font-weight: 600;
+    @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
+    @include adaptiveValue("font-size", 22,18,3,1512.98,320.98);
+    @include adaptiveValue("padding-bottom",40,20,0,1512.98,480.98);
+    @media (max-width: toEm(600.98)){
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: toRem(0) !important;
+      &._spoller-active {
+        &:after {
+          transform: rotate(-180deg);
+        }
+        ~ .spollers-footer__body {
+          .spollers-footer__link {
+            opacity: 1;
+          }
+
+        }
+      }  
+    }
+    &:after {
+      @media (max-width: toEm(600.98)){
+        content:'';
+        flex: 0 0 toRem(18);
+        background-image: url("../img/icon/arrow-spollers.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;  
+        width: toRem(18);
+        aspect-ratio: 18/11;   
+        align-self: flex-start;       
+        transform-origin: center;
+        transition: transform .3s ease;
+      }
+    }
+  }
+  // .spollers-footer__body
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: toRem(13);
+    @media (max-width: toEm(600.98)){
+        padding-top: toRem(20);
+        padding-bottom: toRem(20);
+    }
+  }
+  // .spollers-footer__link
+  &__link {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    font-weight: 500;
+    transition: color .3s ease, opacity .3s ease;
+    @extend %fonSize18-16;
+    @media (max-width: toEm(600.98)){
+      opacity: 0;
+    }
+    &:before {
+      @media (min-width:toEm(600.98)){
+        content:'';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: toRem(1);
+        width: 0%;
+        background-color: $mainColor;
+        transition: width .45s ease, background-color .3s ease;
+      }
+    }
+    @media (any-hover: hover){
+      &:hover{
+        color: $acc;
+        &::before {
+          width: 100%;
+          background-color: $acc;
+        }
+      }
+    }
+  }
+}
