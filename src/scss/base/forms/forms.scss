@@ -1,20 +1,91 @@
-//<FORM>
-// Сніппет (HTML):
-.form {
-	&__row {
+//<INPUT>
+// Сніппет (HTML): inp
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.input {
+	border-radius: 0 !important;
+	width: 100%;
+	display: block;
+	font-weight: 500;
+	caret-color: inherit;
+	border-top: toRem(1) solid rgba(0, 0, 0, 0.2);
+	@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
+	@include adaptiveValue("font-size", 68,34,2,3840,1512.98);
+	@include adaptiveValue("font-size", 34,22,3,1512.98,1100.98);
+	@extend %containerPadLftRgt;
+	&._form-focus {
 	}
-	&__column {
-	}
-	&__line {
-	}
-	&__input {
-	}
-	&__button {
-	}
-	&__error {
+	&._form-error {
 	}
 }
-//</FORM>
+.input[placeholder]:not([data-placeholder-nohiden]) {
+	&::placeholder {
+		color: rgba(23, 23, 23, 0.3);
+		transition: opacity 0.3s;
+	}
+	&:focus::placeholder {
+		opacity: 0;
+	}
+}
+
+// textarea.input {
+// 	resize: none;
+// 	padding: 0px 0px;
+// }
+
+
+.form {
+	&._sending {
+		.form__button {
+			pointer-events: none;
+			opacity: 0.5;
+		}
+	}
+  // .form__item
+  &__item {
+  }
+  // .form__button
+  &__button {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		padding-right: toRem(100);
+		background-color: $lemon;
+		font-weight: 700;
+		@extend %containerPadLft;
+		@include adaptiveValue("font-size", 54,27,2,3840,1512.98);
+		@include adaptiveValue("font-size", 27,22,3,1512.98,1100.98);
+		@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
+		&:after {
+			content:'';
+			position: absolute;
+			top: toRem(20);
+			right: toRem(20);
+      background-image: url("../img/icon/arrow-up-right.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;  
+			height: calc(100% - toRem(40));
+      aspect-ratio: 1/1;   
+			transform-origin: center;
+			transition: transform .3s ease;
+		}
+		@media (any-hover: hover){
+			&:hover{
+				&::after {
+					transform: rotate(180deg);
+				}
+			}
+		}
+  }
+}
 
 // <BUTTONS>
 // Сніппет (HTML): btn

@@ -5,6 +5,9 @@
 // #E3FD5A
 // filter: invert(87%) sepia(38%) saturate(657%) hue-rotate(17deg) brightness(107%) contrast(98%);
 
+// #ffffff
+///  filter: invert(100%) sepia(1%) saturate(5502%) hue-rotate(202deg) brightness(120%) contrast(100%);
+
 
 
 * {
@@ -91,10 +94,15 @@ html.lenis, html.lenis body {
 %paddingBtm180-80 {
   @include adaptiveValue("padding-bottom",180,80,0,1512.98,480.98);
 }
+%paddingBtm120-60 {
+  @include adaptiveValue("padding-bottom",120,60,0,1512.98,480.98);
+}
 %paddingBtm60-40 {
   @include adaptiveValue("padding-bottom", 60, 40,0,1512.98,480.98);
 }
-
+%paddingTop100-40 {
+  @include adaptiveValue("padding-top",100,40,0,1512.98,480.98);
+}
 %marginBtm60-40 {
   @include adaptiveValue("margin-bottom", 60, 40,0,1512.98,480.98);
 }
@@ -142,6 +150,17 @@ p {
     }
   }
   &.btn-light {
+    background-color: #fff;
+    color: $mainColor;
+    @media (any-hover: hover){
+      &:hover{
+        background-color: $mainColor;
+        color: #fff;
+      }
+    }
+    &.btn-light_border {
+      border-color: $mainColor;
+    }
   }
 }
 
