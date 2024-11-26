@@ -13,42 +13,63 @@ section {
 
 	// .hero__anim
 	&__anim {
-    &:before,
-    &:after {
-      content:'';
-      position: relative;
-      height: 100%;
-      width: 100%;
-      .loaded & {
-        left: 50%;
-        opacity: 0;
-        transition: left 1s ease-in-out, opacity .2s linear 0.9s;
+    @media (min-width:toEm(820.98)){
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      display: grid;
+      grid-template-rows: 68.5% 31.5%;
+      &:before,
+      &:after {
+        content:'';
+        position: relative;
+        height: 100%;
+        width: 100%;
+        .loaded & {
+          left: 50%;
+          opacity: 0;
+        }
+      }
+      &::before {
+        background-color: $acc;
+        left: -100%;
+        .loaded & {
+          transition: left 1s ease-in-out, opacity .2s linear 0.9s;
+        }
+      }
+      &::after {
+        z-index: 2;
+        background-color: $lemon;
+        left: -100%;
+        .loaded & {
+          transition: left 1.2s ease-in-out 0s, opacity .4s linear 0.85s;
+        }
       }
     }
-    &::before {
-      background-color: $acc;
-      left: -100%;
-    }
-    &::after {
-      z-index: 2;
-      background-color: $lemon;
-      left: -100%;
-      .loaded & {
-        transition: left 0.9s ease-in-out .2s, opacity .4s linear 0.85s;
-      }
+    @media (max-width: toEm(820.98)){
+        display: none;
     }
 	}
   &__main,
+  &__blocks,
   .ticker-wrap {
-    opacity: 0;
-    transition: opacity .0s linear;
-    .loaded & {
-      opacity: 1;
+    @media (min-width:toEm(820.98)){
+      opacity: 0;
+      transition: opacity .0s linear;
+      .loaded & {
+        opacity: 1;
+      }
     }
   }
   &__main {
     .loaded & {
       transition-delay: .5s;
+    }
+  }
+  &__blocks {
+    .loaded & {
+      transition-delay: .8s;
     }
   }
   .ticker-wrap {
@@ -81,6 +102,11 @@ section {
 	&__block {
     padding-top: toRem(30);
     padding-bottom: toRem(40);
+    @media (max-width: toEm(820.98)){
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 	}
   // .hero__title
   &__title {
@@ -103,6 +129,7 @@ section {
     }
     @media (max-width:toEm(820.98)){
        margin-bottom: toRem(30); 
+       flex: 1;
     }
   }
   // .hero__link
@@ -123,40 +150,41 @@ section {
     @media (max-width: toEm(820.98)){
       grid-template-rows: 75% 25%;
     }
-    .blocks-one,
-    .blocks-two {
-      position: relative;
-      &:before  {
-        content:'';
-        position: absolute;
-        z-index: 0;
-        top: 0;
-        height: 100%;
-        width: 200%;
-        left: -300%;
-        transition: left 1s ease-in-out;
-        .loaded & {
-          left: 0%;
-        }
-      }
-    }
+    // .blocks-one,
+    // .blocks-two {
+    //   position: relative;
+    //   &:before  {
+    //     content:'';
+    //     position: absolute;
+    //     z-index: 0;
+    //     top: 0;
+    //     height: 100%;
+    //     width: 200%;
+    //     left: -300%;
+    //     transition: left 1s ease-in-out;
+    //     .loaded & {
+    //       left: 0%;
+    //     }
+    //   }
+    // }
     .blocks-one {
+      background-color: $acc;
       position: relative;
-      &:before  {
-        background-color: $acc;
-      }
+      // &:before  {
+      //   background-color: $acc;
+      // }
     }
     .blocks-two {
       display: flex;
       justify-content: flex-end;
-      // background-color: $lemon;
+      background-color: $lemon;
       @include adaptiveValue("padding", 30,10,0,1512.98,480.98 );
-      &:before {
-        background-color: $lemon;
-        .loaded & {
-          transition-delay: .1s;
-        }
-      }
+      // &:before {
+      //   background-color: $lemon;
+      //   .loaded & {
+      //     transition-delay: .1s;
+      //   }
+      // }
       @media (min-width: toEm(820.98)){
         position: relative;
         width: 108%;
@@ -168,15 +196,17 @@ section {
         z-index: 2;
         width: auto;
         height: 100%;
-        transform: rotate(90deg);
-
-        opacity: 0;
-        transition: opacity .45s ease, transform .55s ease;
-        .loaded & {
-          opacity: 1;
-           transform: rotate(0deg);
-          // transform: translate(0%,0%);
-          transition-delay: .8s;
+        
+        @media (min-width:toEm(820.98)){
+          transform: rotate(90deg);
+          opacity: 0;
+          transition: opacity .45s ease, transform .55s ease;
+          .loaded & {
+            opacity: 1;
+            transform: rotate(0deg);
+            // transform: translate(0%,0%);
+            transition-delay: .8s;
+          }
         }
       }
     }
