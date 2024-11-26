@@ -5,6 +5,8 @@ import { flsModules } from "./modules.js";
 
 import Lenis from 'lenis'
 // import SplitType from 'split-type'
+import { DotLottie } from '@lottiefiles/dotlottie-web';
+
 
 
  // == SPLIT TYPE =========================================================
@@ -117,7 +119,7 @@ const lenis = new Lenis({
 // })
 // gsap.ticker.lagSmoothing(0)
 
-// Use requestAnimationFrame to continuously update the scroll
+// // Use requestAnimationFrame to continuously update the scroll
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
@@ -127,8 +129,73 @@ requestAnimationFrame(raf);
 
 
 window.addEventListener('DOMContentLoaded', () => {
+
+  // gsap.registerPlugin(ScrollTrigger);
   // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+  // == отслежинвание рисайза ширины ============================
+  let lastWidth = window.innerWidth;
+  const resizeObserver = new ResizeObserver(entries => {
+      requestAnimationFrame(() => {
+          entries.forEach(entry => {
+              const currentWidth = entry.contentRect.width;
+              if (currentWidth !== lastWidth) {
+                 detailsUpdate();
+                  lastWidth = currentWidth;
+              }
+          });
+      });
+  });
+  resizeObserver.observe(document.body);
+  // ===========================================================
+
+    // const dotLottie = new DotLottie({
+    //   autoplay: true,
+    //   loop: false,
+    //   canvas: document.querySelector('#heroLottie'),
+    //   src: "files/json_animation/arrow.json",
+    // });
+
+      // Массив для хранения экземпляров DotLottie
+      const lottieInstances = [];
+      const lottieItems = document.querySelectorAll('.hero__lottie');
+      if (lottieItems.length > 0) {
+        lottieItems.forEach((canvas) => {
+          const animationSrc = canvas.dataset.animation;
+          const lottieInstance = new DotLottie({
+            autoplay: false,
+            loop: true,
+            canvas: canvas,
+            src: animationSrc,
+          });
+      
+          lottieInstances.push(lottieInstance);
+      
+          if (isMobile.any()) {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  lottieInstance.play();
+                } else {
+                  lottieInstance.stop();
+                }
+              });
+            });
+            observer.observe(canvas);
+          } else {
+            const heroItem = canvas.closest('.list-access__item');
+            heroItem.addEventListener("mouseenter", () => {
+              lottieInstance.play();
+            });
+      
+            heroItem.addEventListener("mouseleave", () => {
+              lottieInstance.stop();
+            });
+          }
+        });
+      }
+
+  const liquiditySection = document.querySelector('.liquidity');
 
   const liquidityDetails = document.querySelector('.liquidity__details');
   const liquidityList = document.querySelector('.liquidity__list');
@@ -136,57 +203,87 @@ window.addEventListener('DOMContentLoaded', () => {
   const liquidityTxts = document.querySelectorAll('.liquidity__txt');
   const liquidityTxtWrps = document.querySelectorAll('.liquidity__txt-wr');
 
-
-// if (liquidityDetails) {
-//   const txtHeights = Array.from(liquidityTxtWrps).map(wr => wr.offsetHeight);
-//   console.log(txtHeights)
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: liquidityList,
-//       start: "bottom bottom",
-//       end: `+=${txtHeights.reduce((acc, height) => acc + height, 0) + 100}`,
-//       scrub: 1,
-//       pin: true, 
-//       markers: true,
-//     },
-//   });
-
-//   // Анимация поочередного раскрытия высоты
-//   liquidityTxts.forEach((txt, index) => {
-//     const targetHeight = txtHeights[index]; // Высота для текущего элемента
-//     tl.to(
-//       txt,
-//       {
-//         height: targetHeight,
-//         // duration: 1,
-//         //  ease: "power2.out"
-//       },
-//       '+=0.5' 
-//     );
-//   });
-// }
+  const liquidityElWrps = document.querySelectorAll('.liquidity__el-wr');
 
 
-// const accessItems = document.querySelectorAll('.list-access__item');
+  // let mm = gsap.matchMedia();
+  // mm.add(
+  //   {
+  //     isDesktop: `(min-width: 51.311em)`, // больше 820.98рх
+  //     isTablet: `(min-width: 43.812em) and (max-width: 63.999em)`, // от 701px до 1023px
+  //     isMobile: `(max-width: 43.811em)` // меньше или равно 700px
+  //   },
+  //   (context) => {
+  //     let { isDesktop, isTablet, isMobile } = context.conditions;
+  
+  //     if (isDesktop) {
 
-// // Функция для установки высоты элемента
-// const setBodyHeight = (item, expand = false) => {
-//   const body = item.querySelector('.list-access__body');
-//   const wrapper = item.querySelector('.list-access__wrapper');
-//   const wrapperHeight = wrapper.scrollHeight;
-//   body.style.height = expand ? `${wrapperHeight}px` : '0';
-// };
+  //       if (liquiditySection) {
 
-// if (isMobile.any()) {
-//   // Если устройство мобильное, устанавливаем высоту для всех элементов
-//   accessItems.forEach(item => setBodyHeight(item, true));
-// } else {
-//   // Для десктопов активируем hover-логику
-//   accessItems.forEach(item => {
-//     item.addEventListener('mouseenter', () => setBodyHeight(item, true));
-//     item.addEventListener('mouseleave', () => setBodyHeight(item, false));
-//   });
-// }
+  //       }
+
+  //     }
+  
+  //     if (isTablet) {
+
+  //     }
+  
+  //     if (isMobile) {
+
+  //     }
+  //   }
+  // );
+
+
+
+  // == DETAILS SPOILERS =======================================================
+  const details = document.querySelector('.liquidity__details');
+  const subtitles = document.querySelectorAll('.liquidity__subtitle');
+  function detailsUpdate() {
+    if (details) {
+      const totalItems = subtitles.length;
+      const totalHeight = Array.from(subtitles).reduce((sum, subtitle) => sum + subtitle.offsetHeight, 0);
+
+      details.style.setProperty('--total-items', totalItems);
+      details.style.setProperty('--total-height', `${totalHeight}px`);
+
+      subtitles.forEach((subtitle, index) => {
+        const reversedIndex = totalItems - index - 1; // Нумерация снизу вверх
+        const directIndex = index; // Нумерация сверху вниз
+        const height = subtitle.offsetHeight;
+        subtitle.style.setProperty('--index', reversedIndex);
+        subtitle.style.setProperty('--index-rev', directIndex);
+        subtitle.style.setProperty('--height', `${height}px`);
+      });
+
+
+      const firstSubtitle = subtitles[0];
+
+      if (firstSubtitle) {
+        const firstSubtitleHeight = firstSubtitle.offsetHeight;
+        const virtualBottom = totalHeight ;
+
+        window.addEventListener('scroll', () => {
+          const boundingRect = firstSubtitle.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          // Рассчитываем виртуальный низ относительно вьюпорта
+          const virtualBottomPosition = boundingRect.top + virtualBottom;
+        
+          if (virtualBottomPosition <= viewportHeight) {
+            details.classList.add('_viewport');
+          } else {
+            details.classList.remove('_viewport');
+          }
+        });
+      }
+    }
+  }
+  detailsUpdate();
+  // ==========================================================================
+
+ 
+
+
 
 
   // ACCESS SECTION =============================================================
@@ -194,42 +291,45 @@ window.addEventListener('DOMContentLoaded', () => {
   
   const handleMediaQueryChange = () => {
     const accessItems = document.querySelectorAll('.list-access__item');
-  
-    const setBodyHeight = (item, expand = false) => {
-      const body = item.querySelector('.list-access__body');
-      const wrapper = item.querySelector('.list-access__wrapper');
-      const wrapperHeight = wrapper.scrollHeight;
-      body.style.height = expand ? `${wrapperHeight}px` : '0';
-    };
-  
-    if (mediaQuery.matches) {
-      // Убираем высоту для всех элементов перед активацией логики
-      accessItems.forEach(item => {
+
+    if (accessItems.length > 0) {
+      const setBodyHeight = (item, expand = false) => {
         const body = item.querySelector('.list-access__body');
-        body.style.height = '0';
-      });
+        const wrapper = item.querySelector('.list-access__wrapper');
+        const wrapperHeight = wrapper.scrollHeight;
+        body.style.height = expand ? `${wrapperHeight}px` : '0';
+      };
     
-      if (isMobile.any()) {
-        // Для мобильных устройств
-        accessItems.forEach(item => setBodyHeight(item, true));
-      } else {
-        // Для десктопов активируем hover-логику
+      if (mediaQuery.matches) {
+        // Убираем высоту для всех элементов перед активацией логики
         accessItems.forEach(item => {
-          item.addEventListener('mouseenter', () => setBodyHeight(item, true));
-          item.addEventListener('mouseleave', () => setBodyHeight(item, false));
+          const body = item.querySelector('.list-access__body');
+          body.style.height = '0';
+        });
+      
+        if (isMobile.any()) {
+          // Для мобильных устройств
+          accessItems.forEach(item => setBodyHeight(item, true));
+        } else {
+          // Для десктопов активируем hover-логику
+          accessItems.forEach(item => {
+            item.addEventListener('mouseenter', () => setBodyHeight(item, true));
+            item.addEventListener('mouseleave', () => setBodyHeight(item, false));
+          });
+        }
+      } else {
+        // Если ширина меньше 51.311em, сбрасываем высоту и отключаем события
+        accessItems.forEach(item => {
+          const body = item.querySelector('.list-access__body');
+          body.style.height = '';
+        
+          // Удаляем слушатели событий
+          const newItem = item.cloneNode(true);
+          item.parentNode.replaceChild(newItem, item);
         });
       }
-    } else {
-      // Если ширина меньше 51.311em, сбрасываем высоту и отключаем события
-      accessItems.forEach(item => {
-        const body = item.querySelector('.list-access__body');
-        body.style.height = '';
-      
-        // Удаляем слушатели событий
-        const newItem = item.cloneNode(true);
-        item.parentNode.replaceChild(newItem, item);
-      });
     }
+  
   };
   
   // Изначально выполняем проверку

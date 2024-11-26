@@ -8,6 +8,11 @@
 // #ffffff
 ///  filter: invert(100%) sepia(1%) saturate(5502%) hue-rotate(202deg) brightness(120%) contrast(100%);
 
+html, body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
 
 %titleMob {
   font-weight: 700;
@@ -42,6 +47,16 @@
   @include adaptiveValue("font-size", 136,68,2,3840,1512.98);
   @include adaptiveValue("font-size", 68,37,3,1512.98,390.98);
   @extend %titleMob;
+}
+
+%titleAnimationOp {
+  opacity: 0;
+  transform: translate(0,30%);
+  &._watcher-view {
+    opacity: 1;
+    transform: translate(0,0);
+    transition: opacity .55s ease, transform .55s ease;
+  }
 }
 
 
@@ -206,6 +221,14 @@ p {
           // background-color: $lemon;
           // color: #fff;
         }
+      }
+    }
+  }
+  &.btn-lemon {
+    background-color: $lemon;
+    @media (any-hover: hover){
+      &:hover{
+        background-color: #fff;
       }
     }
   }

@@ -6,9 +6,56 @@ section {
 }
 
 .hero {
+  position: relative;
   display: flex;
   flex-direction: column;
   @include adaptiveValue("padding-top",150,88,0,1512.98,480.98);
+
+	// .hero__anim
+	&__anim {
+    &:before,
+    &:after {
+      content:'';
+      position: relative;
+      height: 100%;
+      width: 100%;
+      .loaded & {
+        left: 50%;
+        opacity: 0;
+        transition: left 1s ease-in-out, opacity .2s linear 0.9s;
+      }
+    }
+    &::before {
+      background-color: $acc;
+      left: -100%;
+    }
+    &::after {
+      z-index: 2;
+      background-color: $lemon;
+      left: -100%;
+      .loaded & {
+        transition: left 0.9s ease-in-out .2s, opacity .4s linear 0.85s;
+      }
+    }
+	}
+  &__main,
+  .ticker-wrap {
+    opacity: 0;
+    transition: opacity .0s linear;
+    .loaded & {
+      opacity: 1;
+    }
+  }
+  &__main {
+    .loaded & {
+      transition-delay: .5s;
+    }
+  }
+  .ticker-wrap {
+    .loaded & {
+      transition-delay: .85s;
+    }
+  }
   // .hero__wrapper
   &__wrapper {
     flex: 1;
@@ -66,6 +113,8 @@ section {
   }
   // .hero__blocks
   &__blocks {
+    position: relative;
+    z-index: 5;
     display: grid;
     grid-template-rows: 65% 35%;
     @media (min-width:toEm(820.98)){
@@ -74,14 +123,40 @@ section {
     @media (max-width: toEm(820.98)){
       grid-template-rows: 75% 25%;
     }
+    .blocks-one,
+    .blocks-two {
+      position: relative;
+      &:before  {
+        content:'';
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        height: 100%;
+        width: 200%;
+        left: -300%;
+        transition: left 1s ease-in-out;
+        .loaded & {
+          left: 0%;
+        }
+      }
+    }
     .blocks-one {
-      background-color: $acc;
+      position: relative;
+      &:before  {
+        background-color: $acc;
+      }
     }
     .blocks-two {
       display: flex;
       justify-content: flex-end;
-      background-color: $lemon;
+      // background-color: $lemon;
       @include adaptiveValue("padding", 30,10,0,1512.98,480.98 );
+      &:before {
+        background-color: $lemon;
+        .loaded & {
+          transition-delay: .1s;
+        }
+      }
       @media (min-width: toEm(820.98)){
         position: relative;
         width: 108%;
@@ -89,8 +164,20 @@ section {
       }
       // .blocks-two__arr
       &__arr {
+        position: relative;
+        z-index: 2;
         width: auto;
         height: 100%;
+        transform: rotate(90deg);
+
+        opacity: 0;
+        transition: opacity .45s ease, transform .55s ease;
+        .loaded & {
+          opacity: 1;
+           transform: rotate(0deg);
+          // transform: translate(0%,0%);
+          transition-delay: .8s;
+        }
       }
     }
   }
@@ -121,24 +208,37 @@ section {
     // justify-content: flex-end;
     position: relative;
     @media (max-width: toEm(820.98)){
-        aspect-ratio: 430/373;
+      aspect-ratio: 430/373;
+    }
+  }
+  // .liquidity__el-wr
+  &__el-wr {
+    // height: 100%;
+    // position: sticky;
+    // top: 0px;
+    @media (max-width: toEm(820.98)){
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 	// .liquidity__ic
 	&__ic {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(0,-50%);
-    height: 100%;
-    width: auto;
-    // object-fit: contain;
-
-      // width: 150%;
-      // height: 100%;
-      // object-fit: cover;
-      // object-position: left;
+    
+    @media (min-width:toEm(820.98)){
+      position: absolute;
+      top: 0%;
+      right: 0;
+      width: 87%;
+      height: auto;
+    }
+    @media (max-width: toEm(820.98)){
+      width: auto;
+      height: 100%;
+      // object-fit: contain;
+      // object-position: center;
       // aspect-ratio: 1/1;
+    }
 	}
   // .liquidity__body
   &__body {
@@ -155,14 +255,18 @@ section {
   }
   // .liquidity__title
   &__title {
+    @extend %titleAnimationOp;
     &:not(:last-child) {
       @include adaptiveValue("margin-bottom", 30, 20,0,1512.98,480.98);
     }
   }
   // .liquidity__details
   &__details {
+    position: relative;
     // position: sticky;
     // bottom: 0;
+    display: flex;
+    flex-direction: column;
   }
   // .liquidity__list
   &__list {
@@ -177,20 +281,59 @@ section {
   }
   // .liquidity__subtitle
   &__subtitle {
-    @include adaptiveValue("padding-top", 40, 30,0,1512.98,480.98);
-    @include adaptiveValue("padding-bottom", 40, 30,0,1512.98,480.98);
+    position: absolute;
+    top: calc(var(--index-rev) * var(--height));
+
+    width: 100%;
+    border-top: toRem(1) solid rgba(0,0,0,0.2);
+    background-color: #fff;
+    transition: background-color .3s ease;
+    cursor: pointer;
     @extend %liquidityPdLftRght;
+    ._viewport & {
+      position: sticky;
+      top: auto;
+      bottom: calc(var(--index) * var(--height));
+    }
+    @media (any-hover: hover){
+      &:hover{
+        background-color: #EBEBEB;
+        + .liquidity__txt {
+          background-color: #EBEBEB;
+        }
+      }
+    }
+    @media (min-width:toEm(820.98)){
+      padding-top: toRem(40);
+      padding-bottom: toRem(40);
+    }
+    @media (max-width: toEm(820.98)){
+      padding-top: toRem(30);
+      padding-bottom: toRem(30);
+    }
   }
   // .liquidity__txt
   &__txt {
-    height: 0;
-    // position: absolute;
-    // top: 100%;
+    transition: background-color .3s ease;
     @extend %liquidityPdLftRght;
+    // @media (any-hover: hover){
+    //   &:hover{
+    //     &:has(~ .liquidity__subtitle) {
+    //       ~ .liquidity__subtitle {
+    //         background-color: red;
+    //       }
+    //     }
+    //   }
+    // }
   }
 	// .liquidity__txt-wr
 	&__txt-wr {
-    @include adaptiveValue("padding-bottom", 40, 30,0,1512.98,480.98);
+    @media (min-width:toEm(820.98)){
+      padding-bottom: toRem(40);
+    }
+    @media (max-width: toEm(820.98)){
+      padding-bottom: toRem(30);
+    }
 	}
 	// .liquidity__link-wr
 	&__link-wr {
@@ -209,6 +352,7 @@ section {
   }
   // .clients__title
   &__title {
+    @extend %titleAnimationOp;
     color: #fff;
     @include adaptiveValue("margin-bottom", 120, 40,0,1512.98,480.98);
   }
@@ -326,13 +470,21 @@ section {
 }
 
 .slide-clients {
+  background-color: #fff;
+  height: 100%;
   position: relative;
-  display: grid;
   @media (min-width:toEm(820.98)){
+    display: grid;
     grid-template-columns: 67% 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  @media (max-width: toEm(820.98)){
+    display: flex;
+    flex-direction: column;
   }
   // .slide-clients__head
   &__head {
+    flex: 1;
     background-color: $lemon;
     @include adaptiveValue("padding-top",130,60,0,1512.98,480.98);
     @extend %containerPadLftRgt;
@@ -386,18 +538,24 @@ section {
     }
     @media (max-width: toEm(820.98)){
         width: 60%;
-        justify-self: flex-end;
+        // justify-self: flex-end;
+        align-self: flex-end;
     }
     @media (max-width:$mobileSmall){
        width: 80%; 
     }
     img {
+      aspect-ratio: 574/503;
       width: 100%;
-      height: auto;
-      @extend %grayfilter;
-      @media (max-width:$mobileSmall){
-        filter: grayscale(0); 
-      }
+      height: 100%;
+      object-fit: cover;
+      // transition: filter 0.3s ease 0s;
+      filter: grayscale(1);
+      // @media (any-hover: hover) {
+      //   &:hover {
+      //     filter: grayscale(0);
+      //   }
+      // }
     }
   }
   // .slide-clients__footer
@@ -455,6 +613,7 @@ section {
 	}
   // .insights__title
   &__title {
+    @extend %titleAnimationOp;
     @extend %insightsMrBt;
   }
   // .insights__subtitle
@@ -491,6 +650,7 @@ section {
   }
   // .about__title
   &__title {
+    @extend %titleAnimationOp;
     @extend %insightsMrBt;
   }
   // .about__txts
@@ -676,6 +836,7 @@ section {
   }
   // .access__title
   &__title {
+    @extend %titleAnimationOp;
     @extend %insightsMrBt;
   }
   // .access__subtitle
@@ -699,7 +860,7 @@ section {
   @media (min-width:$tablet){
     min-height: 100svh;
   }
-  @media (max-width:$tablet) and (min-width: toEm(820.98)) {
+  @media (max-width:$tablet) and (min-width: toEm(820.98)) and (orientation: portrait) {
     min-height: 50svh;
   }
   @media (min-width:toEm(820.98)){
@@ -780,7 +941,8 @@ section {
       // padding-top: toRem(70);
       // padding-bottom: toRem(70);
     }
-    img {
+    img,
+    canvas {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -843,6 +1005,7 @@ section {
   }
   // .team__title
   &__title {
+    @extend %titleAnimationOp;
     @extend %insightsMrBt;
   }
   // .team__subtitle
@@ -976,6 +1139,7 @@ section {
   }
   // .opportunities__title
   &__title {
+    @extend %titleAnimationOp;
     color: #fff;
     @include adaptiveValue("margin-bottom", 120, 30,0,1512.98,480.98);
   }
@@ -1176,6 +1340,7 @@ section {
   }
   // .articles__title-m
   &__title-m {
+    @extend %titleAnimationOp;
     @extend %insightsMrBt;
   }
   // .articles__subtitle
@@ -1296,6 +1461,7 @@ section {
   }
   // .sign-up__title
   &__title {
+    @extend %titleAnimationOp;
     line-height: 1;
     @extend %insightsMrBt;
   }

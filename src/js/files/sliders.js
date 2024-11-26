@@ -8,7 +8,7 @@
 // При необхідності підключаємо додаткові модулі слайдера, вказуючи їх у {} через кому
 // Приклад: { Navigation, Autoplay }
 import Swiper from 'swiper';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, EffectFade } from 'swiper/modules';
 /*
 Основні модулі слайдера:
 Navigation, Pagination, Autoplay, 
@@ -28,11 +28,12 @@ import "../../scss/base/swiper.scss";
 function initSliders() {
 	if (document.querySelector('.clients__slider')) { 
 		new Swiper('.clients__slider', {
-			modules: [Autoplay],
+			modules: [Autoplay, EffectFade],
+			// modules: [ EffectFade],
 			observer: true,
 			observeParents: true,
 			slidesPerView: 1,
-			speed: 1000,
+			speed: 300,
 			// centeredSlides: false,
 			// longSwipes: true,/a
 			// simulateTouch: true,
@@ -40,15 +41,15 @@ function initSliders() {
 
 			//touchRatio: 0,
 			//simulateTouch: false,
-			loop: true,
 			// loopAddBlankSlides: true,
 			// loopAddBlankSlides: true,
 			// loopAdditionalSlides: 5,
 			//preloadImages: false,
 			//lazy: true,
-
+			
+			loop: true,
 			autoplay: {
-				delay: 2000,
+				delay: 2500,
 				// disableOnInteraction: false,
 				// pauseOnMouseEnter: true,
 				// waitForTransition: false,
@@ -62,14 +63,13 @@ function initSliders() {
 			// },
 			// nested: true,
 
-			/*
 			// Ефекти
 			effect: 'fade',
 			autoplay: {
-				delay: 3000,
-				disableOnInteraction: false,
+				crossFade: true,
+				// delay: 2000,
+				// disableOnInteraction: false,
 			},
-			*/
 
 			// Пагінація
 			/*

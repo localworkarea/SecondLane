@@ -89,6 +89,7 @@
 		"webpack-stream": "latest"
 	},
 	"dependencies": {
+		"@lottiefiles/dotlottie-web": "^0.37.0",
 		"gulp-cheerio": "^1.0.0",
 		"isotope-layout": "^3.0.6",
 		"lenis": "^1.1.16",
