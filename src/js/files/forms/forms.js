@@ -36,38 +36,38 @@ export function formFieldsInit(options = { viewPass: false, autoHeight: false })
 		}
 	});
 	// Якщо увімкнено, додаємо функціонал "Показати пароль"
-	if (options.viewPass) {
-		document.addEventListener("click", function (e) {
-			let targetElement = e.target;
-			if (targetElement.closest('[class*="__viewpass"]')) {
-				let inputType = targetElement.classList.contains('_viewpass-active') ? "password" : "text";
-				targetElement.parentElement.querySelector('input').setAttribute("type", inputType);
-				targetElement.classList.toggle('_viewpass-active');
-			}
-		});
-	}
+	// if (options.viewPass) {
+	// 	document.addEventListener("click", function (e) {
+	// 		let targetElement = e.target;
+	// 		if (targetElement.closest('[class*="__viewpass"]')) {
+	// 			let inputType = targetElement.classList.contains('_viewpass-active') ? "password" : "text";
+	// 			targetElement.parentElement.querySelector('input').setAttribute("type", inputType);
+	// 			targetElement.classList.toggle('_viewpass-active');
+	// 		}
+	// 	});
+	// }
 	// Якщо увімкнено, додаємо функціонал "Автовисота"
-	if (options.autoHeight) {
-		const textareas = document.querySelectorAll('textarea[data-autoheight]');
-		if (textareas.length) {
-			textareas.forEach(textarea => {
-				const startHeight = textarea.hasAttribute('data-autoheight-min') ?
-					Number(textarea.dataset.autoheightMin) : Number(textarea.offsetHeight);
-				const maxHeight = textarea.hasAttribute('data-autoheight-max') ?
-					Number(textarea.dataset.autoheightMax) : Infinity;
-				setHeight(textarea, Math.min(startHeight, maxHeight))
-				textarea.addEventListener('input', () => {
-					if (textarea.scrollHeight > startHeight) {
-						textarea.style.height = `auto`;
-						setHeight(textarea, Math.min(Math.max(textarea.scrollHeight, startHeight), maxHeight));
-					}
-				});
-			});
-			function setHeight(textarea, height) {
-				textarea.style.height = `${height}px`;
-			}
-		}
-	}
+	// if (options.autoHeight) {
+	// 	const textareas = document.querySelectorAll('textarea[data-autoheight]');
+	// 	if (textareas.length) {
+	// 		textareas.forEach(textarea => {
+	// 			const startHeight = textarea.hasAttribute('data-autoheight-min') ?
+	// 				Number(textarea.dataset.autoheightMin) : Number(textarea.offsetHeight);
+	// 			const maxHeight = textarea.hasAttribute('data-autoheight-max') ?
+	// 				Number(textarea.dataset.autoheightMax) : Infinity;
+	// 			setHeight(textarea, Math.min(startHeight, maxHeight))
+	// 			textarea.addEventListener('input', () => {
+	// 				if (textarea.scrollHeight > startHeight) {
+	// 					textarea.style.height = `auto`;
+	// 					setHeight(textarea, Math.min(Math.max(textarea.scrollHeight, startHeight), maxHeight));
+	// 				}
+	// 			});
+	// 		});
+	// 		function setHeight(textarea, height) {
+	// 			textarea.style.height = `${height}px`;
+	// 		}
+	// 	}
+	// }
 }
 // Валідація форм
 export let formValidate = {
@@ -246,38 +246,34 @@ export function formSubmit() {
 		// Очищуємо форму
 		formValidate.formClean(form);
 		// Повідомляємо до консолі
-		formLogging(`Форму відправлено!`);
-	}
-	function formLogging(message) {
-		FLS(`[Форми]: ${message}`);
 	}
 }
 /* Модуль форми "кількість" */
-export function formQuantity() {
-	document.addEventListener("click", function (e) {
-		let targetElement = e.target;
-		if (targetElement.closest('[data-quantity-plus]') || targetElement.closest('[data-quantity-minus]')) {
-			const valueElement = targetElement.closest('[data-quantity]').querySelector('[data-quantity-value]');
-			let value = parseInt(valueElement.value);
-			if (targetElement.hasAttribute('data-quantity-plus')) {
-				value++;
-				if (+valueElement.dataset.quantityMax && +valueElement.dataset.quantityMax < value) {
-					value = valueElement.dataset.quantityMax;
-				}
-			} else {
-				--value;
-				if (+valueElement.dataset.quantityMin) {
-					if (+valueElement.dataset.quantityMin > value) {
-						value = valueElement.dataset.quantityMin;
-					}
-				} else if (value < 1) {
-					value = 1;
-				}
-			}
-			targetElement.closest('[data-quantity]').querySelector('[data-quantity-value]').value = value;
-		}
-	});
-}
+// export function formQuantity() {
+// 	document.addEventListener("click", function (e) {
+// 		let targetElement = e.target;
+// 		if (targetElement.closest('[data-quantity-plus]') || targetElement.closest('[data-quantity-minus]')) {
+// 			const valueElement = targetElement.closest('[data-quantity]').querySelector('[data-quantity-value]');
+// 			let value = parseInt(valueElement.value);
+// 			if (targetElement.hasAttribute('data-quantity-plus')) {
+// 				value++;
+// 				if (+valueElement.dataset.quantityMax && +valueElement.dataset.quantityMax < value) {
+// 					value = valueElement.dataset.quantityMax;
+// 				}
+// 			} else {
+// 				--value;
+// 				if (+valueElement.dataset.quantityMin) {
+// 					if (+valueElement.dataset.quantityMin > value) {
+// 						value = valueElement.dataset.quantityMin;
+// 					}
+// 				} else if (value < 1) {
+// 					value = 1;
+// 				}
+// 			}
+// 			targetElement.closest('[data-quantity]').querySelector('[data-quantity-value]').value = value;
+// 		}
+// 	});
+// }
 
 /*
 export function formRating() {

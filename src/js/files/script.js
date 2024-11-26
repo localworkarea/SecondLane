@@ -5,7 +5,7 @@ import { flsModules } from "./modules.js";
 
 import Lenis from 'lenis'
 // import SplitType from 'split-type'
-// import { DotLottie } from '@lottiefiles/dotlottie-web';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 
 
 
@@ -131,6 +131,202 @@ requestAnimationFrame(raf);
 
 window.addEventListener('DOMContentLoaded', () => {
 
+
+  const galleryContainer = document.querySelector(".gallery-wrapper");
+  const galleries = galleryContainer.querySelectorAll(".gallery");
+  
+  const targetMinWidth = 51.311 * 16; // Переводим значение em в пиксели (1em = 16px)
+
+  // Функция для обработки изменения размеров экрана
+  const handleResize2 = () => {
+    if (window.innerWidth >= targetMinWidth) {
+      // Выполняем функцию для экранов с шириной >= 51.311em
+      handleMediaQueryChange3();
+    }
+  };
+  
+  const handleMediaQueryChange3 = () => {
+    // Проверяем текущее количество элементов .gallery
+    const currentCount = galleries.length; // Текущее количество галерей
+    const targetCount = 12; // Максимальное количество галерей
+    
+    // Проверяем, нужно ли добавлять клоны
+    if (currentCount < targetCount) {
+      const difference = targetCount - currentCount; // Сколько нужно добавить
+    
+      for (let i = 0; i < difference; i++) {
+        // Клонируем последний элемент .gallery
+        const lastGallery = galleries[galleries.length - 1];
+        const clone = lastGallery.cloneNode(true);
+    
+        // Добавляем клон в конец контейнера
+        galleryContainer.appendChild(clone);
+      }
+    }
+    
+
+    let isDragging = false;
+    let startX, startY;
+    let currentTranslateX = 0, currentTranslateY = 0;
+    let prevTranslateX = 0, prevTranslateY = 0;
+    let velocityX = 0, velocityY = 0;
+    let inertiaId = null;
+    let inertiaStartTime = null;
+  
+    const decayFactor = 0.2; // Замедление скорости
+    const minVelocity = 0.1; // Минимальная скорость
+    const inertiaDuration = 1000; // Продолжительность инерции в миллисекундах
+  
+    const parentBounds = document.querySelector(".clients__gallery").getBoundingClientRect();
+    const galleryWrapper = document.querySelector(".gallery-wrapper");
+  
+    // Устанавливаем начальное положение центра
+    const galleryWidth = galleryWrapper.offsetWidth;
+    const galleryHeight = galleryWrapper.offsetHeight;
+  
+    const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
+    const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
+  
+    currentTranslateX = initialTranslateX;
+    currentTranslateY = initialTranslateY;
+    prevTranslateX = initialTranslateX;
+    prevTranslateY = initialTranslateY;
+  
+    galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+  
+    galleryWrapper.addEventListener("mousedown", (e) => {
+      isDragging = true;
+    
+      // Сохраняем текущее положение элемента как отправную точку
+      prevTranslateX = currentTranslateX;
+      prevTranslateY = currentTranslateY;
+    
+      // Устанавливаем стартовые координаты мыши
+      startX = e.clientX;
+      startY = e.clientY;
+    
+      // Меняем курсор
+      galleryWrapper.style.cursor = "grabbing";
+    
+      // Удаляем transition при начале перетаскивания
+      galleryWrapper.style.transition = "none";
+    
+      // Прерываем инерцию, если она была
+      if (inertiaId) {
+        cancelAnimationFrame(inertiaId);
+        inertiaId = null;
+      }
+    });
+    
+  
+    window.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+  
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+  
+      let newTranslateX = prevTranslateX + deltaX;
+      let newTranslateY = prevTranslateY + deltaY;
+  
+      if (newTranslateX > 0) {
+        newTranslateX = 0;
+      } else if (newTranslateX < parentBounds.width - galleryWidth) {
+        newTranslateX = parentBounds.width - galleryWidth;
+      }
+  
+      if (newTranslateY > 0) {
+        newTranslateY = 0;
+      } else if (newTranslateY < parentBounds.height - galleryHeight) {
+        newTranslateY = parentBounds.height - galleryHeight;
+      }
+  
+      currentTranslateX = newTranslateX;
+      currentTranslateY = newTranslateY;
+  
+      galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+    });
+  
+    window.addEventListener("mouseup", () => {
+      if (!isDragging) return;
+  
+      isDragging = false;
+      galleryWrapper.style.cursor = "grab";
+  
+      // Добавляем transition при завершении перетаскивания
+      galleryWrapper.style.transition = "transform .3s ease-out";
+  
+      velocityX = currentTranslateX - prevTranslateX;
+      velocityY = currentTranslateY - prevTranslateY;
+  
+      prevTranslateX = currentTranslateX;
+      prevTranslateY = currentTranslateY;
+  
+      inertiaStartTime = performance.now(); // Начало инерции
+      applyInertia();
+    });
+  
+    window.addEventListener("mouseleave", () => {
+      if (isDragging) {
+        isDragging = false;
+        galleryWrapper.style.cursor = "grab";
+  
+        if (inertiaId) {
+          cancelAnimationFrame(inertiaId);
+          inertiaId = null;
+        }
+      }
+    });
+  
+    function applyInertia() {
+      const now = performance.now();
+      const elapsed = now - inertiaStartTime;
+  
+      // Прекращаем инерцию по истечении времени или при низкой скорости
+      // if (elapsed > inertiaDuration || (Math.abs(velocityX) < minVelocity && Math.abs(velocityY) < minVelocity)) {
+      //   return;
+      // }
+  
+      let newTranslateX = currentTranslateX + velocityX * decayFactor;
+      let newTranslateY = currentTranslateY + velocityY * decayFactor;
+  
+      if (newTranslateX > 0) {
+        newTranslateX = 0;
+        velocityX = 0;
+      } else if (newTranslateX < parentBounds.width - galleryWidth) {
+        newTranslateX = parentBounds.width - galleryWidth;
+        velocityX = 0;
+      }
+  
+      if (newTranslateY > 0) {
+        newTranslateY = 0;
+        velocityY = 0;
+      } else if (newTranslateY < parentBounds.height - galleryHeight) {
+        newTranslateY = parentBounds.height - galleryHeight;
+        velocityY = 0;
+      }
+  
+      currentTranslateX = newTranslateX;
+      currentTranslateY = newTranslateY;
+  
+      velocityX *= decayFactor;
+      velocityY *= decayFactor;
+  
+      galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+  
+      inertiaId = requestAnimationFrame(applyInertia); // Продолжаем инерцию
+    }
+  };
+
+  // Запускаем обработчик при загрузке страницы
+handleResize2();
+
+// Добавляем обработчик на событие resize
+window.addEventListener("resize", handleResize2);
+
+
+
+
+
   // gsap.registerPlugin(ScrollTrigger);
   // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -150,49 +346,49 @@ window.addEventListener('DOMContentLoaded', () => {
   resizeObserver.observe(document.body);
   // ===========================================================
 
-  // const lottieItems = document.querySelectorAll('.hero__lottie');
-  // if (lottieItems.length > 0) {
-  //   lottieItems.forEach(canvas => {
-  //     const src = canvas.dataset.src;
+  const lottieItems = document.querySelectorAll('.hero__lottie');
+  if (lottieItems.length > 0) {
+    lottieItems.forEach(canvas => {
+      const src = canvas.dataset.src;
     
-  //     // Создаем экземпляр DotLottie
-  //     const lottieInstance = new DotLottie({
-  //       autoplay: isMobile.any(), // Автозапуск только на мобильных
-  //       loop: true, // Цикличность только на мобильных
-  //       canvas: canvas,
-  //       src: src,
-  //     });
+      // Создаем экземпляр DotLottie
+      const lottieInstance = new DotLottie({
+        autoplay: isMobile.any(), // Автозапуск только на мобильных
+        loop: true, // Цикличность только на мобильных
+        canvas: canvas,
+        src: src,
+      });
     
-  //     // Если не мобильное устройство, добавляем логику запуска при ховере
-  //     if (!isMobile.any()) {
-  //       const parent = canvas.closest('.list-access__item'); // Родительский элемент
+      // Если не мобильное устройство, добавляем логику запуска при ховере
+      if (!isMobile.any()) {
+        const parent = canvas.closest('.list-access__item'); // Родительский элемент
     
-  //       if (parent) {
-  //         // Запускаем анимацию при наведении
-  //         parent.addEventListener('mouseenter', () => {
-  //           lottieInstance.play();
-  //         });
+        if (parent) {
+          // Запускаем анимацию при наведении
+          parent.addEventListener('mouseenter', () => {
+            lottieInstance.play();
+          });
     
-  //         // Останавливаем анимацию при убирании курсора
-  //         parent.addEventListener('mouseleave', () => {
-  //           lottieInstance.stop();
-  //         });
-  //       } else {
-  //         console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
-  //       }
-  //     }
-  //   });
-  // }
+          // Останавливаем анимацию при убирании курсора
+          parent.addEventListener('mouseleave', () => {
+            lottieInstance.stop();
+          });
+        } else {
+          console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
+        }
+      }
+    });
+  }
     
-  const liquiditySection = document.querySelector('.liquidity');
+  // const liquiditySection = document.querySelector('.liquidity');
 
-  const liquidityDetails = document.querySelector('.liquidity__details');
-  const liquidityList = document.querySelector('.liquidity__list');
-  const liquidityItems = document.querySelectorAll('.liquidity__item');
-  const liquidityTxts = document.querySelectorAll('.liquidity__txt');
-  const liquidityTxtWrps = document.querySelectorAll('.liquidity__txt-wr');
+  // const liquidityDetails = document.querySelector('.liquidity__details');
+  // const liquidityList = document.querySelector('.liquidity__list');
+  // const liquidityItems = document.querySelectorAll('.liquidity__item');
+  // const liquidityTxts = document.querySelectorAll('.liquidity__txt');
+  // const liquidityTxtWrps = document.querySelectorAll('.liquidity__txt-wr');
 
-  const liquidityElWrps = document.querySelectorAll('.liquidity__el-wr');
+  // const liquidityElWrps = document.querySelectorAll('.liquidity__el-wr');
 
 
   // let mm = gsap.matchMedia();
@@ -269,8 +465,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   detailsUpdate();
   // ==========================================================================
-
- 
 
 
 
@@ -389,104 +583,104 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   
-  function initSliders() {
-    if (document.querySelector('.clients__slider')) { 
-      new Swiper('.clients__slider', {
-        // modules: [Autoplay, EffectFade],
-        // modules: [ EffectFade],
-        observer: true,
-        observeParents: true,
-        slidesPerView: 1,
-        speed: 300,
-        // centeredSlides: false,
-        // longSwipes: true,/a
-        // simulateTouch: true,
-        // grabCursor: true,
+  // function initSliders() {
+  //   if (document.querySelector('.clients__slider')) { 
+  //     new Swiper('.clients__slider', {
+  //       // modules: [Autoplay, EffectFade],
+  //       // modules: [ EffectFade],
+  //       observer: true,
+  //       observeParents: true,
+  //       slidesPerView: 1,
+  //       speed: 300,
+  //       // centeredSlides: false,
+  //       // longSwipes: true,/a
+  //       // simulateTouch: true,
+  //       // grabCursor: true,
   
-        //touchRatio: 0,
-        //simulateTouch: false,
-        // loopAddBlankSlides: true,
-        // loopAddBlankSlides: true,
-        // loopAdditionalSlides: 5,
-        //preloadImages: false,
-        //lazy: true,
+  //       //touchRatio: 0,
+  //       //simulateTouch: false,
+  //       // loopAddBlankSlides: true,
+  //       // loopAddBlankSlides: true,
+  //       // loopAdditionalSlides: 5,
+  //       //preloadImages: false,
+  //       //lazy: true,
         
-        loop: true,
-        autoplay: {
-          delay: 2500,
-          // disableOnInteraction: false,
-          // pauseOnMouseEnter: true,
-          // waitForTransition: false,
-        },
+  //       loop: true,
+  //       autoplay: {
+  //         delay: 2500,
+  //         // disableOnInteraction: false,
+  //         // pauseOnMouseEnter: true,
+  //         // waitForTransition: false,
+  //       },
   
-        // freeMode: {
-        // 	enabled: true,
-        // 	// momentum: false,
-        // 	momentumBounce: false,
-        // 	minimumVelocity: 0.05,
-        // },
-        // nested: true,
+  //       // freeMode: {
+  //       // 	enabled: true,
+  //       // 	// momentum: false,
+  //       // 	momentumBounce: false,
+  //       // 	minimumVelocity: 0.05,
+  //       // },
+  //       // nested: true,
   
-        // Ефекти
-        effect: 'fade',
-        autoplay: {
-          crossFade: true,
-          // delay: 2000,
-          // disableOnInteraction: false,
-        },
+  //       // Ефекти
+  //       effect: 'fade',
+  //       autoplay: {
+  //         crossFade: true,
+  //         // delay: 2000,
+  //         // disableOnInteraction: false,
+  //       },
   
-        // Пагінація
-        /*
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        */
+  //       // Пагінація
+  //       /*
+  //       pagination: {
+  //         el: '.swiper-pagination',
+  //         clickable: true,
+  //       },
+  //       */
   
-        // Скроллбар
-        /*
-        scrollbar: {
-          el: '.swiper-scrollbar',
-          draggable: true,
-        },
-        */
+  //       // Скроллбар
+  //       /*
+  //       scrollbar: {
+  //         el: '.swiper-scrollbar',
+  //         draggable: true,
+  //       },
+  //       */
   
-        // Кнопки "вліво/вправо"
-        // navigation: {
-        // 	prevEl: '.swiper-button-prev',
-        // 	nextEl: '.swiper-button-next',
-        // },
-        /*
-        // Брейкпоінти
-        breakpoints: {
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 0,
-            autoHeight: true,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          992: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-          },
-          1268: {
-            slidesPerView: 4,
-            spaceBetween: 30,
-          },
-        },
-        */
-        // Події
-        on: {
+  //       // Кнопки "вліво/вправо"
+  //       // navigation: {
+  //       // 	prevEl: '.swiper-button-prev',
+  //       // 	nextEl: '.swiper-button-next',
+  //       // },
+  //       /*
+  //       // Брейкпоінти
+  //       breakpoints: {
+  //         640: {
+  //           slidesPerView: 1,
+  //           spaceBetween: 0,
+  //           autoHeight: true,
+  //         },
+  //         768: {
+  //           slidesPerView: 2,
+  //           spaceBetween: 20,
+  //         },
+  //         992: {
+  //           slidesPerView: 3,
+  //           spaceBetween: 20,
+  //         },
+  //         1268: {
+  //           slidesPerView: 4,
+  //           spaceBetween: 30,
+  //         },
+  //       },
+  //       */
+  //       // Події
+  //       on: {
   
-        }
-      });
-    }
-  }
+  //       }
+  //     });
+  //   }
+  // }
 
 
-  window.addEventListener("load", function (e) {
-    initSliders();
-  });
+  // window.addEventListener("load", function (e) {
+  //   initSliders();
+  // });
