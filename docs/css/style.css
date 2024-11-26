@@ -1152,19 +1152,14 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative
+  position: relative;
+  z-index: 5
 }
 .list-access__img {
   display: grid;
-  place-items: center
-}
-.list-access__img canvas,
-.list-access__img img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%)
+  place-items: center;
+  width: 100%;
+  height: auto
 }
 .list-access__info {
   transition: background-color .45s ease

@@ -128,6 +128,7 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
 
   // gsap.registerPlugin(ScrollTrigger);
@@ -149,52 +150,40 @@ window.addEventListener('DOMContentLoaded', () => {
   resizeObserver.observe(document.body);
   // ===========================================================
 
-    // const dotLottie = new DotLottie({
-    //   autoplay: true,
-    //   loop: false,
-    //   canvas: document.querySelector('#heroLottie'),
-    //   src: "files/json_animation/arrow.json",
-    // });
-
-      // Массив для хранения экземпляров DotLottie
-      const lottieInstances = [];
-      const lottieItems = document.querySelectorAll('.hero__lottie');
-      if (lottieItems.length > 0) {
-        lottieItems.forEach((canvas) => {
-          const animationSrc = canvas.dataset.animation;
-          const lottieInstance = new DotLottie({
-            autoplay: false,
-            loop: true,
-            canvas: canvas,
-            src: animationSrc,
+  const lottieItems = document.querySelectorAll('.hero__lottie');
+  if (lottieItems.length > 0) {
+    lottieItems.forEach(canvas => {
+      const src = canvas.dataset.src;
+    
+      // Создаем экземпляр DotLottie
+      const lottieInstance = new DotLottie({
+        autoplay: isMobile.any(), // Автозапуск только на мобильных
+        loop: true, // Цикличность только на мобильных
+        canvas: canvas,
+        src: src,
+      });
+    
+      // Если не мобильное устройство, добавляем логику запуска при ховере
+      if (!isMobile.any()) {
+        const parent = canvas.closest('.list-access__item'); // Родительский элемент
+    
+        if (parent) {
+          // Запускаем анимацию при наведении
+          parent.addEventListener('mouseenter', () => {
+            lottieInstance.play();
           });
-      
-          lottieInstances.push(lottieInstance);
-      
-          if (isMobile.any()) {
-            const observer = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  lottieInstance.play();
-                } else {
-                  lottieInstance.stop();
-                }
-              });
-            });
-            observer.observe(canvas);
-          } else {
-            const heroItem = canvas.closest('.list-access__item');
-            heroItem.addEventListener("mouseenter", () => {
-              lottieInstance.play();
-            });
-      
-            heroItem.addEventListener("mouseleave", () => {
-              lottieInstance.stop();
-            });
-          }
-        });
+    
+          // Останавливаем анимацию при убирании курсора
+          parent.addEventListener('mouseleave', () => {
+            lottieInstance.stop();
+          });
+        } else {
+          console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
+        }
       }
-
+    });
+  }
+    
   const liquiditySection = document.querySelector('.liquidity');
 
   const liquidityDetails = document.querySelector('.liquidity__details');
@@ -308,24 +297,21 @@ window.addEventListener('DOMContentLoaded', () => {
         });
       
         if (isMobile.any()) {
-          // Для мобильных устройств
           accessItems.forEach(item => setBodyHeight(item, true));
         } else {
-          // Для десктопов активируем hover-логику
           accessItems.forEach(item => {
             item.addEventListener('mouseenter', () => setBodyHeight(item, true));
             item.addEventListener('mouseleave', () => setBodyHeight(item, false));
           });
         }
       } else {
-        // Если ширина меньше 51.311em, сбрасываем высоту и отключаем события
         accessItems.forEach(item => {
           const body = item.querySelector('.list-access__body');
           body.style.height = '';
         
           // Удаляем слушатели событий
-          const newItem = item.cloneNode(true);
-          item.parentNode.replaceChild(newItem, item);
+          // const newItem = item.cloneNode(true);
+          // item.parentNode.replaceChild(newItem, item);
         });
       }
     }

@@ -3991,7 +3991,6 @@
             return configWatcher;
         }
         scrollWatcherCreate(configWatcher) {
-            console.log(configWatcher);
             this.observer = new IntersectionObserver(((entries, observer) => {
                 entries.forEach((entry => {
                     this.scrollWatcherCallback(entry, observer);
@@ -7174,32 +7173,25 @@
             }));
         }));
         resizeObserver.observe(document.body);
-        const lottieInstances = [];
         const lottieItems = document.querySelectorAll(".hero__lottie");
         if (lottieItems.length > 0) lottieItems.forEach((canvas => {
-            const animationSrc = canvas.dataset.animation;
+            const src = canvas.dataset.src;
             const lottieInstance = new d3({
-                autoplay: false,
+                autoplay: isMobile.any(),
                 loop: true,
                 canvas,
-                src: animationSrc
+                src
             });
-            lottieInstances.push(lottieInstance);
-            if (isMobile.any()) {
-                const observer = new IntersectionObserver((entries => {
-                    entries.forEach((entry => {
-                        if (entry.isIntersecting) lottieInstance.play(); else lottieInstance.stop();
+            if (!isMobile.any()) {
+                const parent = canvas.closest(".list-access__item");
+                if (parent) {
+                    parent.addEventListener("mouseenter", (() => {
+                        lottieInstance.play();
                     }));
-                }));
-                observer.observe(canvas);
-            } else {
-                const heroItem = canvas.closest(".list-access__item");
-                heroItem.addEventListener("mouseenter", (() => {
-                    lottieInstance.play();
-                }));
-                heroItem.addEventListener("mouseleave", (() => {
-                    lottieInstance.stop();
-                }));
+                    parent.addEventListener("mouseleave", (() => {
+                        lottieInstance.stop();
+                    }));
+                } else console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
             }
         }));
         document.querySelector(".liquidity");
@@ -7261,8 +7253,6 @@
                 } else accessItems.forEach((item => {
                     const body = item.querySelector(".list-access__body");
                     body.style.height = "";
-                    const newItem = item.cloneNode(true);
-                    item.parentNode.replaceChild(newItem, item);
                 }));
             }
         };
