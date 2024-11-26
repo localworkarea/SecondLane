@@ -183,9 +183,9 @@ p {
     color: #fff;
     @media (any-hover: hover){
       &:hover{
-        border-color: #000;
+        // border-color: #000;
         color: $mainColor;
-        background-color: #fff;
+        background-color: $lemon;
       }
     }
   }
@@ -194,12 +194,19 @@ p {
     color: $mainColor;
     @media (any-hover: hover){
       &:hover{
-        background-color: $mainColor;
-        color: #fff;
+        background-color: $lemon;
+        // color: #fff;
       }
     }
     &.btn-light_border {
       border-color: $mainColor;
+      @media (any-hover: hover){
+        &:hover{
+          border-color: transparent;
+          // background-color: $lemon;
+          // color: #fff;
+        }
+      }
     }
   }
 }

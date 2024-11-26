@@ -647,7 +647,7 @@ section {
     @media (any-hover: hover){
       &:hover{
         .item-about__arr {
-          transform: rotate(180deg);
+          transform: rotate(90deg);
         }
       }
     }
@@ -871,12 +871,31 @@ section {
   &__item {
     display: flex;
     flex-direction: column;
+    @media (any-hover: hover){
+      &:hover{
+        .list-team__img {
+          &::before {
+            opacity: 1;
+          }
+        }
+      }
+    }
   }
   // .list-team__img
   &__img {
     flex: 1;
+    position: relative;
     img {
       aspect-ratio: 1/1;
+    }
+    &::before {
+      content:'';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      background-color: rgba(227, 253, 90, 0.3);
+      transition: opacity .3s ease;
     }
   }
   // .list-team__footer

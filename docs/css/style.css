@@ -1068,10 +1068,20 @@ section {
   flex-direction: column
 }
 .list-team__img {
-  flex: 1
+  flex: 1;
+  position: relative
 }
 .list-team__img img {
   aspect-ratio: 1/1
+}
+.list-team__img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  background-color: rgba(227,253,90,.3);
+  transition: opacity .3s ease
 }
 .list-team__footer {
   display: grid
@@ -2817,21 +2827,22 @@ section {
 }
 @media (any-hover:hover) {
   .form__button:hover::after {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg)
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
   }
   .slide-clients__img img:hover {
     -webkit-filter: grayscale(0);
     filter: grayscale(0)
   }
   .btn.btn-dark:hover {
-    border-color: #000;
     color: #171717;
-    background-color: #fff
+    background-color: #e3fd5a
   }
   .btn.btn-light:hover {
-    background-color: #171717;
-    color: #fff
+    background-color: #e3fd5a
+  }
+  .btn.btn-light.btn-light_border:hover {
+    border-color: transparent
   }
   .menu__link:hover {
     color: #fff
@@ -2905,8 +2916,8 @@ section {
     background-color: #e3fd5a
   }
   .item-about__link:hover .item-about__arr {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg)
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
   }
   .list-access__item:hover .list-access__info {
     background-color: #fff
@@ -2919,6 +2930,9 @@ section {
     -webkit-transform: translate(0,0);
     transform: translate(0,0);
     transition-delay: .3s
+  }
+  .list-team__item:hover .list-team__img::before {
+    opacity: 1
   }
   .projects-list__item:hover {
     color: #171717
