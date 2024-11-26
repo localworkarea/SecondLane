@@ -5,7 +5,7 @@ import { flsModules } from "./modules.js";
 
 import Lenis from 'lenis'
 // import SplitType from 'split-type'
-import { DotLottie } from '@lottiefiles/dotlottie-web';
+// import { DotLottie } from '@lottiefiles/dotlottie-web';
 
 
 
@@ -150,39 +150,39 @@ window.addEventListener('DOMContentLoaded', () => {
   resizeObserver.observe(document.body);
   // ===========================================================
 
-  const lottieItems = document.querySelectorAll('.hero__lottie');
-  if (lottieItems.length > 0) {
-    lottieItems.forEach(canvas => {
-      const src = canvas.dataset.src;
+  // const lottieItems = document.querySelectorAll('.hero__lottie');
+  // if (lottieItems.length > 0) {
+  //   lottieItems.forEach(canvas => {
+  //     const src = canvas.dataset.src;
     
-      // Создаем экземпляр DotLottie
-      const lottieInstance = new DotLottie({
-        autoplay: isMobile.any(), // Автозапуск только на мобильных
-        loop: true, // Цикличность только на мобильных
-        canvas: canvas,
-        src: src,
-      });
+  //     // Создаем экземпляр DotLottie
+  //     const lottieInstance = new DotLottie({
+  //       autoplay: isMobile.any(), // Автозапуск только на мобильных
+  //       loop: true, // Цикличность только на мобильных
+  //       canvas: canvas,
+  //       src: src,
+  //     });
     
-      // Если не мобильное устройство, добавляем логику запуска при ховере
-      if (!isMobile.any()) {
-        const parent = canvas.closest('.list-access__item'); // Родительский элемент
+  //     // Если не мобильное устройство, добавляем логику запуска при ховере
+  //     if (!isMobile.any()) {
+  //       const parent = canvas.closest('.list-access__item'); // Родительский элемент
     
-        if (parent) {
-          // Запускаем анимацию при наведении
-          parent.addEventListener('mouseenter', () => {
-            lottieInstance.play();
-          });
+  //       if (parent) {
+  //         // Запускаем анимацию при наведении
+  //         parent.addEventListener('mouseenter', () => {
+  //           lottieInstance.play();
+  //         });
     
-          // Останавливаем анимацию при убирании курсора
-          parent.addEventListener('mouseleave', () => {
-            lottieInstance.stop();
-          });
-        } else {
-          console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
-        }
-      }
-    });
-  }
+  //         // Останавливаем анимацию при убирании курсора
+  //         parent.addEventListener('mouseleave', () => {
+  //           lottieInstance.stop();
+  //         });
+  //       } else {
+  //         console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
+  //       }
+  //     }
+  //   });
+  // }
     
   const liquiditySection = document.querySelector('.liquidity');
 
@@ -387,7 +387,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  
+
   
   function initSliders() {
     if (document.querySelector('.clients__slider')) { 
