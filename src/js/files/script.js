@@ -386,4 +386,107 @@ window.addEventListener('DOMContentLoaded', () => {
       tiker.appendChild(clonedLine);
     }
   });
+
   
+  
+  function initSliders() {
+    if (document.querySelector('.clients__slider')) { 
+      new Swiper('.clients__slider', {
+        // modules: [Autoplay, EffectFade],
+        // modules: [ EffectFade],
+        observer: true,
+        observeParents: true,
+        slidesPerView: 1,
+        speed: 300,
+        // centeredSlides: false,
+        // longSwipes: true,/a
+        // simulateTouch: true,
+        // grabCursor: true,
+  
+        //touchRatio: 0,
+        //simulateTouch: false,
+        // loopAddBlankSlides: true,
+        // loopAddBlankSlides: true,
+        // loopAdditionalSlides: 5,
+        //preloadImages: false,
+        //lazy: true,
+        
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          // disableOnInteraction: false,
+          // pauseOnMouseEnter: true,
+          // waitForTransition: false,
+        },
+  
+        // freeMode: {
+        // 	enabled: true,
+        // 	// momentum: false,
+        // 	momentumBounce: false,
+        // 	minimumVelocity: 0.05,
+        // },
+        // nested: true,
+  
+        // Ефекти
+        effect: 'fade',
+        autoplay: {
+          crossFade: true,
+          // delay: 2000,
+          // disableOnInteraction: false,
+        },
+  
+        // Пагінація
+        /*
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        */
+  
+        // Скроллбар
+        /*
+        scrollbar: {
+          el: '.swiper-scrollbar',
+          draggable: true,
+        },
+        */
+  
+        // Кнопки "вліво/вправо"
+        // navigation: {
+        // 	prevEl: '.swiper-button-prev',
+        // 	nextEl: '.swiper-button-next',
+        // },
+        /*
+        // Брейкпоінти
+        breakpoints: {
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            autoHeight: true,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          992: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          1268: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          },
+        },
+        */
+        // Події
+        on: {
+  
+        }
+      });
+    }
+  }
+
+
+  window.addEventListener("load", function (e) {
+    initSliders();
+  });

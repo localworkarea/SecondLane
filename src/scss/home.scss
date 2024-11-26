@@ -806,8 +806,8 @@ section {
     font-weight: 500;
     transition: transform .45s ease;
     transform-origin: 0 center;
-    @include adaptiveValue("font-size", 140, 72,2,3840.98,1512.98);
-    @include adaptiveValue("font-size", 72, 30,3,1512.98,480.98);
+    // @include adaptiveValue("font-size", 140, 72,2,3840.98,1512.98);
+    @include adaptiveValue("font-size", 72, 30,0,1512.98,480.98);
     .count {
     }
     @media (max-width: toEm(360.98)){
@@ -817,8 +817,8 @@ section {
   // .item-about__about
   &__about {
     font-weight: 600;
-    @include adaptiveValue("font-size", 44, 22,2,3840.98,1512.98);
-    @include adaptiveValue("font-size", 22, 18,3,1512.98,480.98);
+    // @include adaptiveValue("font-size", 44, 22,2,3840.98,1512.98);
+    @include adaptiveValue("font-size", 22, 18,0,1512.98,480.98);
     @media (max-width: toEm(360.98)){
       font-size: toRem(16) !important;
     }
@@ -831,8 +831,8 @@ section {
     justify-content: space-between;
     .item-about__about {
       font-weight: 700;
-      @include adaptiveValue("font-size", 54, 27,2,3840.98,1512.98);
-      @include adaptiveValue("font-size", 27, 18,3,1512.98,480.98);
+      // @include adaptiveValue("font-size", 54, 27,2,3840.98,1512.98);
+      @include adaptiveValue("font-size", 27, 18,0,1512.98,480.98);
     }
     @media (any-hover: hover){
       &:hover{
@@ -1107,8 +1107,8 @@ section {
     @include adaptiveValue("padding", 24, 10,0,1512.98,480.98);
     p {
       font-weight: 600;
-      @include adaptiveValue("font-size", 60,30,2,3840,1512.98);
-      @include adaptiveValue("font-size", 30,20,3,1512.98,390.98);
+      // @include adaptiveValue("font-size", 60,30,2,3840,1512.98);
+      @include adaptiveValue("font-size", 30,20,0,1512.98,390.98);
     }
   }
   // .list-team__position
@@ -1127,8 +1127,8 @@ section {
     }
     p {
       color: #fff;
-      @include adaptiveValue("font-size", 40,20,2,3840,1512.98);
-      @include adaptiveValue("font-size", 20,14,3,1512.98,390.98);
+      // @include adaptiveValue("font-size", 40,20,2,3840,1512.98);
+      @include adaptiveValue("font-size", 20,14,0,1512.98,390.98);
     }
   }
   // .list-team__social
@@ -1149,8 +1149,8 @@ section {
     display: grid;
     place-items: center;
     aspect-ratio: 1/1;
-    @include adaptiveValue("width", 100, 52,2,3840,1512.98);
-    @include adaptiveValue("width", 52, 40,3,1512.98,480.98);
+    // @include adaptiveValue("width", 100, 52,2,3840,1512.98);
+    @include adaptiveValue("width", 52, 40,0,1512.98,480.98);
   }
   // .list-team__link
   &__link {
@@ -1231,7 +1231,8 @@ section {
   }
   // .list-header__category
   &__category {
-    @include adaptiveValue("font-size", 36, 18,0,3840.98,1512.98);
+    font-size: toRem(18);
+    // @include adaptiveValue("font-size", 36, 18,0,3840.98,1512.98);
     @media (min-width:toEm(700.98)){
       font-weight: 500;;
       color: rgba(255, 255, 255, 0.5);
@@ -1253,9 +1254,10 @@ section {
     padding-top: toRem(30);
     padding-bottom: toRem(30);
     @extend %opportunitiesPlPr;
-    @include adaptiveValue("font-size", 48,24,2,3840,1512.98);
-    @include adaptiveValue("font-size", 24,18,3,1512.98,1100.98);
-    @include adaptiveValue("height", 200,116,0,3840,1512.98);
+    height: toRem(116);
+    // @include adaptiveValue("font-size", 48,24,2,3840,1512.98);
+    @include adaptiveValue("font-size", 24,18,0,1512.98,1100.98);
+    // @include adaptiveValue("height", 200,116,0,3840,1512.98);
     @media (min-width:toEm(700.98)){
       font-weight: 600;
       align-items: center;
@@ -1448,8 +1450,8 @@ section {
   &__title {
     display: inline-block;
     font-weight: 600;
-    @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
-    @include adaptiveValue("font-size", 22,20,3,1512.98,1100.98);
+    // @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
+    @include adaptiveValue("font-size", 22,20,0,1512.98,1100.98);
     @media (min-width:$mobileSmall){
       max-width: 78%;
       

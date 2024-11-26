@@ -267,6 +267,65 @@ textarea {
 .form-dialog__wrapper p {
   line-height: 1
 }
+.swiper {
+  overflow: hidden
+}
+.swiper-initialized {
+  touch-action: pan-y
+}
+.swiper-wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  display: flex;
+  position: relative
+}
+.swiper-vertical .swiper-wrapper {
+  flex-direction: column
+}
+.swiper-autoheight .swiper-wrapper {
+  align-items: flex-start
+}
+.swiper-initialized .swiper-slide {
+  flex-shrink: 0
+}
+.swiper-android .swiper-slide,
+.swiper-android .swiper-wrapper {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0)
+}
+.swiper-button-lock {
+  display: none!important
+}
+.swiper-3d,
+.swiper-3d.swiper-css-mode .swiper-wrapper {
+  -webkit-perspective: 1200px;
+  perspective: 1200px
+}
+.swiper-3d .swiper-cube-shadow,
+.swiper-3d .swiper-slide,
+.swiper-3d .swiper-slide-shadow,
+.swiper-3d .swiper-slide-shadow-bottom,
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right,
+.swiper-3d .swiper-slide-shadow-top,
+.swiper-3d .swiper-wrapper {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d
+}
+.swiper-3d .swiper-slide-shadow,
+.swiper-3d .swiper-slide-shadow-bottom,
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-3d .swiper-slide-shadow-right,
+.swiper-3d .swiper-slide-shadow-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10
+}
 .ibg {
   width: 100%;
   height: 100%;
@@ -1193,13 +1252,17 @@ section {
 .projects-list__item {
   display: grid
 }
+.list-header__category {
+  font-size: 1.125rem
+}
 .projects-list__item {
   cursor: pointer;
   position: relative;
   z-index: 2;
   color: #fff;
   padding-top: 1.875rem;
-  padding-bottom: 1.875rem
+  padding-bottom: 1.875rem;
+  height: 7.25rem
 }
 .projects-list__logo {
   display: flex;
@@ -1313,65 +1376,6 @@ section {
 .sign-up__icon:nth-child(3) img {
   -o-object-position: right;
   object-position: right
-}
-.swiper {
-  overflow: hidden
-}
-.swiper-initialized {
-  touch-action: pan-y
-}
-.swiper-wrapper {
-  width: 100%;
-  height: 100%;
-  box-sizing: content-box;
-  display: flex;
-  position: relative
-}
-.swiper-vertical .swiper-wrapper {
-  flex-direction: column
-}
-.swiper-autoheight .swiper-wrapper {
-  align-items: flex-start
-}
-.swiper-initialized .swiper-slide {
-  flex-shrink: 0
-}
-.swiper-android .swiper-slide,
-.swiper-android .swiper-wrapper {
-  -webkit-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0)
-}
-.swiper-button-lock {
-  display: none!important
-}
-.swiper-3d,
-.swiper-3d.swiper-css-mode .swiper-wrapper {
-  -webkit-perspective: 1200px;
-  perspective: 1200px
-}
-.swiper-3d .swiper-cube-shadow,
-.swiper-3d .swiper-slide,
-.swiper-3d .swiper-slide-shadow,
-.swiper-3d .swiper-slide-shadow-bottom,
-.swiper-3d .swiper-slide-shadow-left,
-.swiper-3d .swiper-slide-shadow-right,
-.swiper-3d .swiper-slide-shadow-top,
-.swiper-3d .swiper-wrapper {
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d
-}
-.swiper-3d .swiper-slide-shadow,
-.swiper-3d .swiper-slide-shadow-bottom,
-.swiper-3d .swiper-slide-shadow-left,
-.swiper-3d .swiper-slide-shadow-right,
-.swiper-3d .swiper-slide-shadow-top {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10
 }
 @media (min-width:30.06125em) {
   .btn {
@@ -1816,11 +1820,32 @@ section {
   .input {
     min-height: 7rem
   }
+  .input {
+    font-size: 2.125rem
+  }
+  .form__button {
+    font-size: 1.6875rem
+  }
   .form__button {
     min-height: 7rem
   }
   .form-dialog__wrapper {
     padding: 6.25rem
+  }
+  .title-main {
+    font-size: 4.375rem
+  }
+  .title-a {
+    font-size: 3.75rem
+  }
+  .title-b {
+    font-size: 2.5rem
+  }
+  .title-c {
+    font-size: 5.5rem
+  }
+  .title-d {
+    font-size: 4.25rem
   }
   .about,
   .access__wrapper,
@@ -1852,6 +1877,16 @@ section {
   .sign-up__head,
   .team__subtitle {
     margin-bottom: 3.75rem
+  }
+  .footer__btm-t,
+  .spollers-footer__link {
+    font-size: 1.125rem
+  }
+  .btn {
+    font-size: 1.375rem
+  }
+  .btn {
+    min-height: 5rem
   }
   .ticker-wrap .ticker .ticker-item {
     padding-left: 1.0625rem
@@ -1896,6 +1931,9 @@ section {
   }
   .mails-footer__link {
     font-size: 2.75rem
+  }
+  .spollers-footer__title {
+    font-size: 1.375rem
   }
   .spollers-footer__title {
     padding-bottom: 2.5rem
@@ -1955,6 +1993,15 @@ section {
   .item-about {
     padding: 1.875rem
   }
+  .item-about__count {
+    font-size: 4.5rem
+  }
+  .item-about__about {
+    font-size: 1.375rem
+  }
+  .item-about__link .item-about__about {
+    font-size: 1.6875rem
+  }
   .list-access__title {
     padding: 1.875rem
   }
@@ -1972,96 +2019,39 @@ section {
   .list-team__name {
     padding: 1.5rem
   }
+  .list-team__name p {
+    font-size: 1.875rem
+  }
   .list-team__position {
     padding: 1.125rem
+  }
+  .list-team__position p {
+    font-size: 1.25rem
+  }
+  .list-team__social-i {
+    width: 3.25rem
   }
   .opportunities__title {
     margin-bottom: 7.5rem
   }
-}
-@media (min-width:240.06125em) {
-  .item-about__count {
-    font-size: 8.75rem
+  .projects-list__item {
+    font-size: 1.5rem
   }
-  .item-about__about {
-    font-size: 2.75rem
-  }
-  .item-about__link .item-about__about {
-    font-size: 3.375rem
-  }
-  .list-header__category {
-    font-size: 2.25rem
+  .articles__title {
+    font-size: 1.375rem
   }
 }
 @media (min-width:240em) {
-  .input {
-    font-size: 4.25rem
-  }
-  .form__button {
-    font-size: 3.375rem
-  }
-  .title-main {
-    font-size: 8.75rem
-  }
-  .title-a {
-    font-size: 7.5rem
-  }
-  .title-b {
-    font-size: 5rem
-  }
-  .title-c {
-    font-size: 11rem
-  }
-  .title-d {
-    font-size: 8.5rem
-  }
-  .footer__btm-t,
-  .spollers-footer__link {
-    font-size: 2.25rem
-  }
   p {
     font-size: 2rem
   }
-  .btn {
-    font-size: 2.5rem
-  }
-  .btn {
-    min-height: 10rem
-  }
   .menu__link {
     font-size: 5rem
-  }
-  .spollers-footer__title {
-    font-size: 2.75rem
-  }
-  .list-team__name p {
-    font-size: 3.75rem
-  }
-  .list-team__position p {
-    font-size: 2.5rem
-  }
-  .list-team__social-i {
-    width: 6.25rem
-  }
-  .projects-list__item {
-    font-size: 3rem
-  }
-  .projects-list__item {
-    height: 12.5rem
-  }
-  .articles__title {
-    font-size: 2.75rem
   }
 }
 @media (max-width:94.56125em) {
   p {
     font-size: 1rem
-  }
-  .list-header__category {
-    font-size: 1.125rem
-  }
-  .projects-list__item {
-    height: 7.25rem
   }
 }
 @media (max-width:68.81125em) {
@@ -2767,66 +2757,6 @@ section {
     margin-bottom: clamp(1.875rem ,-.7466206395rem + 8.7209302326vw ,7.5rem)
   }
 }
-@media (min-width:94.56125em)and (max-width:240em) {
-  .input {
-    font-size: clamp(2.125rem ,.7433692018rem + 1.4610961659vw ,4.25rem)
-  }
-  .form__button {
-    font-size: clamp(1.6875rem ,.5903226014rem + 1.1602822494vw ,3.375rem)
-  }
-  .title-main {
-    font-size: clamp(4.375rem ,1.5304660037rem + 3.0081391651vw ,8.75rem)
-  }
-  .title-a {
-    font-size: clamp(3.75rem ,1.3118280032rem + 2.5784049987vw ,7.5rem)
-  }
-  .title-b {
-    font-size: clamp(2.5rem ,.8745520021rem + 1.7189366658vw ,5rem)
-  }
-  .title-c {
-    font-size: clamp(5.5rem ,1.9240144047rem + 3.7816606647vw ,11rem)
-  }
-  .title-d {
-    font-size: clamp(4.25rem ,1.4867384036rem + 2.9221923318vw ,8.5rem)
-  }
-  .footer__btm-t,
-  .spollers-footer__link {
-    font-size: clamp(1.125rem ,.393548401rem + .7735214996vw ,2.25rem)
-  }
-  p {
-    font-size: clamp(1rem ,.3498208009rem + .6875746663vw ,2rem)
-  }
-  .btn {
-    font-size: clamp(1.375rem ,.643548401rem + .7735214996vw ,2.5rem)
-  }
-  .btn {
-    min-height: clamp(5rem ,1.7491040043rem + 3.4378733316vw ,10rem)
-  }
-  .menu__link {
-    font-size: clamp(2.5rem ,.8745520021rem + 1.7189366658vw ,5rem)
-  }
-  .spollers-footer__title {
-    font-size: clamp(1.375rem ,.4810036012rem + .9454151662vw ,2.75rem)
-  }
-  .list-team__name p {
-    font-size: clamp(1.875rem ,.6559140016rem + 1.2892024993vw ,3.75rem)
-  }
-  .list-team__position p {
-    font-size: clamp(1.25rem ,.4372760011rem + .8594683329vw ,2.5rem)
-  }
-  .list-team__social-i {
-    width: clamp(3.25rem ,1.2994624026rem + 2.0627239989vw ,6.25rem)
-  }
-  .projects-list__item {
-    font-size: clamp(1.5rem ,.5247312013rem + 1.0313619995vw ,3rem)
-  }
-  .projects-list__item {
-    height: clamp(7.25rem ,3.8365592045rem + 3.6097669981vw ,12.5rem)
-  }
-  .articles__title {
-    font-size: clamp(1.375rem ,.4810036012rem + .9454151662vw ,2.75rem)
-  }
-}
 @media (min-width:68.81125em)and (max-width:94.56125em) {
   .input {
     font-size: clamp(1.375rem ,-.629211165rem + 2.9126213592vw ,2.125rem)
@@ -2920,23 +2850,17 @@ section {
     font-size: clamp(1.125rem ,1.0576803691rem + .3355704698vw ,1.375rem)
   }
 }
+@media (min-width:94.56125em)and (max-width:240em) {
+  p {
+    font-size: clamp(1rem ,.3498208009rem + .6875746663vw ,2rem)
+  }
+  .menu__link {
+    font-size: clamp(2.5rem ,.8745520021rem + 1.7189366658vw ,5rem)
+  }
+}
 @media (max-width:62.06125em)and (min-width:37.56125em) {
   .footer__spollers {
     grid-template-columns: repeat(4,auto)
-  }
-}
-@media (min-width:94.56125em)and (max-width:240.06125em) {
-  .item-about__count {
-    font-size: clamp(4.5rem ,1.7379016323rem + 2.9209621993vw ,8.75rem)
-  }
-  .item-about__about {
-    font-size: clamp(1.375rem ,.4813799399rem + .9450171821vw ,2.75rem)
-  }
-  .item-about__link .item-about__about {
-    font-size: clamp(1.6875rem ,.5907844716rem + 1.1597938144vw ,3.375rem)
-  }
-  .list-header__category {
-    font-size: clamp(1.125rem ,.3938563144rem + .7731958763vw ,2.25rem)
   }
 }
 @media (max-width:48.06125em)and (min-width:30.06125em) {

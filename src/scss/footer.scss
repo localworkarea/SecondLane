@@ -212,8 +212,8 @@
   // .spollers-footer__title
   &__title {
     font-weight: 600;
-    @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
-    @include adaptiveValue("font-size", 22,18,3,1512.98,320.98);
+    // @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
+    @include adaptiveValue("font-size", 22,18,0,1512.98,320.98);
     @include adaptiveValue("padding-bottom",40,20,0,1512.98,480.98);
     @media (max-width: toEm(600.98)){
       position: relative;

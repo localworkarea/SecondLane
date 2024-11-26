@@ -18,8 +18,8 @@ textarea {
 	border-top: toRem(1) solid rgba(0, 0, 0, 0.2);
 	outline: none;
 	@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
-	@include adaptiveValue("font-size", 68,34,2,3840,1512.98);
-	@include adaptiveValue("font-size", 34,22,3,1512.98,1100.98);
+	// @include adaptiveValue("font-size", 68,34,2,3840,1512.98);
+	@include adaptiveValue("font-size", 34,22,0,1512.98,1100.98);
 	@extend %containerPadLftRgt;
 	&._form-focus {
 	}
@@ -66,8 +66,8 @@ textarea {
 		background-color: $lemon;
 		font-weight: 700;
 		@extend %containerPadLft;
-		@include adaptiveValue("font-size", 54,27,2,3840,1512.98);
-		@include adaptiveValue("font-size", 27,22,3,1512.98,1100.98);
+		// @include adaptiveValue("font-size", 54,27,2,3840,1512.98);
+		@include adaptiveValue("font-size", 27,22,0,1512.98,1100.98);
 		@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
 		&:after {
 			content:'';
