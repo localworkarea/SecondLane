@@ -7103,23 +7103,11 @@
     }
     requestAnimationFrame(raf);
     window.addEventListener("DOMContentLoaded", (() => {
-        const galleryContainer = document.querySelector(".gallery-wrapper");
-        const galleries = galleryContainer.querySelectorAll(".gallery");
-        const targetMinWidth = 51.311 * 16;
-        const handleResize2 = () => {
-            if (window.innerWidth >= targetMinWidth) handleMediaQueryChange3();
-        };
-        const handleMediaQueryChange3 = () => {
-            const currentCount = galleries.length;
+        function manageGalleries() {
+            const galleryContainer = document.querySelector(".gallery-wrapper");
+            const galleries = galleryContainer.querySelectorAll(".gallery");
             const targetCount = 12;
-            if (currentCount < targetCount) {
-                const difference = targetCount - currentCount;
-                for (let i = 0; i < difference; i++) {
-                    const lastGallery = galleries[galleries.length - 1];
-                    const clone = lastGallery.cloneNode(true);
-                    galleryContainer.appendChild(clone);
-                }
-            }
+            const minWidth = 51.311 * 16;
             let isDragging = false;
             let startX, startY;
             let currentTranslateX = 0, currentTranslateY = 0;
@@ -7128,18 +7116,48 @@
             let inertiaId = null;
             let inertiaStartTime = null;
             const decayFactor = .2;
+            const minVelocity = .1;
+            const inertiaDuration = 1e3;
             const parentBounds = document.querySelector(".clients__gallery").getBoundingClientRect();
             const galleryWrapper = document.querySelector(".gallery-wrapper");
-            const galleryWidth = galleryWrapper.offsetWidth;
-            const galleryHeight = galleryWrapper.offsetHeight;
-            const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
-            const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
-            currentTranslateX = initialTranslateX;
-            currentTranslateY = initialTranslateY;
-            prevTranslateX = initialTranslateX;
-            prevTranslateY = initialTranslateY;
-            galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-            galleryWrapper.addEventListener("mousedown", (e => {
+            function centerGallery() {
+                const galleryWidth = galleryWrapper.offsetWidth;
+                const galleryHeight = galleryWrapper.offsetHeight;
+                const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
+                const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
+                currentTranslateX = initialTranslateX;
+                currentTranslateY = initialTranslateY;
+                prevTranslateX = initialTranslateX;
+                prevTranslateY = initialTranslateY;
+                galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+            }
+            function resetTransforms() {
+                currentTranslateX = 0;
+                currentTranslateY = 0;
+                prevTranslateX = 0;
+                prevTranslateY = 0;
+                velocityX = 0;
+                velocityY = 0;
+                galleryWrapper.style.transform = "none";
+                galleryWrapper.style.cursor = "default";
+            }
+            function removeDragEvents() {
+                galleryWrapper.removeEventListener("mousedown", handleMouseDown);
+                window.removeEventListener("mousemove", handleMouseMove);
+                window.removeEventListener("mouseup", handleMouseUp);
+                window.removeEventListener("mouseleave", handleMouseLeave);
+                if (inertiaId) {
+                    cancelAnimationFrame(inertiaId);
+                    inertiaId = null;
+                }
+            }
+            function addDragEvents() {
+                galleryWrapper.addEventListener("mousedown", handleMouseDown);
+                window.addEventListener("mousemove", handleMouseMove);
+                window.addEventListener("mouseup", handleMouseUp);
+                window.addEventListener("mouseleave", handleMouseLeave);
+            }
+            function handleMouseDown(e) {
                 isDragging = true;
                 prevTranslateX = currentTranslateX;
                 prevTranslateY = currentTranslateY;
@@ -7151,20 +7169,20 @@
                     cancelAnimationFrame(inertiaId);
                     inertiaId = null;
                 }
-            }));
-            window.addEventListener("mousemove", (e => {
+            }
+            function handleMouseMove(e) {
                 if (!isDragging) return;
                 const deltaX = e.clientX - startX;
                 const deltaY = e.clientY - startY;
                 let newTranslateX = prevTranslateX + deltaX;
                 let newTranslateY = prevTranslateY + deltaY;
-                if (newTranslateX > 0) newTranslateX = 0; else if (newTranslateX < parentBounds.width - galleryWidth) newTranslateX = parentBounds.width - galleryWidth;
-                if (newTranslateY > 0) newTranslateY = 0; else if (newTranslateY < parentBounds.height - galleryHeight) newTranslateY = parentBounds.height - galleryHeight;
+                if (newTranslateX > 0) newTranslateX = 0; else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
+                if (newTranslateY > 0) newTranslateY = 0; else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
                 currentTranslateX = newTranslateX;
                 currentTranslateY = newTranslateY;
                 galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-            }));
-            window.addEventListener("mouseup", (() => {
+            }
+            function handleMouseUp() {
                 if (!isDragging) return;
                 isDragging = false;
                 galleryWrapper.style.cursor = "grab";
@@ -7175,8 +7193,8 @@
                 prevTranslateY = currentTranslateY;
                 inertiaStartTime = performance.now();
                 applyInertia();
-            }));
-            window.addEventListener("mouseleave", (() => {
+            }
+            function handleMouseLeave() {
                 if (isDragging) {
                     isDragging = false;
                     galleryWrapper.style.cursor = "grab";
@@ -7185,23 +7203,25 @@
                         inertiaId = null;
                     }
                 }
-            }));
+            }
             function applyInertia() {
-                performance.now();
+                const now = performance.now();
+                const elapsed = now - inertiaStartTime;
+                if (elapsed > inertiaDuration || Math.abs(velocityX) < minVelocity && Math.abs(velocityY) < minVelocity) return;
                 let newTranslateX = currentTranslateX + velocityX * decayFactor;
                 let newTranslateY = currentTranslateY + velocityY * decayFactor;
                 if (newTranslateX > 0) {
                     newTranslateX = 0;
                     velocityX = 0;
-                } else if (newTranslateX < parentBounds.width - galleryWidth) {
-                    newTranslateX = parentBounds.width - galleryWidth;
+                } else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) {
+                    newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
                     velocityX = 0;
                 }
                 if (newTranslateY > 0) {
                     newTranslateY = 0;
                     velocityY = 0;
-                } else if (newTranslateY < parentBounds.height - galleryHeight) {
-                    newTranslateY = parentBounds.height - galleryHeight;
+                } else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) {
+                    newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
                     velocityY = 0;
                 }
                 currentTranslateX = newTranslateX;
@@ -7211,9 +7231,26 @@
                 galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
                 inertiaId = requestAnimationFrame(applyInertia);
             }
-        };
-        handleResize2();
-        window.addEventListener("resize", handleResize2);
+            if (window.innerWidth > minWidth) {
+                const currentCount = galleries.length;
+                if (currentCount < targetCount) {
+                    const difference = targetCount - currentCount;
+                    for (let i = 0; i < difference; i++) {
+                        const lastGallery = galleries[galleries.length - 1];
+                        const clone = lastGallery.cloneNode(true);
+                        galleryContainer.appendChild(clone);
+                    }
+                }
+                centerGallery();
+                addDragEvents();
+            } else {
+                const originalCount = Array.from(galleries).findIndex(((gallery, index) => gallery !== galleries[0] && gallery.isEqualNode(galleries[index - 1])));
+                if (originalCount > 0) Array.from(galleries).slice(originalCount).forEach((clone => clone.remove()));
+                resetTransforms();
+                removeDragEvents();
+            }
+        }
+        window.addEventListener("load", manageGalleries);
         let lastWidth = window.innerWidth;
         const resizeObserver = new ResizeObserver((entries => {
             requestAnimationFrame((() => {
@@ -7221,6 +7258,7 @@
                     const currentWidth = entry.contentRect.width;
                     if (currentWidth !== lastWidth) {
                         detailsUpdate();
+                        manageGalleries();
                         lastWidth = currentWidth;
                     }
                 }));

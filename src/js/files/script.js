@@ -132,39 +132,13 @@ requestAnimationFrame(raf);
 window.addEventListener('DOMContentLoaded', () => {
 
 
-  const galleryContainer = document.querySelector(".gallery-wrapper");
-  const galleries = galleryContainer.querySelectorAll(".gallery");
-  
-  const targetMinWidth = 51.311 * 16; // Переводим значение em в пиксели (1em = 16px)
-
-  // Функция для обработки изменения размеров экрана
-  const handleResize2 = () => {
-    if (window.innerWidth >= targetMinWidth) {
-      // Выполняем функцию для экранов с шириной >= 51.311em
-      handleMediaQueryChange3();
-    }
-  };
-  
-  const handleMediaQueryChange3 = () => {
-    // Проверяем текущее количество элементов .gallery
-    const currentCount = galleries.length; // Текущее количество галерей
+  function manageGalleries() {
+    const galleryContainer = document.querySelector(".gallery-wrapper");
+    const galleries = galleryContainer.querySelectorAll(".gallery");
     const targetCount = 12; // Максимальное количество галерей
-    
-    // Проверяем, нужно ли добавлять клоны
-    if (currentCount < targetCount) {
-      const difference = targetCount - currentCount; // Сколько нужно добавить
-    
-      for (let i = 0; i < difference; i++) {
-        // Клонируем последний элемент .gallery
-        const lastGallery = galleries[galleries.length - 1];
-        const clone = lastGallery.cloneNode(true);
-    
-        // Добавляем клон в конец контейнера
-        galleryContainer.appendChild(clone);
-      }
-    }
-    
-
+    const minWidth = 51.311 * 16; // Конвертируем em в px (51.311em = 820px)
+  
+    // Состояние для перетаскивания
     let isDragging = false;
     let startX, startY;
     let currentTranslateX = 0, currentTranslateY = 0;
@@ -181,45 +155,66 @@ window.addEventListener('DOMContentLoaded', () => {
     const galleryWrapper = document.querySelector(".gallery-wrapper");
   
     // Устанавливаем начальное положение центра
-    const galleryWidth = galleryWrapper.offsetWidth;
-    const galleryHeight = galleryWrapper.offsetHeight;
+    function centerGallery() {
+      const galleryWidth = galleryWrapper.offsetWidth;
+      const galleryHeight = galleryWrapper.offsetHeight;
   
-    const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
-    const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
+      const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
+      const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
   
-    currentTranslateX = initialTranslateX;
-    currentTranslateY = initialTranslateY;
-    prevTranslateX = initialTranslateX;
-    prevTranslateY = initialTranslateY;
+      currentTranslateX = initialTranslateX;
+      currentTranslateY = initialTranslateY;
+      prevTranslateX = initialTranslateX;
+      prevTranslateY = initialTranslateY;
   
-    galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+      galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
+    }
   
-    galleryWrapper.addEventListener("mousedown", (e) => {
-      isDragging = true;
-    
-      // Сохраняем текущее положение элемента как отправную точку
-      prevTranslateX = currentTranslateX;
-      prevTranslateY = currentTranslateY;
-    
-      // Устанавливаем стартовые координаты мыши
-      startX = e.clientX;
-      startY = e.clientY;
-    
-      // Меняем курсор
-      galleryWrapper.style.cursor = "grabbing";
-    
-      // Удаляем transition при начале перетаскивания
-      galleryWrapper.style.transition = "none";
-    
-      // Прерываем инерцию, если она была
+    function resetTransforms() {
+      currentTranslateX = 0;
+      currentTranslateY = 0;
+      prevTranslateX = 0;
+      prevTranslateY = 0;
+      velocityX = 0;
+      velocityY = 0;
+  
+      galleryWrapper.style.transform = "none";
+      galleryWrapper.style.cursor = "default";
+    }
+  
+    function removeDragEvents() {
+      galleryWrapper.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       if (inertiaId) {
         cancelAnimationFrame(inertiaId);
         inertiaId = null;
       }
-    });
-    
+    }
   
-    window.addEventListener("mousemove", (e) => {
+    function addDragEvents() {
+      galleryWrapper.addEventListener("mousedown", handleMouseDown);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener("mouseleave", handleMouseLeave);
+    }
+  
+    function handleMouseDown(e) {
+      isDragging = true;
+      prevTranslateX = currentTranslateX;
+      prevTranslateY = currentTranslateY;
+      startX = e.clientX;
+      startY = e.clientY;
+      galleryWrapper.style.cursor = "grabbing";
+      galleryWrapper.style.transition = "none";
+      if (inertiaId) {
+        cancelAnimationFrame(inertiaId);
+        inertiaId = null;
+      }
+    }
+  
+    function handleMouseMove(e) {
       if (!isDragging) return;
   
       const deltaX = e.clientX - startX;
@@ -228,31 +223,27 @@ window.addEventListener('DOMContentLoaded', () => {
       let newTranslateX = prevTranslateX + deltaX;
       let newTranslateY = prevTranslateY + deltaY;
   
-      if (newTranslateX > 0) {
-        newTranslateX = 0;
-      } else if (newTranslateX < parentBounds.width - galleryWidth) {
-        newTranslateX = parentBounds.width - galleryWidth;
+      if (newTranslateX > 0) newTranslateX = 0;
+      else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) {
+        newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
       }
   
-      if (newTranslateY > 0) {
-        newTranslateY = 0;
-      } else if (newTranslateY < parentBounds.height - galleryHeight) {
-        newTranslateY = parentBounds.height - galleryHeight;
+      if (newTranslateY > 0) newTranslateY = 0;
+      else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) {
+        newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
       }
   
       currentTranslateX = newTranslateX;
       currentTranslateY = newTranslateY;
   
       galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-    });
+    }
   
-    window.addEventListener("mouseup", () => {
+    function handleMouseUp() {
       if (!isDragging) return;
   
       isDragging = false;
       galleryWrapper.style.cursor = "grab";
-  
-      // Добавляем transition при завершении перетаскивания
       galleryWrapper.style.transition = "transform .3s ease-out";
   
       velocityX = currentTranslateX - prevTranslateX;
@@ -263,28 +254,26 @@ window.addEventListener('DOMContentLoaded', () => {
   
       inertiaStartTime = performance.now(); // Начало инерции
       applyInertia();
-    });
+    }
   
-    window.addEventListener("mouseleave", () => {
+    function handleMouseLeave() {
       if (isDragging) {
         isDragging = false;
         galleryWrapper.style.cursor = "grab";
-  
         if (inertiaId) {
           cancelAnimationFrame(inertiaId);
           inertiaId = null;
         }
       }
-    });
+    }
   
     function applyInertia() {
       const now = performance.now();
       const elapsed = now - inertiaStartTime;
   
-      // Прекращаем инерцию по истечении времени или при низкой скорости
-      // if (elapsed > inertiaDuration || (Math.abs(velocityX) < minVelocity && Math.abs(velocityY) < minVelocity)) {
-      //   return;
-      // }
+      if (elapsed > inertiaDuration || (Math.abs(velocityX) < minVelocity && Math.abs(velocityY) < minVelocity)) {
+        return;
+      }
   
       let newTranslateX = currentTranslateX + velocityX * decayFactor;
       let newTranslateY = currentTranslateY + velocityY * decayFactor;
@@ -292,16 +281,16 @@ window.addEventListener('DOMContentLoaded', () => {
       if (newTranslateX > 0) {
         newTranslateX = 0;
         velocityX = 0;
-      } else if (newTranslateX < parentBounds.width - galleryWidth) {
-        newTranslateX = parentBounds.width - galleryWidth;
+      } else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) {
+        newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
         velocityX = 0;
       }
   
       if (newTranslateY > 0) {
         newTranslateY = 0;
         velocityY = 0;
-      } else if (newTranslateY < parentBounds.height - galleryHeight) {
-        newTranslateY = parentBounds.height - galleryHeight;
+      } else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) {
+        newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
         velocityY = 0;
       }
   
@@ -315,13 +304,35 @@ window.addEventListener('DOMContentLoaded', () => {
   
       inertiaId = requestAnimationFrame(applyInertia); // Продолжаем инерцию
     }
-  };
+  
+    if (window.innerWidth > minWidth) {
+      const currentCount = galleries.length;
+      if (currentCount < targetCount) {
+        const difference = targetCount - currentCount;
+        for (let i = 0; i < difference; i++) {
+          const lastGallery = galleries[galleries.length - 1];
+          const clone = lastGallery.cloneNode(true);
+          galleryContainer.appendChild(clone);
+        }
+      }
+      centerGallery(); // Центрируем галерею
+      addDragEvents(); // Включаем перетаскивание
+    } else {
+      const originalCount = Array.from(galleries).findIndex((gallery, index) =>
+        gallery !== galleries[0] && gallery.isEqualNode(galleries[index - 1])
+      );
+      if (originalCount > 0) {
+        Array.from(galleries).slice(originalCount).forEach(clone => clone.remove());
+      }
+      resetTransforms(); // Удаляем трансформацию
+      removeDragEvents(); // Убираем события перетаскивания
+    }
+  }
+  
+  // Вызываем функцию при загрузке и изменении размера окна
+  window.addEventListener("load", manageGalleries);
+// window.addEventListener("resize", manageGalleries);
 
-  // Запускаем обработчик при загрузке страницы
-handleResize2();
-
-// Добавляем обработчик на событие resize
-window.addEventListener("resize", handleResize2);
 
 
 
@@ -338,6 +349,7 @@ window.addEventListener("resize", handleResize2);
               const currentWidth = entry.contentRect.width;
               if (currentWidth !== lastWidth) {
                  detailsUpdate();
+                 manageGalleries();
                   lastWidth = currentWidth;
               }
           });
