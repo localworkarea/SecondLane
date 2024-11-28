@@ -479,14 +479,26 @@ section {
   }
   // .ticker-clients__item
   &__item {
+    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.08);
     padding: toRem(20);
     width: fit-content;
+    transition: background-color .3s ease;
     @include adaptiveValue("height", 100,80,0,1512.98,1100.98 );
     @include adaptiveValue("margin-right", 100, 60,0,1512.98,1100.98);
-    img {
+    img,
+    svg {
       height: 100%;
       width: auto;
+    }
+  
+    @media (any-hover: hover){
+      &:hover{
+        background-color: $lemon;
+        // img {
+        //     filter: invert(0%) sepia(10%) saturate(5625%) hue-rotate(337deg) brightness(97%) contrast(82%);
+        // }
+      }
     }
   }
 }
@@ -1241,7 +1253,8 @@ section {
   // .list-team__link
   &__link {
     padding: 15%;
-    svg {
+    svg,
+    img {
       width: 100%;
       height: auto;
     }

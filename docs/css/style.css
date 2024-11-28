@@ -998,13 +998,16 @@ p {
   z-index: 3
 }
 .ticker-clients__item {
+  cursor: pointer;
   background-color: rgba(255,255,255,.08);
   padding: 1.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
-  width: fit-content
+  width: fit-content;
+  transition: background-color .3s ease
 }
-.ticker-clients__item img {
+.ticker-clients__item img,
+.ticker-clients__item svg {
   height: 100%;
   width: auto
 }
@@ -1247,6 +1250,7 @@ p {
 .list-team__link {
   padding: 15%
 }
+.list-team__link img,
 .list-team__link svg {
   width: 100%;
   height: auto
@@ -3052,6 +3056,9 @@ p {
   .spollers-footer__link:hover::before {
     width: 100%;
     background-color: #56584f
+  }
+  .ticker-clients__item:hover {
+    background-color: #e3fd5a
   }
   .about__list:hover:has(.item-left-tp:hover) {
     grid-template-columns: 1.2fr .9fr .9fr;
