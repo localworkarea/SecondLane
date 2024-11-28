@@ -676,13 +676,15 @@ section {
   // .insights__link
   &__link {
   }
-  // .insights__img
-  &__img {
+  // .insights__video
+  &__video {
     background-color: $acc;
     padding-top: toRem(100);
     padding-bottom: toRem(100);
-    @extend %containerPadLftRgt;
+    // @extend %containerPadLftRgt;
+    margin-right: toRem(-20);
     @extend %slideClientsBefore;
+    @include adaptiveValue("padding-left", 94, 20,0,1512.98,820.98);
     @media (min-width:toEm(820.98)){
       display: flex;
       align-items: center;
@@ -693,12 +695,17 @@ section {
     }
     @media (max-width: toEm(820.98)){
         margin-left: toRem(-20);
-        margin-right: toRem(-20);
+        padding-right: toRem(20);
     }
-    img {
-      width: 100%;
-      height: auto;
-    }
+    // img {
+    //   width: 100%;
+    //   height: auto;
+    // }
+  }
+	// .insights__vid-el
+	&__vid-el {
+    width: 100%;
+    height: auto;
   }
 }
 

@@ -1059,12 +1059,13 @@ p {
   padding-top: 4.375rem;
   padding-bottom: 2.5rem
 }
-.insights__img {
+.insights__video {
   background-color: #56584f;
   padding-top: 6.25rem;
-  padding-bottom: 6.25rem
+  padding-bottom: 6.25rem;
+  margin-right: -1.25rem
 }
-.insights__img img {
+.insights__vid-el {
   width: 100%;
   height: auto
 }
@@ -1740,13 +1741,13 @@ p {
   .spollers-liquidity__txt {
     grid-column: 2/3
   }
-  .insights__img,
+  .insights__video,
   .list-access,
   .slide-clients__footer,
   .slide-clients__head {
     position: relative
   }
-  .insights__img::before,
+  .insights__video::before,
   .list-access::before,
   .slide-clients__footer::before,
   .slide-clients__head::before {
@@ -1784,11 +1785,11 @@ p {
   .insights__main {
     padding-right: 1.25rem
   }
-  .insights__img {
+  .insights__video {
     display: flex;
     align-items: center
   }
-  .insights__img::before {
+  .insights__video::before {
     left: 100%;
     background-color: #56584f
   }
@@ -1896,13 +1897,11 @@ p {
     padding-left: 1.875rem
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-left: 1.875rem
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-right: 1.875rem
@@ -2106,6 +2105,9 @@ p {
   .team__title:not(:last-child) {
     margin-bottom: 2.5rem
   }
+  .insights__video {
+    padding-left: 5.875rem
+  }
   .item-about {
     padding: 1.875rem
   }
@@ -2275,9 +2277,12 @@ p {
     width: 60%;
     align-self: flex-end
   }
-  .insights__img {
+  .insights__video {
+    padding-left: 1.25rem
+  }
+  .insights__video {
     margin-left: -1.25rem;
-    margin-right: -1.25rem
+    padding-right: 1.25rem
   }
   .about__list {
     grid-template-columns: 1fr 1fr;
@@ -2421,13 +2426,11 @@ p {
     padding-left: 1.25rem
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-left: 1.25rem
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-right: 1.25rem
@@ -2920,13 +2923,11 @@ p {
     padding-left: clamp(1.25rem ,.9107082393rem + 1.1286681716vw ,1.875rem)
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-left: clamp(1.25rem ,.9107082393rem + 1.1286681716vw ,1.875rem)
   }
   .input,
-  .insights__img,
   .slide-clients__footer,
   .slide-clients__head {
     padding-right: clamp(1.25rem ,.9107082393rem + 1.1286681716vw ,1.875rem)
@@ -2972,6 +2973,9 @@ p {
   }
   .spollers-liquidity__txt {
     padding-left: clamp(1.25rem ,-.9744761561rem + 4.3352601156vw ,3.125rem)
+  }
+  .insights__video {
+    padding-left: clamp(1.25rem ,-4.237041185rem + 10.6936416185vw ,5.875rem)
   }
 }
 @media (max-width:48.06125em)and (min-width:30.06125em) {
