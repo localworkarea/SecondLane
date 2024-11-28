@@ -2229,8 +2229,10 @@ p {
   .hero__anim {
     display: none
   }
+  .hero__wrapper {
+    aspect-ratio: 2/.5
+  }
   .hero__block {
-    height: 100%;
     display: grid
   }
   .hero__title {
@@ -2241,8 +2243,7 @@ p {
     flex: 1
   }
   .hero__blocks {
-    grid-template-rows: 75% 25%;
-    aspect-ratio: 2/.6
+    grid-template-rows: 75% 25%
   }
   .liquidity {
     padding-bottom: 6.25rem
