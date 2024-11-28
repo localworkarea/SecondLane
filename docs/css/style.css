@@ -886,6 +886,11 @@ p {
 .hero__block {
   padding-bottom: 2.5rem
 }
+.hero__link {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 3
+}
 .hero__blocks {
   position: relative;
   z-index: 5;
@@ -991,7 +996,10 @@ p {
 }
 .ticker-clients__item {
   background-color: rgba(255,255,255,.08);
-  padding: 1.25rem
+  padding: 1.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content
 }
 .slide-clients {
   background-color: #fff;

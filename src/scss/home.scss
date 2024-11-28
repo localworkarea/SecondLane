@@ -164,6 +164,9 @@ section {
   }
   // .hero__link
   &__link {
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 3;
     @media (min-width:$mobileSmall){
       padding-inline: 5%;
     }
@@ -471,6 +474,7 @@ section {
   &__item {
     background-color: rgba(255, 255, 255, 0.08);
     padding: toRem(20);
+    width: fit-content;
     @include adaptiveValue("height", 100,80,0,1512.98,1100.98 );
     @include adaptiveValue("margin-right", 100, 60,0,1512.98,1100.98);
     img {
