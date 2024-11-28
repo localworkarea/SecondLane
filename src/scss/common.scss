@@ -75,10 +75,9 @@
 
 [class*="__container"]  {
   width: 100%;
-  max-width: 100%;
   margin-inline: auto;
-  @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
-  @include adaptiveValue("padding-right", 30, 20,0,1366.98,480.98);
+  padding-inline: toRem(20);
+  @include adaptiveValue("max-width", 1700, 1310,0,1920,1512.98);
 }
 
 
@@ -144,6 +143,9 @@ html.lenis, html.lenis body {
 %paddingBtm180-80 {
   @include adaptiveValue("padding-bottom",180,80,0,1512.98,480.98);
 }
+%paddingTop100-60 {
+  @include adaptiveValue("padding-top",100,60,0,1512.98,480.98);
+}
 %paddingBtm120-60 {
   @include adaptiveValue("padding-bottom",120,60,0,1512.98,480.98);
 }
@@ -166,7 +168,7 @@ p {
   letter-spacing: -0.01em;
   line-height: 1.5;
   color: $black;
-  @include adaptiveValue("font-size", 32,16,0,3840,1512.98);
+  @include adaptiveValue("font-size", 18,16,0,1512.98,480.98);
 }
 
 .btn {
@@ -234,19 +236,22 @@ p {
   }
 }
 
+[data-ticker] {
+  overflow: visible;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  > * {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}
 
 
 .ticker-wrap {
-  overflow: hidden;
-  width: max-content;
-  overflow: visible;
-  display: flex;
-  align-items: center;
   position: relative;
   z-index: 3;
   .ticker {
-    display: flex;
-    flex-wrap: nowrap;
     span {
       display: inline-block;
       position: relative;
@@ -320,8 +325,17 @@ p {
     }
   }
 }
+
 @keyframes scroll {
   to {
     transform: translateX(-100%) ;
+  }
+}
+@keyframes scroll-rev {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
   }
 }

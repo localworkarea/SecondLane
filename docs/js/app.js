@@ -7094,8 +7094,8 @@
     const lenis = new Lenis({
         smooth: true,
         smoothTouch: true,
-        lerp: .1,
-        mouseMultiplier: 3
+        lerp: .07,
+        mouseMultiplier: 5
     });
     function raf(time) {
         lenis.raf(time);
@@ -7103,164 +7103,12 @@
     }
     requestAnimationFrame(raf);
     window.addEventListener("DOMContentLoaded", (() => {
-        function manageGalleries() {
-            const galleryContainer = document.querySelector(".gallery-wrapper");
-            const galleries = galleryContainer.querySelectorAll(".gallery");
-            const targetCount = 12;
-            const minWidth = 51.311 * 16;
-            let isDragging = false;
-            let startX, startY;
-            let currentTranslateX = 0, currentTranslateY = 0;
-            let prevTranslateX = 0, prevTranslateY = 0;
-            let velocityX = 0, velocityY = 0;
-            let inertiaId = null;
-            let inertiaStartTime = null;
-            const decayFactor = .2;
-            const minVelocity = .1;
-            const inertiaDuration = 1e3;
-            const parentBounds = document.querySelector(".clients__gallery").getBoundingClientRect();
-            const galleryWrapper = document.querySelector(".gallery-wrapper");
-            function centerGallery() {
-                const galleryWidth = galleryWrapper.offsetWidth;
-                const galleryHeight = galleryWrapper.offsetHeight;
-                const initialTranslateX = (parentBounds.width - galleryWidth) / 2;
-                const initialTranslateY = (parentBounds.height - galleryHeight) / 2;
-                currentTranslateX = initialTranslateX;
-                currentTranslateY = initialTranslateY;
-                prevTranslateX = initialTranslateX;
-                prevTranslateY = initialTranslateY;
-                galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-            }
-            function resetTransforms() {
-                currentTranslateX = 0;
-                currentTranslateY = 0;
-                prevTranslateX = 0;
-                prevTranslateY = 0;
-                velocityX = 0;
-                velocityY = 0;
-                galleryWrapper.style.transform = "none";
-                galleryWrapper.style.cursor = "default";
-            }
-            function removeDragEvents() {
-                galleryWrapper.removeEventListener("mousedown", handleMouseDown);
-                window.removeEventListener("mousemove", handleMouseMove);
-                window.removeEventListener("mouseup", handleMouseUp);
-                window.removeEventListener("mouseleave", handleMouseLeave);
-                if (inertiaId) {
-                    cancelAnimationFrame(inertiaId);
-                    inertiaId = null;
-                }
-            }
-            function addDragEvents() {
-                galleryWrapper.addEventListener("mousedown", handleMouseDown);
-                window.addEventListener("mousemove", handleMouseMove);
-                window.addEventListener("mouseup", handleMouseUp);
-                window.addEventListener("mouseleave", handleMouseLeave);
-            }
-            function handleMouseDown(e) {
-                isDragging = true;
-                prevTranslateX = currentTranslateX;
-                prevTranslateY = currentTranslateY;
-                startX = e.clientX;
-                startY = e.clientY;
-                galleryWrapper.style.cursor = "grabbing";
-                galleryWrapper.style.transition = "none";
-                if (inertiaId) {
-                    cancelAnimationFrame(inertiaId);
-                    inertiaId = null;
-                }
-            }
-            function handleMouseMove(e) {
-                if (!isDragging) return;
-                const deltaX = e.clientX - startX;
-                const deltaY = e.clientY - startY;
-                let newTranslateX = prevTranslateX + deltaX;
-                let newTranslateY = prevTranslateY + deltaY;
-                if (newTranslateX > 0) newTranslateX = 0; else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
-                if (newTranslateY > 0) newTranslateY = 0; else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
-                currentTranslateX = newTranslateX;
-                currentTranslateY = newTranslateY;
-                galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-            }
-            function handleMouseUp() {
-                if (!isDragging) return;
-                isDragging = false;
-                galleryWrapper.style.cursor = "grab";
-                galleryWrapper.style.transition = "transform .3s ease-out";
-                velocityX = currentTranslateX - prevTranslateX;
-                velocityY = currentTranslateY - prevTranslateY;
-                prevTranslateX = currentTranslateX;
-                prevTranslateY = currentTranslateY;
-                inertiaStartTime = performance.now();
-                applyInertia();
-            }
-            function handleMouseLeave() {
-                if (isDragging) {
-                    isDragging = false;
-                    galleryWrapper.style.cursor = "grab";
-                    if (inertiaId) {
-                        cancelAnimationFrame(inertiaId);
-                        inertiaId = null;
-                    }
-                }
-            }
-            function applyInertia() {
-                const now = performance.now();
-                const elapsed = now - inertiaStartTime;
-                if (elapsed > inertiaDuration || Math.abs(velocityX) < minVelocity && Math.abs(velocityY) < minVelocity) return;
-                let newTranslateX = currentTranslateX + velocityX * decayFactor;
-                let newTranslateY = currentTranslateY + velocityY * decayFactor;
-                if (newTranslateX > 0) {
-                    newTranslateX = 0;
-                    velocityX = 0;
-                } else if (newTranslateX < parentBounds.width - galleryWrapper.offsetWidth) {
-                    newTranslateX = parentBounds.width - galleryWrapper.offsetWidth;
-                    velocityX = 0;
-                }
-                if (newTranslateY > 0) {
-                    newTranslateY = 0;
-                    velocityY = 0;
-                } else if (newTranslateY < parentBounds.height - galleryWrapper.offsetHeight) {
-                    newTranslateY = parentBounds.height - galleryWrapper.offsetHeight;
-                    velocityY = 0;
-                }
-                currentTranslateX = newTranslateX;
-                currentTranslateY = newTranslateY;
-                velocityX *= decayFactor;
-                velocityY *= decayFactor;
-                galleryWrapper.style.transform = `translate3d(${currentTranslateX}px, ${currentTranslateY}px, 0)`;
-                inertiaId = requestAnimationFrame(applyInertia);
-            }
-            if (window.innerWidth > minWidth) {
-                const currentCount = galleries.length;
-                if (currentCount < targetCount) {
-                    const difference = targetCount - currentCount;
-                    for (let i = 0; i < difference; i++) {
-                        const lastGallery = galleries[galleries.length - 1];
-                        const clone = lastGallery.cloneNode(true);
-                        galleryContainer.appendChild(clone);
-                    }
-                }
-                centerGallery();
-                addDragEvents();
-            } else {
-                const originalCount = Array.from(galleries).findIndex(((gallery, index) => gallery !== galleries[0] && gallery.isEqualNode(galleries[index - 1])));
-                if (originalCount > 0) Array.from(galleries).slice(originalCount).forEach((clone => clone.remove()));
-                resetTransforms();
-                removeDragEvents();
-            }
-        }
-        window.addEventListener("load", manageGalleries);
         let lastWidth = window.innerWidth;
         const resizeObserver = new ResizeObserver((entries => {
             requestAnimationFrame((() => {
                 entries.forEach((entry => {
                     const currentWidth = entry.contentRect.width;
-                    if (currentWidth !== lastWidth) {
-                        detailsUpdate();
-                        manageGalleries();
-                        lastWidth = currentWidth;
-                    }
+                    if (currentWidth !== lastWidth) lastWidth = currentWidth;
                 }));
             }));
         }));
@@ -7283,39 +7131,9 @@
                     parent.addEventListener("mouseleave", (() => {
                         lottieInstance.stop();
                     }));
-                } else console.warn(`Родительский элемент для canvas с id: ${canvas.id} не найден.`);
-            }
-        }));
-        const details = document.querySelector(".liquidity__details");
-        const subtitles = document.querySelectorAll(".liquidity__subtitle");
-        function detailsUpdate() {
-            if (details) {
-                const totalItems = subtitles.length;
-                const totalHeight = Array.from(subtitles).reduce(((sum, subtitle) => sum + subtitle.offsetHeight), 0);
-                details.style.setProperty("--total-items", totalItems);
-                details.style.setProperty("--total-height", `${totalHeight}px`);
-                subtitles.forEach(((subtitle, index) => {
-                    const reversedIndex = totalItems - index - 1;
-                    const directIndex = index;
-                    const height = subtitle.offsetHeight;
-                    subtitle.style.setProperty("--index", reversedIndex);
-                    subtitle.style.setProperty("--index-rev", directIndex);
-                    subtitle.style.setProperty("--height", `${height}px`);
-                }));
-                const firstSubtitle = subtitles[0];
-                if (firstSubtitle) {
-                    firstSubtitle.offsetHeight;
-                    const virtualBottom = totalHeight;
-                    window.addEventListener("scroll", (() => {
-                        const boundingRect = firstSubtitle.getBoundingClientRect();
-                        const viewportHeight = window.innerHeight;
-                        const virtualBottomPosition = boundingRect.top + virtualBottom;
-                        if (virtualBottomPosition <= viewportHeight) details.classList.add("_viewport"); else details.classList.remove("_viewport");
-                    }));
                 }
             }
-        }
-        detailsUpdate();
+        }));
         const mediaQuery = window.matchMedia("(min-width: 51.311em)");
         const handleMediaQueryChange = () => {
             const accessItems = document.querySelectorAll(".list-access__item");
@@ -7367,15 +7185,18 @@
         updateProjectCells();
         mediaQuery2.addEventListener("change", updateProjectCells);
     }));
-    const tikers = document.querySelectorAll(".ticker-wrap");
-    tikers.forEach((tiker => {
-        const originalLine = tiker.querySelector(".ticker");
-        if (originalLine) {
-            const speed = originalLine.dataset.tickerSpeed || 50;
-            originalLine.style.animation = `scroll ${speed}s linear infinite`;
-            const clonedLine = originalLine.cloneNode(true);
-            clonedLine.classList.add("clone-line");
-            tiker.appendChild(clonedLine);
+    const tickers = document.querySelectorAll("[data-ticker]");
+    if (tickers.length > 0) tickers.forEach((ticker => {
+        const speed = ticker.getAttribute("data-ticker-speed") || 80;
+        const direction = ticker.getAttribute("data-ticker-dir") || "rtl";
+        const firstChild = ticker.firstElementChild;
+        if (firstChild) {
+            const clone = firstChild.cloneNode(true);
+            ticker.appendChild(clone);
+            Array.from(ticker.children).forEach((child => {
+                const animationName = direction === "rtl" ? "scroll" : "scroll-rev";
+                child.style.animation = `${animationName} ${speed}s linear infinite`;
+            }));
         }
     }));
     window["FLS"] = false;

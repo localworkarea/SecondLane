@@ -4,12 +4,20 @@
 
 .header {
   position: absolute;
-  z-index: 10;
+  z-index: 50;
   top: 0;
   left: 0;
   width: 100%;
   border-bottom: toRem(1) solid rgba(0,0,0,0.2);
   background-color: #fff;
+  transition: transform .45s ease;
+  // &._header-scroll {
+  //   transform: translate(0,-100%);
+  // }
+  // &._header-show {
+  //   transform: translate(0,0%);
+  //   transition-delay: .3s;
+  // }
   // .header__container
   &__container {
     display: flex;
@@ -153,8 +161,7 @@
     padding-bottom: toRem(20);
     border-bottom: toRem(1) solid rgba(0,0,0,0.2);
     transition: color .3s ease;
-    @include adaptiveValue("font-size", 80, 40,2,3840,1512.98);
-    @include adaptiveValue("font-size", 40, 30,3,1512.98,480.98);
+    @include adaptiveValue("font-size", 40, 30,0,1512.98,480.98);
     span {
       display: inline-block;
       position: relative;
