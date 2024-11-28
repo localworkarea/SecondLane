@@ -128,8 +128,9 @@ section {
     padding-bottom: toRem(40);
     @media (max-width: toEm(820.98)){
       height: 100%;
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
+      display: grid;
     }
     @media (min-width:$mobileSmall){
       padding-top: toRem(70);
@@ -166,6 +167,7 @@ section {
   &__link {
     flex: 0 0 auto;
     position: relative;
+    height: fit-content;
     z-index: 3;
     @media (min-width:$mobileSmall){
       padding-inline: 5%;
@@ -182,6 +184,7 @@ section {
     }
     @media (max-width: toEm(820.98)){
       grid-template-rows: 75% 25%;
+      aspect-ratio: 2 / 0.6;
     }
     // .blocks-one,
     // .blocks-two {
@@ -478,7 +481,8 @@ section {
     @include adaptiveValue("height", 100,80,0,1512.98,1100.98 );
     @include adaptiveValue("margin-right", 100, 60,0,1512.98,1100.98);
     img {
-
+      height: 100%;
+      width: auto;
     }
   }
 }

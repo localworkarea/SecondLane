@@ -889,6 +889,9 @@ p {
 .hero__link {
   flex: 0 0 auto;
   position: relative;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   z-index: 3
 }
 .hero__blocks {
@@ -1000,6 +1003,10 @@ p {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content
+}
+.ticker-clients__item img {
+  height: 100%;
+  width: auto
 }
 .slide-clients {
   background-color: #fff;
@@ -2224,8 +2231,7 @@ p {
   }
   .hero__block {
     height: 100%;
-    display: flex;
-    flex-direction: column
+    display: grid
   }
   .hero__title {
     margin-bottom: 1.25rem
@@ -2235,7 +2241,8 @@ p {
     flex: 1
   }
   .hero__blocks {
-    grid-template-rows: 75% 25%
+    grid-template-rows: 75% 25%;
+    aspect-ratio: 2/.6
   }
   .liquidity {
     padding-bottom: 6.25rem
