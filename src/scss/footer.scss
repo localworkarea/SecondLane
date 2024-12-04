@@ -3,6 +3,12 @@
   // .footer__container
   &__container {
   }
+	// .footer__block
+	&__block {
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+	}
   // .footer__map
   &__map {
     @extend %marginBtm60-40;
@@ -21,7 +27,8 @@
     display: flex;
     flex-wrap: wrap;
     @extend %footerContcsClmGap;
-    @extend %paddingBtm120-60;
+    // @extend %paddingBtm120-60;
+    padding-bottom: toRem(30);
     @media (min-width:$mobileSmall){
       justify-content: center;
         
@@ -38,7 +45,22 @@
   }
   // .footer__navigation
   &__navigation {
-    @extend %paddingTop100-40;
+    // @extend %paddingTop100-40;/
+    &._watcher-view {
+      .spollers-footer__title {
+        opacity: 1;
+      }
+      .spollers-footer__link {
+        @media (min-width:toEm(600.98)){
+          opacity: 1;
+          transition-delay: .1s;
+        }
+      }
+      .footer__bottom {
+        opacity: 1;
+        transition-delay: .2s;
+      }
+    }
   }
   // .footer__spollers
   &__spollers {
@@ -60,6 +82,7 @@
     align-items: center;
     justify-content: space-between;
     border-top: toRem(1) solid rgba(0,0,0, 0.2);
+    @extend %footerAnim;
     @include adaptiveValue("padding-top",30,20,0,1512.98,480.98);
     @include adaptiveValue("padding-bottom",30,20,0,1512.98,480.98);
     a {
@@ -196,6 +219,10 @@
 }
 
 .logo-footer {
+  position: sticky;
+  bottom: 0;
+  @include adaptiveValue("padding-top",90,60,0,1512.98,480.98);
+  @include adaptiveValue("padding-bottom",100,60,0,1512.98,480.98);
   // .logo-footer__img
   &__img {
     width: 100%;
@@ -203,7 +230,10 @@
   }
 }
 
-
+%footerAnim {
+  opacity: 0;
+  transition:  opacity .55s ease;
+}
 
 .spollers-footer {
   // .spollers-footer__item
@@ -212,6 +242,7 @@
   // .spollers-footer__title
   &__title {
     font-weight: 600;
+    @extend %footerAnim;
     // @include adaptiveValue("font-size", 44,22,2,3840,1512.98);
     @include adaptiveValue("font-size", 22,18,0,1512.98,320.98);
     @include adaptiveValue("padding-bottom",40,20,0,1512.98,480.98);
@@ -265,10 +296,13 @@
     display: inline-block;
     width: fit-content;
     font-weight: 500;
-    transition: color .3s ease, opacity .3s ease;
+    opacity: 0;
     @extend %fonSize18-16;
+    @media (min-width:toEm(600.98)){
+      transition: color .3s ease, opacity .55s ease;
+    }
     @media (max-width: toEm(600.98)){
-      opacity: 0;
+      transition: color .3s ease, opacity .3s ease;
     }
     &:before {
       @media (min-width:toEm(600.98)){
