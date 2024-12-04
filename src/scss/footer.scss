@@ -211,7 +211,7 @@
   z-index: -1;
   left: 0;
   bottom: 0;
-  background-color: gray;
+  background-color: #fff;
   @include adaptiveValue("padding-top",90,60,0,1512.98,480.98);
   @include adaptiveValue("padding-bottom",100,60,0,1512.98,480.98);
   // .logo-footer__img

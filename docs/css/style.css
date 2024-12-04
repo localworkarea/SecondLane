@@ -842,7 +842,7 @@ p {
   z-index: -1;
   left: 0;
   bottom: 0;
-  background-color: gray
+  background-color: #fff
 }
 .logo-footer__img {
   width: 100%;
