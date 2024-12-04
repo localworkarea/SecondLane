@@ -484,7 +484,7 @@ section {
     padding: toRem(20);
     width: fit-content;
     transition: background-color .3s ease;
-    @include adaptiveValue("height", 100,80,0,1512.98,1100.98 );
+    @include adaptiveValue("height", 120,90,0,1512.98,1100.98 );
     @include adaptiveValue("margin-right", 100, 60,0,1512.98,1100.98);
     img,
     svg {
