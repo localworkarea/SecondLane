@@ -756,7 +756,7 @@ p {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg)
 }
-.footer__block {
+.footer__block-wrapper {
   background-color: #fff;
   position: relative;
   z-index: 2
@@ -771,13 +771,6 @@ p {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 1.875rem
-}
-.footer__navigation._watcher-view .spollers-footer__title {
-  opacity: 1
-}
-.footer__navigation._watcher-view .footer__bottom {
-  opacity: 1;
-  transition-delay: .2s
 }
 .footer__spollers {
   display: grid;
@@ -853,11 +846,6 @@ p {
   width: 100%;
   height: auto
 }
-.footer__bottom,
-.spollers-footer__title {
-  opacity: 0;
-  transition: opacity .55s ease
-}
 .spollers-footer__title {
   font-weight: 600
 }
@@ -873,7 +861,7 @@ p {
   width: -moz-fit-content;
   width: fit-content;
   font-weight: 500;
-  opacity: 0
+  transition: color .3s ease,opacity .3s ease
 }
 .hero {
   position: relative;
@@ -1500,13 +1488,6 @@ p {
   }
 }
 @media (min-width:37.56125em) {
-  .footer__navigation._watcher-view .spollers-footer__link {
-    opacity: 1;
-    transition-delay: .1s
-  }
-  .spollers-footer__link {
-    transition: color .3s ease,opacity .55s ease
-  }
   .spollers-footer__link:before {
     content: "";
     position: absolute;
@@ -2435,7 +2416,7 @@ p {
     padding-bottom: 1.25rem
   }
   .spollers-footer__link {
-    transition: color .3s ease,opacity .3s ease
+    opacity: 0
   }
   .list-team__position {
     margin-left: 6%
