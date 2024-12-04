@@ -1622,6 +1622,7 @@ section {
 	&__block {
     @media (min-width:toEm(700.98)){
           order: 2;
+          position: relative;
      }
      @media (max-width: toEm(700.98)) and (min-width: $mobileSmall) {
         aspect-ratio: 2/1;
@@ -1638,6 +1639,11 @@ section {
     }
     @media (max-width: toEm(1300.98)){
       margin-right: toRem(-20);
+    }
+    @media (min-width:toEm(700.98)){
+        position: absolute;
+        top: 0;
+        left: 0;
     }
     @media (max-width: toEm(700.98)){
       margin-left: toRem(-20);

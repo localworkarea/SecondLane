@@ -1585,7 +1585,13 @@ p {
     padding-right: 3.125rem
   }
   .sign-up__block {
-    order: 2
+    order: 2;
+    position: relative
+  }
+  .sign-up__img {
+    position: absolute;
+    top: 0;
+    left: 0
   }
 }
 @media (min-width:48.06125em) {
