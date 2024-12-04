@@ -220,6 +220,7 @@
 
 .logo-footer {
   position: sticky;
+  z-index: 0;
   bottom: 0;
   @include adaptiveValue("padding-top",90,60,0,1512.98,480.98);
   @include adaptiveValue("padding-bottom",100,60,0,1512.98,480.98);
