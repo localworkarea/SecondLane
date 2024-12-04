@@ -759,7 +759,7 @@ p {
 .footer__block-wrapper {
   background-color: #fff;
   position: relative;
-  z-index: 2
+  z-index: 10
 }
 .footer__map img {
   display: block;
@@ -839,8 +839,10 @@ p {
 }
 .logo-footer {
   position: sticky;
-  z-index: 0;
-  bottom: 0
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+  background-color: gray
 }
 .logo-footer__img {
   width: 100%;
