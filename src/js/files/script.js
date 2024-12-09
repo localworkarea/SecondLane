@@ -176,7 +176,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
-    
+
     lottieEl.forEach(canvas => {
       const src = canvas.dataset.src;
     
@@ -200,6 +200,15 @@ window.addEventListener('DOMContentLoaded', () => {
       //     });
       //   }
       // }
+    });
+  }
+
+  const figureSvg = document.querySelectorAll('.figure-svg path');
+  if (figureSvg.length > 0) {
+    figureSvg.forEach((path) => {
+      const length = path.getTotalLength();
+      path.style.setProperty('--dasharray', length);
+      path.style.setProperty('--dashoffset', length);
     });
   }
     

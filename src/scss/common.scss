@@ -367,3 +367,49 @@ p {
     transform: translateX(0%);
   }
 }
+
+
+.figure-svg {
+  opacity: 0;
+  transition: opacity .3s ease;
+  .anim {
+    stroke-dasharray: var(--dasharray); 
+    stroke-dashoffset: var(--dashoffset); 
+  }
+  &.figure-01 {
+    @extend %figureAnim2s;
+  }
+  
+  &.figure-02 {
+    @extend %figureAnim045s;
+  }
+  &.figure-03 {
+    @extend %figureAnim2s;
+  }
+  &.figure-04 {
+
+  }
+  &._watcher-view {
+    opacity: 1;
+  } 
+}
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+%figureAnim2s {
+  &._watcher-view {
+    .anim {
+      animation: draw-line 2s ease forwards;
+    }
+  } 
+}
+%figureAnim045s {
+  &._watcher-view {
+    .anim {
+      animation: draw-line .65s ease forwards;
+    }
+  } 
+}
