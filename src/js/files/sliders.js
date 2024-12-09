@@ -30,10 +30,12 @@ function initSliders() {
 		new Swiper('.clients__slider', {
 			modules: [Autoplay, EffectFade],
 			// modules: [ EffectFade],
+			// modules: [ EffectFade],
 			observer: true,
 			observeParents: true,
 			slidesPerView: 1,
-			speed: 300,
+			speed: 500,
+			autoHeight: true,
 			// centeredSlides: false,
 			// longSwipes: true,/a
 			// simulateTouch: true,

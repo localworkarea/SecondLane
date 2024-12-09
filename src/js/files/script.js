@@ -151,13 +151,14 @@ window.addEventListener('DOMContentLoaded', () => {
   // ===========================================================
 
   const lottieItems = document.querySelectorAll('.hero__lottie');
-  if (lottieItems.length > 0) {
+  const lottieEl = document.querySelectorAll('.lottie-el');
+  if (lottieItems.length > 0 || lottieEl.length > 0) {
     lottieItems.forEach(canvas => {
       const src = canvas.dataset.src;
     
       const lottieInstance = new DotLottie({
         autoplay: isMobile.any(),
-        loop: true,
+        loop: false,
         canvas: canvas,
         src: src,
       });
@@ -174,6 +175,31 @@ window.addEventListener('DOMContentLoaded', () => {
           });
         }
       }
+    });
+    
+    lottieEl.forEach(canvas => {
+      const src = canvas.dataset.src;
+    
+      const lottieInstance = new DotLottie({
+        // autoplay: isMobile.any(),
+        autoplay: true,
+        loop: false,
+        canvas: canvas,
+        src: src,
+      });
+    
+      // if (!isMobile.any()) {
+      //   const parent = canvas.closest('.list-access__item'); 
+    
+      //   if (parent) {
+      //     parent.addEventListener('mouseenter', () => {
+      //       lottieInstance.play();
+      //     });
+      //     parent.addEventListener('mouseleave', () => {
+      //       lottieInstance.stop();
+      //     });
+      //   }
+      // }
     });
   }
     

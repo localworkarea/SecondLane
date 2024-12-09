@@ -3869,7 +3869,8 @@
             observer: true,
             observeParents: true,
             slidesPerView: 1,
-            speed: 300,
+            speed: 500,
+            autoHeight: true,
             loop: true,
             autoplay: {
                 delay: 2500
@@ -4062,6 +4063,90 @@
             }));
         }
     }), 0);
+    class DynamicAdapt {
+        constructor(type) {
+            this.type = type;
+        }
+        init() {
+            this.оbjects = [];
+            this.daClassname = "_dynamic_adapt_";
+            this.nodes = [ ...document.querySelectorAll("[data-da]") ];
+            this.nodes.forEach((node => {
+                const data = node.dataset.da.trim();
+                const dataArray = data.split(",");
+                const оbject = {};
+                оbject.element = node;
+                оbject.parent = node.parentNode;
+                оbject.destination = document.querySelector(`${dataArray[0].trim()}`);
+                оbject.breakpoint = dataArray[1] ? dataArray[1].trim() : "767.98";
+                оbject.place = dataArray[2] ? dataArray[2].trim() : "last";
+                оbject.index = this.indexInParent(оbject.parent, оbject.element);
+                this.оbjects.push(оbject);
+            }));
+            this.arraySort(this.оbjects);
+            this.mediaQueries = this.оbjects.map((({breakpoint}) => `(${this.type}-width: ${breakpoint / 16}em),${breakpoint}`)).filter(((item, index, self) => self.indexOf(item) === index));
+            this.mediaQueries.forEach((media => {
+                const mediaSplit = media.split(",");
+                const matchMedia = window.matchMedia(mediaSplit[0]);
+                const mediaBreakpoint = mediaSplit[1];
+                const оbjectsFilter = this.оbjects.filter((({breakpoint}) => breakpoint === mediaBreakpoint));
+                matchMedia.addEventListener("change", (() => {
+                    this.mediaHandler(matchMedia, оbjectsFilter);
+                }));
+                this.mediaHandler(matchMedia, оbjectsFilter);
+            }));
+        }
+        mediaHandler(matchMedia, оbjects) {
+            if (matchMedia.matches) оbjects.forEach((оbject => {
+                this.moveTo(оbject.place, оbject.element, оbject.destination);
+            })); else оbjects.forEach((({parent, element, index}) => {
+                if (element.classList.contains(this.daClassname)) this.moveBack(parent, element, index);
+            }));
+        }
+        moveTo(place, element, destination) {
+            element.classList.add(this.daClassname);
+            if (place === "last" || place >= destination.children.length) {
+                destination.append(element);
+                return;
+            }
+            if (place === "first") {
+                destination.prepend(element);
+                return;
+            }
+            destination.children[place].before(element);
+        }
+        moveBack(parent, element, index) {
+            element.classList.remove(this.daClassname);
+            if (parent.children[index] !== void 0) parent.children[index].before(element); else parent.append(element);
+        }
+        indexInParent(parent, element) {
+            return [ ...parent.children ].indexOf(element);
+        }
+        arraySort(arr) {
+            if (this.type === "min") arr.sort(((a, b) => {
+                if (a.breakpoint === b.breakpoint) {
+                    if (a.place === b.place) return 0;
+                    if (a.place === "first" || b.place === "last") return -1;
+                    if (a.place === "last" || b.place === "first") return 1;
+                    return 0;
+                }
+                return a.breakpoint - b.breakpoint;
+            })); else {
+                arr.sort(((a, b) => {
+                    if (a.breakpoint === b.breakpoint) {
+                        if (a.place === b.place) return 0;
+                        if (a.place === "first" || b.place === "last") return 1;
+                        if (a.place === "last" || b.place === "first") return -1;
+                        return 0;
+                    }
+                    return b.breakpoint - a.breakpoint;
+                }));
+                return;
+            }
+        }
+    }
+    const da = new DynamicAdapt("max");
+    da.init();
     var version = "1.1.16";
     function clamp(min, input, max) {
         return Math.max(min, Math.min(input, max));
@@ -7162,26 +7247,38 @@
         }));
         resizeObserver.observe(document.body);
         const lottieItems = document.querySelectorAll(".hero__lottie");
-        if (lottieItems.length > 0) lottieItems.forEach((canvas => {
-            const src = canvas.dataset.src;
-            const lottieInstance = new d3({
-                autoplay: isMobile.any(),
-                loop: true,
-                canvas,
-                src
-            });
-            if (!isMobile.any()) {
-                const parent = canvas.closest(".list-access__item");
-                if (parent) {
-                    parent.addEventListener("mouseenter", (() => {
-                        lottieInstance.play();
-                    }));
-                    parent.addEventListener("mouseleave", (() => {
-                        lottieInstance.stop();
-                    }));
+        const lottieEl = document.querySelectorAll(".lottie-el");
+        if (lottieItems.length > 0 || lottieEl.length > 0) {
+            lottieItems.forEach((canvas => {
+                const src = canvas.dataset.src;
+                const lottieInstance = new d3({
+                    autoplay: isMobile.any(),
+                    loop: false,
+                    canvas,
+                    src
+                });
+                if (!isMobile.any()) {
+                    const parent = canvas.closest(".list-access__item");
+                    if (parent) {
+                        parent.addEventListener("mouseenter", (() => {
+                            lottieInstance.play();
+                        }));
+                        parent.addEventListener("mouseleave", (() => {
+                            lottieInstance.stop();
+                        }));
+                    }
                 }
-            }
-        }));
+            }));
+            lottieEl.forEach((canvas => {
+                const src = canvas.dataset.src;
+                new d3({
+                    autoplay: true,
+                    loop: false,
+                    canvas,
+                    src
+                });
+            }));
+        }
         const mediaQuery = window.matchMedia("(min-width: 51.311em)");
         const handleMediaQueryChange = () => {
             const accessItems = document.querySelectorAll(".list-access__item");

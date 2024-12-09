@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	@@include('html/_head.htm',{
+	"title":"SecondLane | CAPITAL"
+	})
+	<body>
+		<div class="wrapper">
+			@@include('html/_header.htm',{})
+			<main class="page">
+				<section class="hero">
+					<div class="hero__body">
+						<div class="hero__wrapper">
+							<div class="hero__blocks">
+								<div class="blocks-one"></div>
+								<div class="blocks-two">
+									<svg class="blocks-two__arr" width="139" height="142" viewBox="0 0 139 142" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M0.5 1.50013L0.500006 141.5L137.5 141.5L137.5 139.5L3.87746 139.5L138.215 2.19948L136.785 0.800775L2.50001 138.048L2.5 1.50013L0.5 1.50013Z" fill="#171717"/>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="hero__container">
+							<div class="hero__main">
+								<div class="hero__block">
+									<h1 class="hero__title title-main">
+										Redefining<br> investment banking for the digital era.
+									</h1>
+									<p class="hero__subtitle">
+										SecondLane is a Web3-native equivalent of traditional investment banking, offering bespoke private market liquidity solutions to investors and founders.
+									</p>
+									<a href="#" class="hero__link btn btn-dark" aria-label="link to">
+										<span>Access opportunities</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="hero__ticker">
+						<div data-ticker data-ticker-speed="60" class="ticker-wrap">
+							<ul class="ticker">
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-green">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-red">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-green">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-red">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-green">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-red">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-green">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-red">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-green">$2.63(18%)</span>
+								</li>
+								<li class="ticker-item">
+									<span class="txt">INRIX</span>
+									<span class="txt price">$11.87</span>
+									<span class="txt index index-red">$2.63(18%)</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div aria-hidden="true" class="hero__anim"></div>
+				</section>
+		
+				<section class="sign-up">
+					<div class="sign-up__container">
+						<div class="sign-up__block">
+							<div class="sign-up__img">
+								<img loading="lazy" class="ibg" src="@img/sign-up/sign-up.jpg" width="300" height="300" alt="Image">
+							</div>
+						</div>
+						<div class="sign-up__body">
+							<div class="sign-up__head">
+								<h2 data-watch-threshold="0.5" data-watch-once data-watch  class="sign-up__title title-d">
+									Navigate<br> private market<br> with confidence
+								</h2>
+								<p class="sign-up__subtitle">
+									Sign up for our monthly private markets report for insights on volumes, valuations, premiums and discounts, rounds, deal maturities, pricing spreads, and more
+								</p>
+							</div>
+							<form data-dev class="sign-up__form form" action="#" method="POST">
+								<div class="form__item">
+									<input type="text" name="name" placeholder="Name" class="input" data-required>
+								</div>
+								<div class="form__item">
+									<input type="text" name="lastName" placeholder="Last Name" class="input" data-required>
+								</div>
+								<div class="form__item">
+									<input type="email" name="email" placeholder="Email" class="input" data-required>
+								</div>
+								<div class="form__item">
+									<input type="text" name="companyName" placeholder="Company Name" class="input" data-required>
+								</div>
+								<button type="submit" class="form__button" aria-label="submit form button">
+									<span>Sign up</span>
+								</button>
+							</form>
+						</div>
+					</div>
+				</section>
+			</main>
+			@@include('html/_footer.htm',{})
+		</div>
+		<div aria-hidden="true" class="form-dialog">
+			<div class="form-dialog__body">
+				<div class="form-dialog__wrapper">
+					<p class="title-c">
+						Message<br> successfully sent!
+					</p>
+				</div>
+			</div>
+		</div>
+		@@include('html/_js.htm',{})
+	</body>
+</html>

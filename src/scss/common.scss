@@ -126,6 +126,21 @@ html.lenis, html.lenis body {
   }
 }
 
+.pdd-t-b {
+  @include adaptiveValue("padding-top",90,40,0,1512.98,480.98);
+  @include adaptiveValue("padding-bottom",90,40,0,1512.98,480.98);
+}
+.pdd-t {
+  @include adaptiveValue("padding-top",90,40,0,1512.98,480.98);
+}
+.pdd-b {
+  @include adaptiveValue("padding-bottom",90,40,0,1512.98,480.98);
+}
+
+.title-pckg {
+  @include adaptiveValue("margin-bottom", 100, 40,0,1512.98,480.98);
+}
+
 %containerPadLft {
   @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
 }
@@ -135,6 +150,11 @@ html.lenis, html.lenis body {
 %containerPadLftRgt {
   @include adaptiveValue("padding-left", 30, 20,0,1366.98,480.98);
   @include adaptiveValue("padding-right", 30, 20,0,1366.98,480.98);
+}
+
+%paddingTopBtm40-30 {
+  @include adaptiveValue("padding-top",40,30,0,1512.98,480.98);
+  @include adaptiveValue("padding-bottom",40,30,0,1512.98,480.98);
 }
 
 %paddingTop180-80 {
@@ -158,10 +178,18 @@ html.lenis, html.lenis body {
 %marginBtm60-40 {
   @include adaptiveValue("margin-bottom", 60, 40,0,1512.98,480.98);
 }
+%marginBtm30-20 {
+  @include adaptiveValue("margin-bottom", 30, 20,0,1512.98,480.98);
+}
 
 %fonSize18-16 {
-  // @include adaptiveValue("font-size", 36,18,2,3840,1512.98);
   @include adaptiveValue("font-size", 18,16,0,1512.98,320.98);
+}
+%fonSize18-16full {
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  color: $black;
+  @include adaptiveValue("font-size", 18,16,0,1512.98,480.98);
 }
 
 p {
