@@ -7278,9 +7278,11 @@
                 const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
                 projectItems[previousIndex].style.zIndex = "";
                 currentIndex = (currentIndex + 1) % projectItems.length;
-                setTimeout(animateItems, speedCount);
             };
-            setTimeout(animateItems, listIndex * 100);
+            setTimeout((() => {
+                animateItems();
+                setInterval(animateItems, speedCount);
+            }), listIndex * 100);
         }));
     }));
     const tickers = document.querySelectorAll("[data-ticker]");
