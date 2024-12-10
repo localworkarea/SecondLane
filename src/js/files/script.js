@@ -214,52 +214,6 @@ window.addEventListener('DOMContentLoaded', () => {
     
 
 
-  // // == DETAILS SPOILERS =======================================================
-  // const details = document.querySelector('.liquidity__details');
-  // const subtitles = document.querySelectorAll('.liquidity__subtitle');
-  // function detailsUpdate() {
-  //   if (details) {
-  //     const totalItems = subtitles.length;
-  //     const totalHeight = Array.from(subtitles).reduce((sum, subtitle) => sum + subtitle.offsetHeight, 0);
-
-  //     details.style.setProperty('--total-items', totalItems);
-  //     details.style.setProperty('--total-height', `${totalHeight}px`);
-
-  //     subtitles.forEach((subtitle, index) => {
-  //       const reversedIndex = totalItems - index - 1; // Нумерация снизу вверх
-  //       const directIndex = index; // Нумерация сверху вниз
-  //       const height = subtitle.offsetHeight;
-  //       subtitle.style.setProperty('--index', reversedIndex);
-  //       subtitle.style.setProperty('--index-rev', directIndex);
-  //       subtitle.style.setProperty('--height', `${height}px`);
-  //     });
-
-
-  //     const firstSubtitle = subtitles[0];
-
-  //     if (firstSubtitle) {
-  //       const firstSubtitleHeight = firstSubtitle.offsetHeight;
-  //       const virtualBottom = totalHeight ;
-
-  //       window.addEventListener('scroll', () => {
-  //         const boundingRect = firstSubtitle.getBoundingClientRect();
-  //         const viewportHeight = window.innerHeight;
-  //         // Рассчитываем виртуальный низ относительно вьюпорта
-  //         const virtualBottomPosition = boundingRect.top + virtualBottom;
-        
-  //         if (virtualBottomPosition <= viewportHeight) {
-  //           details.classList.add('_viewport');
-  //         } else {
-  //           details.classList.remove('_viewport');
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
-  // detailsUpdate();
-  // // ==========================================================================
-
-
 
 
   // ACCESS SECTION =============================================================
@@ -347,6 +301,58 @@ window.addEventListener('DOMContentLoaded', () => {
   
   mediaQuery2.addEventListener("change", updateProjectCells);
   // ================================================================================================
+
+  // const opportunitiesWrapper = document.querySelector('.opportunities__wrapper');
+  // const projectLists = opportunitiesWrapper.querySelectorAll('.projects-list');
+  
+  // projectLists.forEach((list) => {
+  //   const projectItems = list.querySelectorAll('.projects-list__item');
+  //   const speedCount = parseInt(list.dataset.speedCount, 10) || 2000; 
+  //   let currentIndex = 0;
+  
+  //   const animateItems = () => {
+  //     projectItems.forEach((item) => item.classList.remove('_anim'));
+  //     projectItems[currentIndex].classList.add('_anim');
+  //     // Увеличиваем индекс или сбрасываем его до 0, если достигнут конец списка
+  //     currentIndex = (currentIndex + 1) % projectItems.length;
+  //     // Рекурсивный вызов через заданный интервал
+  //     setTimeout(animateItems, speedCount);
+  //   };
+  //   animateItems();
+  // });
+  const opportunitiesWrapper = document.querySelector('.opportunities__wrapper');
+  const projectLists = opportunitiesWrapper.querySelectorAll('.projects-list');
+  
+  projectLists.forEach((list, listIndex) => {
+    const projectItems = list.querySelectorAll('.projects-list__item');
+    const speedCount = parseInt(list.dataset.speedCount, 10) || 2000;
+    let currentIndex = 0;
+    const maxZIndex = projectItems.length + 1; // Наивысший z-index
+  
+    const animateItems = () => {
+      // Удаляем класс '_anim' у всех элементов
+      projectItems.forEach((item) => item.classList.remove('_anim'));
+  
+      // Устанавливаем z-index только для текущего элемента
+      projectItems[currentIndex].style.zIndex = maxZIndex; // Наивысший z-index
+      projectItems[currentIndex].classList.add('_anim');
+  
+      // Возвращаем z-index предыдущего элемента к начальному значению
+      const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
+      projectItems[previousIndex].style.zIndex = ''; // Сбрасываем z-index
+  
+      // Увеличиваем индекс или сбрасываем его до 0
+      currentIndex = (currentIndex + 1) % projectItems.length;
+  
+      // Запускаем анимацию с интервалом
+      setTimeout(animateItems, speedCount);
+    };
+  
+    // Задержка начала анимации для каждого списка
+    setTimeout(animateItems, listIndex * 100);
+  });
+  
+
 
 });
 
