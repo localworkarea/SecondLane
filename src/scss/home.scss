@@ -2400,3 +2400,144 @@
     @include adaptiveValue("font-size", 20, 18,0,1512.98,390.98);
   }
 }
+
+// --
+.package-schedule {
+  // .package-schedule__container
+  &__container {
+  }
+  // .package-schedule__body
+  &__body {
+    display: grid;
+    @media (min-width:toEm(820.98)){
+      grid-template-columns: repeat(2,1fr);
+    }
+    @media (max-width: toEm(820.98)){
+      margin-inline: toRem(-20);
+    }
+  }
+  // .package-schedule__figure
+  &__figure {
+    background-color: $acc;
+    @include adaptiveValue("padding-top",120,40,0,1512.98,480.98);
+    @include adaptiveValue("padding-bottom",120,40,0,1512.98,480.98);
+    @media (min-width:toEm(820.98)){
+      position: relative;
+      &::before {
+        content:'';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 50vw;
+        background-color: $acc;
+      }
+    }
+    @media (max-width: toEm(820.98)){
+        display: flex;
+        justify-content: center;
+    }
+  }
+  // .package-schedule__info
+  &__info {
+    background-color: $lemon;
+    @extend %containerPadLftRgt;
+    @media (min-width:toEm(820.98)){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      &::before {
+        content:'';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 50vw;
+        background-color: $lemon;
+      }
+    }
+  }
+  // .package-schedule__title
+  &__title {
+    line-height: .9;
+    @extend %marginBtm30-20;
+  }
+  // .package-schedule__txt
+  &__txt {
+  }
+}
+
+%schedule {
+  // display: grid;
+  // grid-template-rows: 0.14fr 0.255fr 0.6fr;
+  display: flex; 
+  flex-direction: column;
+}
+.schedule {
+  display: grid;
+  grid-template-columns: auto 39%;
+  gap: toRem(20);
+  @include adaptiveValue("height", 384, 280,0,1512.98,480.98);
+  @include adaptiveValue("width", 270, 200,0,1512.98,480.98);
+  @media (min-width:toEm(820.98)){
+    margin-left: 10%;
+  }
+  &._watcher-view {
+    .schedule__block  {
+    &.block-01 {
+      flex: .14;
+    }
+    &.block-02 {
+      flex: .255;
+    }
+    &.block-03 {
+      flex: 0.6;
+    }
+  }
+  }
+	// .schedule__txts
+	&__txts {
+    @extend %schedule;
+    color: #fff;
+	}
+  // .schedule__txt
+  &__txt {
+    align-self: center;
+    text-align: right;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    @include adaptiveValue("font-size", 18, 13,0,1512.98,480.98);
+    &:nth-child(1) {
+      flex: .14;
+    }
+    &:nth-child(2) {
+      flex: .255;
+    }
+    &:nth-child(3) {
+      flex: 0.6;
+    }
+  }
+	// .schedule__blocks
+	&__blocks {
+   @extend %schedule;
+   transform: rotate(180deg);
+	}
+  // .schedule__block
+  &__block {
+    transition: flex 0.65s ease;
+    flex: 0;
+    // 54 98 234
+    &.block-01 {
+      background-color: $lemon;
+    }
+    &.block-02 {
+      background-color: #ADADAD;
+    }
+    &.block-03 {
+      background-color: #31332E;
+    }
+  }
+}
