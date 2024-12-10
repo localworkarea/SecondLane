@@ -7,32 +7,23 @@
 		<div class="wrapper">
 			@@include('html/_header.htm',{})
 			<main class="page">
-				<section class="hero">
-					<div class="hero__body">
-						<div class="hero__wrapper">
-							<div class="hero__blocks">
-								<div class="blocks-one"></div>
-								<div class="blocks-two">
-									<svg class="blocks-two__arr" width="139" height="142" viewBox="0 0 139 142" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M0.5 1.50013L0.500006 141.5L137.5 141.5L137.5 139.5L3.87746 139.5L138.215 2.19948L136.785 0.800775L2.50001 138.048L2.5 1.50013L0.5 1.50013Z" fill="#171717"/>
-									</svg>
-								</div>
+				<section class="package-hero">
+					<div class="package-hero__container">
+						<div class="figure-hero">
+							<div class="figure-hero__block">
+								<canvas id="arrowLottie" class="figure-hero__lottie lottie-el" width="500" height="500" data-src="files/arrow.json"></canvas>
 							</div>
 						</div>
-						<div class="hero__container">
-							<div class="hero__main">
-								<div class="hero__block">
-									<h1 class="hero__title title-main">
-										Redefining<br> investment banking for the digital era.
-									</h1>
-									<p class="hero__subtitle">
-										SecondLane is a Web3-native equivalent of traditional investment banking, offering bespoke private market liquidity solutions to investors and founders.
-									</p>
-									<a href="#" class="hero__link btn btn-dark" aria-label="link to">
-										<span>Access opportunities</span>
-									</a>
-								</div>
-							</div>
+						<div class="package-hero__block">
+							<h1 class="package-hero__title title-main">
+								SecondLane<br> Capital
+							</h1>
+							<p class="package-hero__subtitle">
+								It specializes in capital raising, asset management, and advisory services. Leveraging our extensive network across asset classes—including digital assets, energy, and mining—we offer expertise in structured products, special situations, and bespoke lending, creating strategic growth opportunities for our clients.
+							</p>
+							<a href="#" class="package-hero__link btn btn-dark" aria-label="link to">
+								<span>Contact us</span>
+							</a>
 						</div>
 					</div>
 					<div class="hero__ticker">
@@ -91,7 +82,184 @@
 							</ul>
 						</div>
 					</div>
-					<div aria-hidden="true" class="hero__anim"></div>
+				</section>
+				<section class="package-list pdd-t-b">
+					<div class="package-list__container">
+						<h2 data-watch-threshold="0.5" data-watch-once data-watch class="package-list__title title-main pdd-b">
+							Succes<br> Cases
+						</h2>
+						<ul class="package-list__list">
+							<li class="package-list__item">
+								<div class="package-list__figure">
+									<svg data-watch data-watch-once data-watch-threshold="0.1"  class="figure-svg figure-05" width="172" height="123" viewBox="0 0 172 123" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path class="anim" d="M1.24299 121.837V117.885H170.759V121.837H1.24299ZM24.2181 107.13C20.7561 107.13 17.9578 106 15.7402 103.764C13.522 101.528 12.3982 98.7023 12.3982 95.2046V13.8818C12.3982 10.3841 13.522 7.55854 15.7402 5.32215C17.9578 3.08636 20.7561 1.95637 24.2181 1.95637H147.784C151.246 1.95637 154.044 3.08636 156.262 5.32215C158.48 7.55854 159.604 10.3841 159.604 13.8818V95.2046C159.604 98.7023 158.48 101.528 156.262 103.764C154.044 106 151.246 107.13 147.784 107.13H24.2181ZM24.2181 103.177H147.784C149.831 103.177 151.661 102.305 153.25 100.703C154.839 99.1013 155.7 97.2601 155.7 95.2046V13.8818C155.7 11.8263 154.839 9.98506 153.25 8.38303C151.661 6.78136 149.831 5.90915 147.784 5.90915H24.2181C22.1706 5.90915 20.3406 6.78136 18.7519 8.38303C17.1629 9.98505 16.3017 11.8263 16.3017 13.8818V95.2046C16.3017 97.2601 17.1629 99.1013 18.7519 100.703C20.3406 102.305 22.1706 103.177 24.2181 103.177Z" fill="#E3FD5A" stroke="#56584F" stroke-width="2.10317"/>
+									</svg>
+								</div>
+								<div class="package-list__body">
+									<div class="package-list__subtitle">
+										Mining
+										Hardware Arbitrage
+									</div>
+									<div class="package-list__txt">
+										<p>
+											$5M S19 miners acquired at 60% below market value, resold within 6 months for 100% return through established distribution network.
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="package-list__item">
+								<div class="package-list__figure">
+									<svg data-watch  data-watch-threshold="0.1"  class="figure-svg figure-06" width="145" height="160" viewBox="0 0 145 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path class="anim" d="M48.0061 64.057L48.7969 64.4959L49.3492 63.7796C52.1269 60.1768 55.5249 57.3403 59.551 55.2625C63.5637 53.1917 67.8488 52.1567 72.4208 52.1567C76.9927 52.1567 81.2778 53.1917 85.2905 55.2625C89.3167 57.3403 92.7146 60.1768 95.4924 63.7796L96.0446 64.4959L96.8354 64.057L135.169 42.7854L136.824 41.8666L135.169 40.9467L72.9316 6.3535L72.4208 6.06954L71.9099 6.3535L9.67228 40.9467L8.01726 41.8666L9.67292 42.7854L48.0061 64.057ZM68.8965 151.722L70.4574 152.586V150.802V108.904V108.004L69.5684 107.865C62.4813 106.756 56.5613 103.577 51.7707 98.3122C46.9923 93.061 44.6148 86.9385 44.6148 79.897C44.6148 77.9543 44.7886 76.126 45.1327 74.4097C45.4788 72.6828 45.9996 70.9138 46.6979 69.1022L47.026 68.2513L46.23 67.8062L7.03535 45.8899L5.47054 45.015V46.8078V115.994V116.614L6.01286 116.914L68.8965 151.722ZM74.3841 150.802V152.586L75.945 151.722L138.829 116.914L139.371 116.614V115.994V46.8078V45.015L137.806 45.8899L98.6116 67.8062L97.8155 68.2513L98.1436 69.1022C98.8419 70.9138 99.3627 72.6828 99.7089 74.4097C100.053 76.126 100.227 77.9543 100.227 79.897C100.227 86.9385 97.8492 93.061 93.0708 98.3122C88.2802 103.577 82.3602 106.756 75.2731 107.865L74.3841 108.004V108.904V150.802ZM72.4208 158.195L1.54377 119.027V40.7673L72.4208 1.59845L143.298 40.7673V119.027L72.4208 158.195ZM72.4208 103.724C79.1461 103.724 84.8372 101.439 89.4228 96.8637C94.0085 92.2884 96.3 86.6091 96.3 79.897C96.3 73.1848 94.0085 67.5055 89.4228 62.9302C84.8372 58.3551 79.1461 56.0697 72.4208 56.0697C65.6954 56.0697 60.0043 58.3551 55.4187 62.9302C50.833 67.5055 48.5415 73.1848 48.5415 79.897C48.5415 86.6091 50.833 92.2884 55.4187 96.8637C60.0043 101.439 65.6954 103.724 72.4208 103.724Z" fill="#E3FD5A" stroke="#56584F" stroke-width="2.10317"/>
+									</svg>
+								</div>
+								<div class="package-list__body">
+									<div class="package-list__subtitle">
+										Token Opportunities
+									</div>
+									<div class="package-list__txt">
+										<p>
+											$16M allocation secured at 60% discount to spot, plus 2% placement fee and 10% staking rewards generating $2.5M additional returns.
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="package-list__item">
+								<div class="package-list__figure">
+									<svg data-watch  data-watch-threshold="0.1"  class="figure-svg figure-07" width="150" height="140" viewBox="0 0 150 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path class="anim" d="M11.6799 102.065H139.422V105.96H11.6799H9.1434L10.9359 107.754L38.0063 134.859L35.2137 137.655L1.61319 104.012L35.2137 70.3695L38.0063 73.1656L10.9359 100.27L9.1434 102.065H11.6799ZM137.479 37.4117H9.73629V33.5169H137.479H140.015L138.223 31.7222L111.152 4.61774L113.945 1.8216L147.545 35.4643L113.945 69.107L111.152 66.3109L138.223 39.2064L140.015 37.4117H137.479Z" fill="#E3FD5A" stroke="#56584F" stroke-width="2.10317"/>
+									</svg>
+								</div>
+								<div class="package-list__body">
+									<div class="package-list__subtitle">
+										Pre-IPO Tech Investment
+									</div>
+									<div class="package-list__txt">
+										<p>
+											Early access to battery technology company at C$125M valuation (C$0.50/share), with projected 2-4x markup in 6 months and IPO within 15 months.
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="package-terms pdd-t-b">
+					<div class="package-terms__container">
+						<h2 data-watch-threshold="0.5" data-watch-once data-watch class="package-terms__title title-main pdd-b">
+							Fund terms
+						</h2>
+						<div class="package-terms__body">
+							<div class="package-terms__figure">
+								<svg data-watch  data-watch-threshold="0.1"  class="figure-svg figure-08" width="105" height="188" viewBox="0 0 105 188" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path class="anim" d="M104.31 127.42C104.31 152.821 86.6125 167.812 59.3379 169.061V187.383H48.5113V169.061C16.6563 166.563 0 146.159 0 120.966H11.0348C11.0348 142.619 26.8582 158.234 55.1738 158.234C77.6598 158.234 92.234 148.449 92.234 127.629C92.234 107.016 77.4516 100.562 55.1738 97.2309C24.1516 92.6504 4.99688 83.0731 4.99688 57.4641C4.99688 34.1453 21.6531 19.3629 48.5113 18.1137V0H59.3379V18.5301C86.4043 21.0285 102.852 38.1012 102.852 61.0035H91.8176C91.8176 39.5586 73.9121 29.1484 51.8426 29.1484C30.8141 29.1484 17.0727 38.3094 17.0727 57.0477C17.0727 77.0352 33.3125 82.4484 56.0066 85.7797C84.7387 89.9438 104.31 100.77 104.31 127.42Z" fill="#E3FD5A"/>
+									<path class="anim" fill-rule="evenodd" clip-rule="evenodd" d="M55.3379 165.24L59.1549 165.065C72.1343 164.471 82.4012 160.627 89.37 154.33C96.2689 148.095 100.31 139.125 100.31 127.42C100.31 115.246 95.9235 107.081 88.4864 101.332C80.813 95.4009 69.5514 91.7845 55.4329 89.7383L55.4257 89.7373C44.0757 88.0712 33.5933 85.8071 25.9244 81.0611C22.0067 78.6366 18.7368 75.5167 16.4702 71.4471C14.2049 67.3798 13.0727 62.5988 13.0727 57.0477C13.0727 46.5895 16.9704 38.3726 24.1436 32.8926C31.1542 27.5369 40.8268 25.1484 51.8426 25.1484C63.4378 25.1484 74.3446 27.874 82.4651 33.8037C89.7907 39.153 94.6147 46.9555 95.6214 57.0035H98.6646C97.8318 48.267 94.2526 40.7393 88.4265 34.9536C81.7034 28.2772 71.7504 23.6928 58.9702 22.5131L55.3379 22.1779V4H52.5113V21.9319L48.6972 22.1093C35.9311 22.7031 26.0207 26.4919 19.3576 32.4865C12.7601 38.422 8.99687 46.8257 8.99687 57.4641C8.99687 69.0554 13.2237 76.6025 20.7714 81.9743C28.6339 87.5701 40.3876 91.0043 55.7581 93.2738L55.7654 93.2748C66.9939 94.9539 77.0746 97.4993 84.3756 102.689C92.02 108.123 96.234 116.167 96.234 127.629C96.234 139.064 92.1747 147.965 84.6007 153.89C77.1847 159.691 66.9153 162.234 55.1738 162.234C40.2998 162.234 28.2389 158.127 19.8401 150.72C12.3599 144.123 8.08321 135.165 7.20469 124.966H4.1538C4.93721 135.025 8.70287 143.929 15.208 150.767C22.5608 158.495 33.7042 163.887 48.8241 165.073L52.5113 165.362V183.383H55.3379V165.24ZM0.142779 124.966C0.0476675 123.648 0 122.314 0 120.966H11.0348C11.0348 142.619 26.8582 158.234 55.1738 158.234C77.6598 158.234 92.234 148.449 92.234 127.629C92.234 107.016 77.4516 100.562 55.1738 97.2309C24.1516 92.6504 4.99688 83.0731 4.99688 57.4641C4.99688 34.1453 21.6531 19.3629 48.5113 18.1137V0H59.3379V18.5301C84.8037 20.8808 100.87 36.133 102.681 57.0035C102.795 58.3153 102.852 59.6492 102.852 61.0035H91.8176C91.8176 39.5586 73.9121 29.1484 51.8426 29.1484C30.8141 29.1484 17.0727 38.3094 17.0727 57.0477C17.0727 77.0352 33.3125 82.4484 56.0066 85.7797C84.7387 89.9438 104.31 100.77 104.31 127.42C104.31 152.821 86.6125 167.812 59.3379 169.061V187.383H48.5113V169.061C18.3604 166.696 1.82559 148.29 0.142779 124.966Z" fill="#56584F"/>
+								</svg>
+							</div>
+							<div class="package-terms__content">
+								<div class="package-terms__info">
+									25M <span class="small-size">target rise</span>
+								</div>
+								<ul class="package-terms__list">
+									<li class="package-terms__item">
+										$1M minimum
+									</li>
+									<li class="package-terms__item">
+										10-year duration
+									</li>
+									<li class="package-terms__item">
+										Deal-by-deal distributions
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="package-spollers pdd-b">
+					<div class="package-spollers__container">
+						<div class="package-spollers__body">
+							<h2 data-watch-threshold="0.5" data-watch-once data-watch class="package-spollers__title title-main pdd-t-b">
+								Why<br> Secondlane<br> Capital?
+							</h2>
+							<div data-spollers data-spollers-speed="300" data-one-spoller class="package-spollers__items">
+								<details data-open class="package-spollers__item">
+									<summary class="package-spollers__summary title-b">
+										Data Advantage
+									</summary>
+									<div class="package-spollers__content">
+										<p>
+											As one of the largest secondary brokerages in the digital asset space, managing over $1.5B in order book value, we leverage proprietary data and analytics to uncover informational asymmetries. Our systematic market analysis identifies mispricing and undervalued opportunities that others miss, providing a crucial data-driven edge in a market characterized by information scarcity and opacity.
+										</p>
+									</div>
+								</details>
+								<details class="package-spollers__item">
+									<summary class="package-spollers__summary title-b">
+										Experience
+									</summary>
+									<div class="package-spollers__content">
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto tempore mollitia provident magnam necessitatibus, sit laudantium, consectetur voluptatibus repellat facere aliquid expedita numquam vitae tempora! Deleniti, temporibus? Perferendis, impedit dolores.
+										</p>
+									</div>
+								</details>
+								<details class="package-spollers__item">
+									<summary class="package-spollers__summary title-b">
+										Acces
+									</summary>
+									<div class="package-spollers__content">
+										<p>
+											Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam quibusdam voluptate autem magni in necessitatibus quae, inventore
+										</p>
+									</div>
+								</details>
+							</div>
+							<div data-da=".package-spollers,820.98,0" class="package-spollers__figure">
+								<img loading="lazy" class="ibg" src="@img/icon/ic-y-bg.svg" width="430" height="373" alt="Image">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="package-block pdd-b">
+					<div class="package-block__container">
+						<div class="package-block__body">
+							<h2 data-watch-threshold="0.5" data-watch-once data-watch class="package-block__title title-main pdd-t-b">
+								LP<br> Advantages
+							</h2>
+							<div class="package-block__figure">
+								<svg data-watch-threshold="0.5" data-watch-once data-watch  class="figure-svg figure-04"  width="138" height="141" viewBox="0 0 138 141" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path class="anim"  d="M1 1L137 140" stroke="#E3FD5A" stroke-width="2"/>
+									<path class="anim"  d="M137 1V141" stroke="#E3FD5A" stroke-width="2"/>
+									<path class="anim"  d="M1 140H138" stroke="#E3FD5A" stroke-width="2"/>
+								</svg>
+							</div>
+							<ul class="package-block__list blocks-odd">
+								<li class="package-block__item">
+									<div class="package-block__subtitle">
+										Exclusive access
+									</div>
+									<div class="package-block__txts">
+										To high-potential co-investments and proprietary deals unavailable through traditional channels. Early participation in pre-IPO rounds and off-market secondary opportunities.
+									</div>
+								</li>
+								<li class="package-block__item">
+									<div class="package-block__subtitle">
+										Preferred fee structure
+									</div>
+									<div class="package-block__txts">
+										2/20 structure with 25% carry after 5x return. Discounted fees on co-investment opportunities with deal-by-deal distributions.
+									</div>
+								</li>
+								<li class="package-block__item">
+									<div class="package-block__subtitle">
+										Transparent deal structures
+									</div>
+									<div class="package-block__txts">
+										Institutional-grade infrastructure with quarterly reporting, professional fund administration, and regulated investment pathways via established service providers (PWC, Formdium, BitGo).
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 		
 				<section class="sign-up">

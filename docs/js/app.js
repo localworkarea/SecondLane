@@ -3870,14 +3870,27 @@
             observeParents: true,
             slidesPerView: 1,
             speed: 500,
-            autoHeight: true,
+            grabCursor: true,
             loop: true,
-            autoplay: {
-                delay: 2500
-            },
             effect: "fade",
             autoplay: {
                 crossFade: true
+            },
+            breakpoints: {
+                320: {
+                    autoplay: {
+                        delay: 2500,
+                        pauseOnMouseEnter: true,
+                        disableOnInteraction: true
+                    }
+                },
+                768: {
+                    autoplay: {
+                        delay: 3500,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true
+                    }
+                }
             },
             on: {}
         });

@@ -35,11 +35,11 @@ function initSliders() {
 			observeParents: true,
 			slidesPerView: 1,
 			speed: 500,
-			autoHeight: true,
+			// autoHeight: true,
 			// centeredSlides: false,
 			// longSwipes: true,/a
 			// simulateTouch: true,
-			// grabCursor: true,
+			grabCursor: true,
 
 			//touchRatio: 0,
 			//simulateTouch: false,
@@ -50,12 +50,7 @@ function initSliders() {
 			//lazy: true,
 			
 			loop: true,
-			autoplay: {
-				delay: 2500,
-				// disableOnInteraction: false,
-				// pauseOnMouseEnter: true,
-				// waitForTransition: false,
-			},
+		
 
 			// freeMode: {
 			// 	enabled: true,
@@ -94,28 +89,24 @@ function initSliders() {
 			// 	prevEl: '.swiper-button-prev',
 			// 	nextEl: '.swiper-button-next',
 			// },
-			/*
 			// Брейкпоінти
 			breakpoints: {
-				640: {
-					slidesPerView: 1,
-					spaceBetween: 0,
-					autoHeight: true,
+				320: {
+					autoplay: {
+						delay: 2500,
+						pauseOnMouseEnter: true,
+						disableOnInteraction: true,
+					},
 				},
 				768: {
-					slidesPerView: 2,
-					spaceBetween: 20,
-				},
-				992: {
-					slidesPerView: 3,
-					spaceBetween: 20,
-				},
-				1268: {
-					slidesPerView: 4,
-					spaceBetween: 30,
-				},
+					autoplay: {
+						delay: 3500,
+						disableOnInteraction: false,
+						pauseOnMouseEnter: true,
+						// waitForTransition: false,
+					},
+				}
 			},
-			*/
 			// Події
 			on: {
 
