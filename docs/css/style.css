@@ -1312,7 +1312,8 @@ p {
   transition: height .45s ease
 }
 .list-team {
-  display: grid
+  display: grid;
+  grid-auto-rows: 1fr
 }
 .list-team__item {
   display: flex;
@@ -1366,6 +1367,35 @@ p {
 .list-team__link svg {
   width: 100%;
   height: auto
+}
+.item-team-none {
+  display: grid;
+  grid-template-rows: 90% 10%;
+  position: relative;
+  height: 100%
+}
+.item-team-none__fill {
+  flex: 1;
+  background-color: #56584f
+}
+.item-team-none__arrow {
+  position: relative
+}
+.item-team-none__img {
+  position: absolute;
+  width: 85%;
+  bottom: 0;
+  right: 0;
+  height: 250%;
+  background-color: #e3fd5a;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1.25rem
+}
+.item-team-none__img img {
+  height: 70%;
+  width: auto
 }
 .opportunities {
   background-color: #56584f

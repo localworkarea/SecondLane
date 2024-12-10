@@ -1215,6 +1215,7 @@
 
 .list-team {
   display: grid;
+  grid-auto-rows: 1fr;
   @include adaptiveValue("column-gap", 30,14,0,1512.98,480.98);
   @include adaptiveValue("row-gap", 120,40,0,1512.98,480.98);
   @media (min-width:toEm(820.98)){
@@ -1321,6 +1322,40 @@
       height: auto;
     }
   }
+}
+
+.item-team-none {
+  display: grid;
+  grid-template-rows: 90% 10%;
+  position: relative;
+  height: 100%;
+	// .item-team-none__fill
+	&__fill {
+    flex: 1;
+    background-color: $acc;
+	}
+	// .item-team-none__arrow
+	&__arrow {
+    position: relative;
+	}
+	// .item-team-none__img
+	&__img {
+    position: absolute;
+    width: 85%;
+    bottom: 0;
+    right: 0;
+    height: 250%;
+    background-color: $lemon;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: toRem(20);
+    img {
+      height: 70%;
+      width: auto;
+      // transform: rotate(-90deg);
+    }
+	}
 }
 
 // == SECTION OPPORTUNITIES ========================================
