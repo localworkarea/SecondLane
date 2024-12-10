@@ -356,36 +356,39 @@ window.addEventListener('DOMContentLoaded', () => {
   
 
   const opportunitiesWrapper = document.querySelector('.opportunities__wrapper');
-const projectLists = opportunitiesWrapper.querySelectorAll('.projects-list');
+  
+  if (opportunitiesWrapper) {
+  const projectLists = opportunitiesWrapper.querySelectorAll('.projects-list');
+  projectLists.forEach((list, listIndex) => {
+    const projectItems = list.querySelectorAll('.projects-list__item');
+    const speedCount = parseInt(list.dataset.speedCount, 10) || 2000;
+    let currentIndex = 0;
+    const maxZIndex = projectItems.length + 1; // Наивысший z-index
+  
+    const animateItems = () => {
+      // Удаляем класс '_anim' у всех элементов
+      projectItems.forEach((item) => item.classList.remove('_anim'));
+  
+      // Устанавливаем z-index только для текущего элемента
+      projectItems[currentIndex].style.zIndex = maxZIndex; // Наивысший z-index
+      projectItems[currentIndex].classList.add('_anim');
+  
+      // Возвращаем z-index предыдущего элемента к начальному значению
+      const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
+      projectItems[previousIndex].style.zIndex = ''; // Сбрасываем z-index
+  
+      // Увеличиваем индекс или сбрасываем его до 0
+      currentIndex = (currentIndex + 1) % projectItems.length;
+    };
+  
+    // Задержка перед запуском цикла анимации
+    setTimeout(() => {
+      animateItems(); // Немедленный запуск для синхронизации
+      setInterval(animateItems, speedCount);
+    }, listIndex * 100);
+  });
+}
 
-projectLists.forEach((list, listIndex) => {
-  const projectItems = list.querySelectorAll('.projects-list__item');
-  const speedCount = parseInt(list.dataset.speedCount, 10) || 2000;
-  let currentIndex = 0;
-  const maxZIndex = projectItems.length + 1; // Наивысший z-index
-
-  const animateItems = () => {
-    // Удаляем класс '_anim' у всех элементов
-    projectItems.forEach((item) => item.classList.remove('_anim'));
-
-    // Устанавливаем z-index только для текущего элемента
-    projectItems[currentIndex].style.zIndex = maxZIndex; // Наивысший z-index
-    projectItems[currentIndex].classList.add('_anim');
-
-    // Возвращаем z-index предыдущего элемента к начальному значению
-    const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
-    projectItems[previousIndex].style.zIndex = ''; // Сбрасываем z-index
-
-    // Увеличиваем индекс или сбрасываем его до 0
-    currentIndex = (currentIndex + 1) % projectItems.length;
-  };
-
-  // Задержка перед запуском цикла анимации
-  setTimeout(() => {
-    animateItems(); // Немедленный запуск для синхронизации
-    setInterval(animateItems, speedCount);
-  }, listIndex * 100);
-});
 
 
 });

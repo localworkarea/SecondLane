@@ -7265,25 +7265,27 @@
         updateProjectCells();
         mediaQuery2.addEventListener("change", updateProjectCells);
         const opportunitiesWrapper = document.querySelector(".opportunities__wrapper");
-        const projectLists = opportunitiesWrapper.querySelectorAll(".projects-list");
-        projectLists.forEach(((list, listIndex) => {
-            const projectItems = list.querySelectorAll(".projects-list__item");
-            const speedCount = parseInt(list.dataset.speedCount, 10) || 2e3;
-            let currentIndex = 0;
-            const maxZIndex = projectItems.length + 1;
-            const animateItems = () => {
-                projectItems.forEach((item => item.classList.remove("_anim")));
-                projectItems[currentIndex].style.zIndex = maxZIndex;
-                projectItems[currentIndex].classList.add("_anim");
-                const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
-                projectItems[previousIndex].style.zIndex = "";
-                currentIndex = (currentIndex + 1) % projectItems.length;
-            };
-            setTimeout((() => {
-                animateItems();
-                setInterval(animateItems, speedCount);
-            }), listIndex * 100);
-        }));
+        if (opportunitiesWrapper) {
+            const projectLists = opportunitiesWrapper.querySelectorAll(".projects-list");
+            projectLists.forEach(((list, listIndex) => {
+                const projectItems = list.querySelectorAll(".projects-list__item");
+                const speedCount = parseInt(list.dataset.speedCount, 10) || 2e3;
+                let currentIndex = 0;
+                const maxZIndex = projectItems.length + 1;
+                const animateItems = () => {
+                    projectItems.forEach((item => item.classList.remove("_anim")));
+                    projectItems[currentIndex].style.zIndex = maxZIndex;
+                    projectItems[currentIndex].classList.add("_anim");
+                    const previousIndex = (currentIndex - 1 + projectItems.length) % projectItems.length;
+                    projectItems[previousIndex].style.zIndex = "";
+                    currentIndex = (currentIndex + 1) % projectItems.length;
+                };
+                setTimeout((() => {
+                    animateItems();
+                    setInterval(animateItems, speedCount);
+                }), listIndex * 100);
+            }));
+        }
     }));
     const tickers = document.querySelectorAll("[data-ticker]");
     if (tickers.length > 0) tickers.forEach((ticker => {

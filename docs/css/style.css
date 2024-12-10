@@ -607,7 +607,8 @@ p {
 }
 ._watcher-view.figure-svg.figure-02 .anim,
 ._watcher-view.figure-svg.figure-04 .anim,
-._watcher-view.figure-svg.figure-08 .anim {
+._watcher-view.figure-svg.figure-08 .anim,
+._watcher-view.figure-svg.figure-09 .anim {
   -webkit-animation: draw-line .65s ease forwards;
   animation: draw-line .65s ease forwards
 }
