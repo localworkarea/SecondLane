@@ -5,7 +5,7 @@ import { flsModules } from "./modules.js";
 
 import Lenis from 'lenis'
 // import SplitType from 'split-type'
-import { DotLottie } from '@lottiefiles/dotlottie-web';
+// import { DotLottie } from '@lottiefiles/dotlottie-web';
 
 
 
@@ -150,58 +150,58 @@ window.addEventListener('DOMContentLoaded', () => {
   resizeObserver.observe(document.body);
   // ===========================================================
 
-  const lottieItems = document.querySelectorAll('.hero__lottie');
-  const lottieEl = document.querySelectorAll('.lottie-el');
-  if (lottieItems.length > 0 || lottieEl.length > 0) {
-    lottieItems.forEach(canvas => {
-      const src = canvas.dataset.src;
+  // const lottieItems = document.querySelectorAll('.hero__lottie');
+  // const lottieEl = document.querySelectorAll('.lottie-el');
+  // if (lottieItems.length > 0 || lottieEl.length > 0) {
+  //   lottieItems.forEach(canvas => {
+  //     const src = canvas.dataset.src;
     
-      const lottieInstance = new DotLottie({
-        autoplay: isMobile.any(),
-        loop: false,
-        canvas: canvas,
-        src: src,
-      });
+  //     const lottieInstance = new DotLottie({
+  //       autoplay: isMobile.any(),
+  //       loop: false,
+  //       canvas: canvas,
+  //       src: src,
+  //     });
     
-      if (!isMobile.any()) {
-        const parent = canvas.closest('.list-access__item'); 
+  //     if (!isMobile.any()) {
+  //       const parent = canvas.closest('.list-access__item'); 
     
-        if (parent) {
-          parent.addEventListener('mouseenter', () => {
-            lottieInstance.play();
-          });
-          parent.addEventListener('mouseleave', () => {
-            lottieInstance.stop();
-          });
-        }
-      }
-    });
+  //       if (parent) {
+  //         parent.addEventListener('mouseenter', () => {
+  //           lottieInstance.play();
+  //         });
+  //         parent.addEventListener('mouseleave', () => {
+  //           lottieInstance.stop();
+  //         });
+  //       }
+  //     }
+  //   });
 
-    lottieEl.forEach(canvas => {
-      const src = canvas.dataset.src;
+  //   lottieEl.forEach(canvas => {
+  //     const src = canvas.dataset.src;
     
-      const lottieInstance = new DotLottie({
-        // autoplay: isMobile.any(),
-        autoplay: true,
-        loop: false,
-        canvas: canvas,
-        src: src,
-      });
+  //     const lottieInstance = new DotLottie({
+  //       // autoplay: isMobile.any(),
+  //       autoplay: true,
+  //       loop: false,
+  //       canvas: canvas,
+  //       src: src,
+  //     });
     
-      // if (!isMobile.any()) {
-      //   const parent = canvas.closest('.list-access__item'); 
+  //     // if (!isMobile.any()) {
+  //     //   const parent = canvas.closest('.list-access__item'); 
     
-      //   if (parent) {
-      //     parent.addEventListener('mouseenter', () => {
-      //       lottieInstance.play();
-      //     });
-      //     parent.addEventListener('mouseleave', () => {
-      //       lottieInstance.stop();
-      //     });
-      //   }
-      // }
-    });
-  }
+  //     //   if (parent) {
+  //     //     parent.addEventListener('mouseenter', () => {
+  //     //       lottieInstance.play();
+  //     //     });
+  //     //     parent.addEventListener('mouseleave', () => {
+  //     //       lottieInstance.stop();
+  //     //     });
+  //     //   }
+  //     // }
+  //   });
+  // }
 
   const figureSvg = document.querySelectorAll('.figure-svg path');
   if (figureSvg.length > 0) {
