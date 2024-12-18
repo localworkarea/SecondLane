@@ -4207,6 +4207,9 @@
             grabCursor: true,
             loop: true,
             effect: "fade",
+            autoplay: {
+                crossFade: true
+            },
             breakpoints: {
                 320: {
                     autoplay: {

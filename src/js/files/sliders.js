@@ -62,11 +62,11 @@ function initSliders() {
 
 			// Ефекти
 			effect: 'fade',
-			// autoplay: {
-			// 	crossFade: true,
-			// 	// delay: 2000,
-			// 	// disableOnInteraction: false,
-			// },
+			autoplay: {
+				crossFade: true,
+				// delay: 2000,
+				// disableOnInteraction: false,
+			},
 
 			// Пагінація
 			/*
