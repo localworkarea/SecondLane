@@ -122,7 +122,7 @@ function initSliders() {
 			grabCursor: true,
 			freeMode: {
 				enabled: true,
-				momentum: false,
+				// momentum: false,
 			},
 
 			navigation: {

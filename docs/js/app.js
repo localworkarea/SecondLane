@@ -4235,8 +4235,7 @@
             slidesPerView: "auto",
             grabCursor: true,
             freeMode: {
-                enabled: true,
-                momentum: false
+                enabled: true
             },
             navigation: {
                 prevEl: ".swiper-button-prev",
