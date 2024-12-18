@@ -15,26 +15,17 @@ textarea {
 	display: block;
 	font-weight: 500;
 	caret-color: inherit;
-	outline: none;
+	// outline: none;
+	outline: toRem(1) solid rgba(0, 0, 0, 0);
 	@include adaptiveValue("min-height", 112, 86,0,1512.98,480.98);
 	// @include adaptiveValue("font-size", 68,34,2,3840,1512.98);
 	@include adaptiveValue("font-size", 34,22,0,1512.98,1100.98);
 	@extend %containerPadLftRgt;
-	@media (min-width:$mobileSmall){
-		border: toRem(1) solid rgba(0, 0, 0, 0.2);
-	}
-	@media (max-width:$mobileSmall){
-		border-top: toRem(1) solid rgba(0, 0, 0, 0.2);
-	}
 	&._form-focus {
 	}
 	&._form-error {
-		@media (min-width:$mobileSmall){
-			border-color: #FF0000;
-		}
-		@media (max-width:$mobileSmall){
-			border-top-color: #FF0000;
-		}
+			// border-color: #FF0000;
+			outline-color: #FF0000;
 	}
 }
 .input[placeholder]:not([data-placeholder-nohiden]) {
@@ -65,6 +56,13 @@ textarea {
 	}
   // .form__item
   &__item {
+		border-top: toRem(1) solid rgba(0, 0, 0, 0.2);
+		border-left: toRem(1) solid rgba(0, 0, 0, 0.2);
+		transition: border-color .3s ease;
+		&._form-error {
+			border-color: transparent;
+
+		}
   }
   // .form__button
   &__button {

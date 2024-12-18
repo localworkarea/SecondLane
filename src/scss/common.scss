@@ -132,6 +132,10 @@ html.lenis, html.lenis body {
   @include adaptiveValue("padding-bottom",90,40,0,1512.98,480.98);
 }
 
+.pdd-first {
+  @include adaptiveValue("padding-top",150,88,0,1512.98,480.98);
+}
+
 .title-pckg {
   @include adaptiveValue("margin-bottom", 100, 40,0,1512.98,480.98);
 }

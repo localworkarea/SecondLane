@@ -8,7 +8,7 @@
 // При необхідності підключаємо додаткові модулі слайдера, вказуючи їх у {} через кому
 // Приклад: { Navigation, Autoplay }
 import Swiper from 'swiper';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import {Navigation, Autoplay, EffectFade,FreeMode, Scrollbar } from 'swiper/modules';
 /*
 Основні модулі слайдера:
 Navigation, Pagination, Autoplay, 
@@ -62,11 +62,11 @@ function initSliders() {
 
 			// Ефекти
 			effect: 'fade',
-			autoplay: {
-				crossFade: true,
-				// delay: 2000,
-				// disableOnInteraction: false,
-			},
+			// autoplay: {
+			// 	crossFade: true,
+			// 	// delay: 2000,
+			// 	// disableOnInteraction: false,
+			// },
 
 			// Пагінація
 			/*
@@ -113,39 +113,62 @@ function initSliders() {
 			}
 		});
 	}
+	if (document.querySelector('.blog-hero__nav')) { 
+		new Swiper('.blog-hero__nav', {
+			modules: [FreeMode, Navigation],
+			observer: true,
+			observeParents: true,
+			slidesPerView: "auto",
+			grabCursor: true,
+			freeMode: {
+				enabled: true,
+				momentum: false,
+			},
+
+			navigation: {
+				prevEl: '.swiper-button-prev',
+				nextEl: '.swiper-button-next',
+			},
+
+			// scrollbar: {
+			// 	el: '.swiper-scrollbar',
+			// 	draggable: true,
+			// },
+
+			// breakpoints: {
+			// 	320: {
+			// 		spaceBetween: 40,
+			// 	},
+			// 	768: {
+			// 		spaceBetween: 60,
+			// 	}
+			// },
+			// Події
+			on: {
+
+			}
+		});
+	}
+	if (document.querySelector('.article__slider')) { 
+		new Swiper('.article__slider', {
+			modules: [Navigation],
+			observer: true,
+			observeParents: true,
+			slidesPerView: 1,
+			speed: 500,
+			autoHeight: true,
+			loop: true,
+
+			navigation: {
+				prevEl: '.swiper-button-prev',
+				nextEl: '.swiper-button-next',
+			},
+
+		});
+	}
 }
-// Скролл на базі слайдера (за класом swiper scroll для оболонки слайдера)
-// function initSlidersScroll() {
-// 	let sliderScrollItems = document.querySelectorAll('.swiper_scroll');
-// 	if (sliderScrollItems.length > 0) {
-// 		for (let index = 0; index < sliderScrollItems.length; index++) {
-// 			const sliderScrollItem = sliderScrollItems[index];
-// 			const sliderScrollBar = sliderScrollItem.querySelector('.swiper-scrollbar');
-// 			const sliderScroll = new Swiper(sliderScrollItem, {
-// 				observer: true,
-// 				observeParents: true,
-// 				direction: 'vertical',
-// 				slidesPerView: 'auto',
-// 				freeMode: {
-// 					enabled: true,
-// 				},
-// 				scrollbar: {
-// 					el: sliderScrollBar,
-// 					draggable: true,
-// 					snapOnRelease: false
-// 				},
-// 				mousewheel: {
-// 					releaseOnEdges: true,
-// 				},
-// 			});
-// 			sliderScroll.scrollbar.updateSize();
-// 		}
-// 	}
-// }
+
 
 window.addEventListener("load", function (e) {
-	// Запуск ініціалізації слайдерів
 	initSliders();
-	// Запуск ініціалізації скролла на базі слайдера (за класом swiper_scroll)
-	//initSlidersScroll();
 });

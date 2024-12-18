@@ -387,7 +387,19 @@ window.addEventListener('DOMContentLoaded', () => {
       setInterval(animateItems, speedCount);
     }, listIndex * 100);
   });
-}
+  }
+
+
+  const navLinks = document.querySelectorAll('.nav-blog__link');
+  if (navLinks.length > 0) {
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navLinks.forEach(item => item.classList.remove('_active'));
+        link.classList.add('_active');
+      });
+    });
+  }
 
 
 
@@ -396,154 +408,65 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-  // CLONE TIKERS ==============================================================
-  // const tikers = document.querySelectorAll(".ticker-wrap");
-
-  // if (tikers.length > 0) {
-  //   tikers.forEach((tiker) => {
-  //     const originalLine = tiker.querySelector(".ticker");
-    
-  //     if (originalLine) {
-  //       // скорость по умолчанию
-  //       const speed = originalLine.dataset.tickerSpeed || 50; 
+  // const tickers = document.querySelectorAll("[data-ticker]");
+  // if (tickers.length > 0) {
+  //   tickers.forEach(ticker => {
+  //     // Получаем скорость и направление из атрибутов data-ticker-speed и data-ticker-dir
+  //     const speed = ticker.getAttribute("data-ticker-speed") || 80;
+  //     const direction = ticker.getAttribute("data-ticker-dir") || "rtl";
   
-  //       originalLine.style.animation = `scroll ${speed}s linear infinite`;
-    
-  //       const clonedLine = originalLine.cloneNode(true);
-  //       clonedLine.classList.add("clone-line");
-    
-  //       tiker.appendChild(clonedLine);
+  //     // Берем первый дочерний элемент тикера
+  //     const firstChild = ticker.firstElementChild;
+  //     if (firstChild) {
+  //       // Клонируем первый элемент и добавляем его в конец родительского элемента
+  //       const clone = firstChild.cloneNode(true);
+  //       ticker.appendChild(clone);
+  
+  //       // Устанавливаем анимацию для всех дочерних элементов тикера
+  //       Array.from(ticker.children).forEach(child => {
+  //         const animationName = direction === "rtl" ? "scroll" : "scroll-rev";
+  //         child.style.animation = `${animationName} ${speed}s linear infinite`;
+  //       });
   //     }
   //   });
   // }
 
-
-
-
-
   const tickers = document.querySelectorAll("[data-ticker]");
-  if (tickers.length > 0) {
-    tickers.forEach(ticker => {
-      // Получаем скорость и направление из атрибутов data-ticker-speed и data-ticker-dir
-      const speed = ticker.getAttribute("data-ticker-speed") || 80;
-      const direction = ticker.getAttribute("data-ticker-dir") || "rtl";
-  
-      // Берем первый дочерний элемент тикера
-      const firstChild = ticker.firstElementChild;
-      if (firstChild) {
-        // Клонируем первый элемент и добавляем его в конец родительского элемента
-        const clone = firstChild.cloneNode(true);
+if (tickers.length > 0) {
+  tickers.forEach(ticker => {
+    // Получаем скорость и направление из атрибутов data-ticker-speed и data-ticker-dir
+    const speed = ticker.getAttribute("data-ticker-speed") || 80;
+    const direction = ticker.getAttribute("data-ticker-dir") || "rtl";
+
+    // Берем первый дочерний элемент тикера
+    const firstChild = ticker.firstElementChild;
+    if (firstChild) {
+      // Клонируем первый элемент
+      const clone = firstChild.cloneNode(true);
+
+      // Предзагрузка всех изображений в клонированном элементе
+      const images = clone.querySelectorAll("img");
+      const promises = Array.from(images).map(img => {
+        return new Promise(resolve => {
+          const preloader = new Image();
+          preloader.src = img.src;
+          preloader.onload = resolve;
+          preloader.onerror = resolve; // Разрешаем, даже если возникла ошибка загрузки
+        });
+      });
+
+      // После предзагрузки изображений добавляем клонированный элемент и запускаем анимацию
+      Promise.all(promises).then(() => {
         ticker.appendChild(clone);
-  
+
         // Устанавливаем анимацию для всех дочерних элементов тикера
         Array.from(ticker.children).forEach(child => {
           const animationName = direction === "rtl" ? "scroll" : "scroll-rev";
           child.style.animation = `${animationName} ${speed}s linear infinite`;
         });
-      }
-    });
-  }
-  
-  // function initSliders() {
-  //   if (document.querySelector('.clients__slider')) { 
-  //     new Swiper('.clients__slider', {
-  //       // modules: [Autoplay, EffectFade],
-  //       // modules: [ EffectFade],
-  //       observer: true,
-  //       observeParents: true,
-  //       slidesPerView: 1,
-  //       speed: 300,
-  //       // centeredSlides: false,
-  //       // longSwipes: true,/a
-  //       // simulateTouch: true,
-  //       // grabCursor: true,
-  
-  //       //touchRatio: 0,
-  //       //simulateTouch: false,
-  //       // loopAddBlankSlides: true,
-  //       // loopAddBlankSlides: true,
-  //       // loopAdditionalSlides: 5,
-  //       //preloadImages: false,
-  //       //lazy: true,
-        
-  //       loop: true,
-  //       autoplay: {
-  //         delay: 2500,
-  //         // disableOnInteraction: false,
-  //         // pauseOnMouseEnter: true,
-  //         // waitForTransition: false,
-  //       },
-  
-  //       // freeMode: {
-  //       // 	enabled: true,
-  //       // 	// momentum: false,
-  //       // 	momentumBounce: false,
-  //       // 	minimumVelocity: 0.05,
-  //       // },
-  //       // nested: true,
-  
-  //       // Ефекти
-  //       effect: 'fade',
-  //       autoplay: {
-  //         crossFade: true,
-  //         // delay: 2000,
-  //         // disableOnInteraction: false,
-  //       },
-  
-  //       // Пагінація
-  //       /*
-  //       pagination: {
-  //         el: '.swiper-pagination',
-  //         clickable: true,
-  //       },
-  //       */
-  
-  //       // Скроллбар
-  //       /*
-  //       scrollbar: {
-  //         el: '.swiper-scrollbar',
-  //         draggable: true,
-  //       },
-  //       */
-  
-  //       // Кнопки "вліво/вправо"
-  //       // navigation: {
-  //       // 	prevEl: '.swiper-button-prev',
-  //       // 	nextEl: '.swiper-button-next',
-  //       // },
-  //       /*
-  //       // Брейкпоінти
-  //       breakpoints: {
-  //         640: {
-  //           slidesPerView: 1,
-  //           spaceBetween: 0,
-  //           autoHeight: true,
-  //         },
-  //         768: {
-  //           slidesPerView: 2,
-  //           spaceBetween: 20,
-  //         },
-  //         992: {
-  //           slidesPerView: 3,
-  //           spaceBetween: 20,
-  //         },
-  //         1268: {
-  //           slidesPerView: 4,
-  //           spaceBetween: 30,
-  //         },
-  //       },
-  //       */
-  //       // Події
-  //       on: {
-  
-  //       }
-  //     });
-  //   }
-  // }
+      });
+    }
+  });
+}
 
-
-  // window.addEventListener("load", function (e) {
-  //   initSliders();
-  // });
+  
