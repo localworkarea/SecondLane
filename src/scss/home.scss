@@ -1378,10 +1378,14 @@
     align-items: center;
     justify-content: flex-end;
     padding-right: toRem(20);
-    img {
+    img,
+    svg {
       height: 70%;
       width: auto;
       // transform: rotate(-90deg);
+    }
+    svg {
+      transform: rotate(180deg);
     }
 	}
 }

@@ -1419,9 +1419,14 @@ p {
   justify-content: flex-end;
   padding-right: 1.25rem
 }
-.item-team-none__img img {
+.item-team-none__img img,
+.item-team-none__img svg {
   height: 70%;
   width: auto
+}
+.item-team-none__img svg {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg)
 }
 .opportunities {
   background-color: #56584f
