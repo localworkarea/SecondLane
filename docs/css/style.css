@@ -1966,11 +1966,13 @@ p {
   font-weight: 600
 }
 .blog-hero__top {
-  position: relative
+  position: relative;
+  flex: 1
 }
 .blog-hero__link {
   display: block;
-  overflow: hidden
+  overflow: hidden;
+  height: 100%
 }
 .blog-hero__img {
   -webkit-transform-origin: 50% 50%;
@@ -2006,7 +2008,6 @@ p {
   margin-bottom: .1875rem
 }
 .blog-hero__footer {
-  flex: 1;
   display: grid;
   grid-template-columns: 1fr 2.375rem
 }
@@ -3591,7 +3592,7 @@ p {
     flex: 1
   }
   .hero__blocks {
-    grid-template-rows: 75% 25%
+    grid-template-rows: 68% 32%
   }
   .liquidity {
     padding-bottom: 6.25rem
@@ -4004,7 +4005,10 @@ p {
     padding-top: 2.5rem
   }
   .hero__blocks .blocks-two {
-    padding: .625rem
+    padding: .5rem
+  }
+  .hero__blocks .blocks-two__arr path {
+    stroke-width: 1
   }
   .spollers-liquidity__summary {
     padding-top: 1.875rem
@@ -4457,7 +4461,7 @@ p {
     padding-top: clamp(5.5rem ,3.6939946705rem + 6.007751938vw ,9.375rem)
   }
   .hero__blocks .blocks-two {
-    padding: clamp(.625rem ,.0424176357rem + 1.9379844961vw ,1.875rem)
+    padding: clamp(.5rem ,-.1408406008rem + 2.1317829457vw ,1.875rem)
   }
   .spollers-liquidity__summary {
     padding-top: clamp(1.875rem ,1.5837088178rem + .9689922481vw ,2.5rem)

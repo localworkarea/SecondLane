@@ -390,16 +390,16 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  const navLinks = document.querySelectorAll('.nav-blog__link');
-  if (navLinks.length > 0) {
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navLinks.forEach(item => item.classList.remove('_active'));
-        link.classList.add('_active');
-      });
-    });
-  }
+  // const navLinks = document.querySelectorAll('.nav-blog__link');
+  // if (navLinks.length > 0) {
+  //   navLinks.forEach(link => {
+  //     link.addEventListener('click', (e) => {
+  //       e.preventDefault();
+  //       navLinks.forEach(item => item.classList.remove('_active'));
+  //       link.classList.add('_active');
+  //     });
+  //   });
+  // }
 
 
 

@@ -114,7 +114,6 @@
         height: 30vh;
     }
     @media (max-width: toEm(820.98)){
-      // aspect-ratio: 2 / 0.5;
       height: 150px;
     }
   }
@@ -189,26 +188,10 @@
       grid-column: 2/3;
     }
     @media (max-width: toEm(820.98)){
-      grid-template-rows: 75% 25%;
+      grid-template-rows: 68% 32%;
       // aspect-ratio: 2 / 0.6;
     }
-    // .blocks-one,
-    // .blocks-two {
-    //   position: relative;
-    //   &:before  {
-    //     content:'';
-    //     position: absolute;
-    //     z-index: 0;
-    //     top: 0;
-    //     height: 100%;
-    //     width: 200%;
-    //     left: -300%;
-    //     transition: left 1s ease-in-out;
-    //     .loaded & {
-    //       left: 0%;
-    //     }
-    //   }
-    // }
+
     .blocks-one {
       background-color: $acc;
       position: relative;
@@ -220,16 +203,7 @@
       display: flex;
       justify-content: flex-end;
       background-color: $lemon;
-      @include adaptiveValue("padding", 30,10,0,1512.98,480.98 );
-      // @include adaptiveValue("padding-top", 30,10,0,1512.98,480.98 );
-      // @include adaptiveValue("padding-left", 30,10,0,1512.98,480.98 );
-      // @include adaptiveValue("padding-right", 30,10,0,1512.98,480.98 );
-      // &:before {
-      //   background-color: $lemon;
-      //   .loaded & {
-      //     transition-delay: .1s;
-      //   }
-      // }
+      @include adaptiveValue("padding", 30,8,0,1512.98,480.98 );
       @media (min-width: toEm(820.98)){
         position: relative;
         width: 108%;
@@ -241,7 +215,6 @@
         z-index: 2;
         width: auto;
         height: 100%;
-        
         @media (min-width:toEm(820.98)){
           transform: rotate(90deg);
           opacity: 0;
@@ -252,6 +225,11 @@
             // transform: translate(0%,0%);
             transition-delay: .8s;
           }
+        }
+        @media (max-width:$mobileSmall){
+           path {
+            stroke-width: 1;
+           } 
         }
       }
     }
@@ -2879,11 +2857,13 @@
   // .blog-hero__top
   &__top {
     position: relative;
+    flex: 1;
   }
   // .blog-hero__link
   &__link {
     display: block;
     overflow: hidden;
+    height: 100%;
   }
   // .blog-hero__img
   &__img {
@@ -2918,7 +2898,7 @@
   }
   // .blog-hero__footer
   &__footer {
-    flex: 1;
+    // flex: 1;
     display: grid;
     grid-template-columns: 1fr toRem(38);
     @media (min-width:$tablet){

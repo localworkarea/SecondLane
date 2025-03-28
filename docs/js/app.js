@@ -5112,14 +5112,6 @@
                 }), listIndex * 100);
             }));
         }
-        const navLinks = document.querySelectorAll(".nav-blog__link");
-        if (navLinks.length > 0) navLinks.forEach((link => {
-            link.addEventListener("click", (e => {
-                e.preventDefault();
-                navLinks.forEach((item => item.classList.remove("_active")));
-                link.classList.add("_active");
-            }));
-        }));
     }));
     const tickers = document.querySelectorAll("[data-ticker]");
     if (tickers.length > 0) tickers.forEach((ticker => {
