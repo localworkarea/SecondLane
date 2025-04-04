@@ -1083,6 +1083,7 @@
             }
           }
           .triangle-figure {
+           
             rect {
               width: 100%;
               opacity: 0;
@@ -1955,6 +1956,7 @@
     }
     @media (max-width: toEm(820.98)){
         height: 100%;
+        width: auto;
     }
   }
   // .figure-hero__ic
@@ -1993,26 +1995,21 @@
   // .triangle-figure__rect-01
   &__rect-01 {
     width: 0%;
-    height: 3px;
-    // x: 0%;
-    // y: 99%;
+    // height: 3px;
     transform: rotate(180deg);
     transform-origin: 50% 99.6%;
   }
   // .triangle-figure__rect-02
   &__rect-02 {
     width: 0%;
-    // x: 0%;
-    // y: 0%;
-    transform-origin: 25.2% 50%;
+    // transform-origin: 25.2% 50%;
+    transform-origin: 25.6% 50%;
     transform: rotate(60deg);
   }
   // .triangle-figure__rect-03
   &__rect-03 {
     width: 0%;
-    // y: 50%;
-    // x: -75%;
-    transform-origin: -0.4% 0%;
+    transform-origin: -0.8% 0%;
     transform: rotate(-60deg);
   }
 }
@@ -2028,9 +2025,44 @@
         width: 100%;
         opacity: 0;
         transition: width .55s ease .2s, opacity .1s linear 0.75s;
+        @media (max-width: toEm(820.98)){
+          width: 105%;
+        }
       }
       animation: triangleFigure .85s ease 0.75s forwards;
     }
+   
+     // .triangle-figure__path
+  &__path {
+  }
+  rect {
+    @media (max-width: toEm(820.98)){
+      // fill: red;
+      height: 15px;
+    }
+  }
+  // .triangle-figure__rect-01
+  &__rect-01 {
+    transform-origin: 50% 99.6%;
+    @media (max-width: toEm(820.98)){
+      transform-origin: 50% 100%;
+    }
+  }
+  // .triangle-figure__rect-02
+  &__rect-02 {
+    transform-origin: 25.6% 50%;
+    @media (max-width: toEm(820.98)){
+      transform-origin: 26.6% 50%;
+    }
+  }
+  // .triangle-figure__rect-03
+  &__rect-03 {
+    transform-origin: -0.8% 0%;
+    @media (max-width: toEm(820.98)){
+      // transform-origin: -2.4% 0%;
+      transform-origin: 0.6% 7%;
+    }
+  }
   }
   
   // square animation ----------------
